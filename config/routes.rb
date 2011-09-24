@@ -1,4 +1,5 @@
 Specifications::Application.routes.draw do
+  resources :projects
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signup',    :to => 'users#new'

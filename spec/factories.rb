@@ -6,3 +6,7 @@ Factory.define :user do |user|
   user.password              "foobar"
   user.password_confirmation "foobar"
 end
+Factory.define :project do |project|
+  project.namee              "Gaming"
+  project.description        "This project is an e-commerce website. It sales fantastic games !"
+end
