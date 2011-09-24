@@ -2,12 +2,7 @@
 <div class="alert-message block-message error fade in">
     <a class="close" href="#">×</a>
     <p>
-		<strong>Ooops ! You got <%= pluralize(object.errors.count, "error") %>.</strong> There were problems with the following fields:
+		<strong>Ooops !</strong> There were problems with <%= pluralize(object.errors.count, "field") %>.
     </p>
-    <ul>
-      <% object.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
 </div>
 <% end %>

@@ -3,31 +3,31 @@
 <%= form_for @user do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
 	<fieldset>
-		<div class="clearfix">
+		<div class="clearfix<%= " error" if @user.errors[:first_name].any? %>">
 	    	<%= f.label :first_name %>
 	        <div class="input">
 				<%= f.text_field :first_name, :class => "xlarge", :autocomplete => "off" %>
 	        </div>
 		</div>
-		<div class="clearfix">
+		<div class="clearfix<%= " error" if @user.errors[:last_name].any? %>">
 	    	<%= f.label :last_name %>
 	        <div class="input">
 				<%= f.text_field :last_name, :class => "xlarge", :autocomplete => "off" %>
 	        </div>
 		</div>
-		<div class="clearfix">
+		<div class="clearfix<%= " error" if @user.errors[:email].any? %>">
 	    	<%= f.label :email %>
 	        <div class="input">
 				<%= f.text_field :email, :class => "xlarge", :autocomplete => "off" %>
 	        </div>
 		</div>
-		<div class="clearfix">
+		<div class="clearfix<%= " error" if @user.errors[:password].any? %>">
 	    	<%= f.label :password %>
 	        <div class="input">
 				<%= f.password_field :password, :class => "xlarge", :autocomplete => "off" %>
 	        </div>
 		</div>
-		<div class="clearfix">
+		<div class="clearfix<%= " error" if @user.errors[:password_confirmation].any? %>">
 	    	<%= f.label :password_confirmation %>
 	        <div class="input">
 				<%= f.password_field :password_confirmation, :class => "xlarge", :autocomplete => "off" %>

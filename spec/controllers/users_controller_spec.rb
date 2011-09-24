@@ -74,6 +74,16 @@ describe UsersController do
         response.should render_template('new')
       end
       
+      it "should highlight the fields that are wrong" do
+        post :create, :user => @attr
+        response.should have_selector("div", :class => "clearfix error")
+      end
+      
+      it "should display the reason of the error" do
+        post :create, :user => @attr
+        response.should have_selector("span", :class => "help-inline")
+      end
+      
     end
     
     describe "success" do
