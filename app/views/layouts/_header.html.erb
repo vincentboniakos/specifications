@@ -1,10 +1,18 @@
 <div class="topbar">
 	<div class="topbar-inner">
 		<div class="container">
-			<a class="brand" href="#">Specifications</a>
+			<%= link_to "Specifications", root_path, :class => "brand" %>
 			<ul class="nav">
 				<li class=""><a href="#">Projects</a></li>
+				<% if signed_in? %>
+					<li class=""><%= link_to "Profile", current_user %></li>
+			    	<li class=""><%= link_to "Log out", logout_path %></li>
+			  	<% else %>
+			    	<li class=""><%= link_to "Sign up", signup_path %></li>
+			    	<li class=""><%= link_to "log in", login_path %></li>
+			  	<% end %>
 			</ul>
 		</div>
 	</div>
 </div>
+
