@@ -1,0 +1,40 @@
+<h1>Sign Up</h1>
+
+<%= form_for @user do |f| %>
+	<%= render 'shared/error_messages', :object => f.object %>
+	<fieldset>
+		<div class="clearfix">
+	    	<%= f.label :first_name %>
+	        <div class="input">
+				<%= f.text_field :first_name, :class => "xlarge" %>
+	        </div>
+		</div>
+		<div class="clearfix">
+	    	<%= f.label :last_name %>
+	        <div class="input">
+				<%= f.text_field :last_name, :class => "xlarge" %>
+	        </div>
+		</div>
+		<div class="clearfix">
+	    	<%= f.label :email %>
+	        <div class="input">
+				<%= f.text_field :email, :class => "xlarge" %>
+	        </div>
+		</div>
+		<div class="clearfix">
+	    	<%= f.label :password %>
+	        <div class="input">
+				<%= f.password_field :password, :class => "xlarge" %>
+	        </div>
+		</div>
+		<div class="clearfix">
+	    	<%= f.label :password_confirmation %>
+	        <div class="input">
+				<%= f.password_field :password_confirmation, :class => "xlarge" %>
+	        </div>
+		</div>
+  	</fieldset>
+	<div class="actions">
+		<%= f.submit "Sign up", :class =>  "btn primary" %>
+	</div>
+<% end %>
