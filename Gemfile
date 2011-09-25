@@ -6,7 +6,7 @@ gem 'rails', '3.1.0'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql'
-gem 'will_paginate', '~> 3.0.0'
+gem 'kaminari'
 gem 'gravatar_image_tag', '1.0.0.pre2'
 
 

@@ -1,2 +1,25 @@
-<h1>Projects#new</h1>
-<p>Find me in app/views/projects/new.html.erb</p>
+<h1>New project</h1>
+
+<%= form_for @project do |f| %>
+	<%= render 'shared/error_messages', :object => f.object %>
+	<fieldset>
+		<div class="clearfix<%= " error" if @project.errors[:name].any? %>">
+	    	<%= f.label :name %>
+	        <div class="input">
+				<%= f.text_field :name, :class => "xlarge", :autocomplete => "off" %>
+	        </div>
+		</div>
+		<div class="clearfix<%= " error" if @project.errors[:description].any? %>">
+	    	<%= f.label :description %>
+	        <div class="input">
+				<%= f.text_area :description, :class => "xxlarge", :rows => "3" %>
+				<span class="help-block">
+					Add a description to your project.
+				</span>
+	        </div>
+		</div>
+  	</fieldset>
+	<div class="actions">
+		<%= f.submit "Create project", :class =>  "btn primary" %>
+	</div>
+<% end %>
