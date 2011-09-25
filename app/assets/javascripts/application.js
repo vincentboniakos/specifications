@@ -11,4 +11,5 @@
 
 $(document).ready(function () {
    $(".alert-message").alert();
+   $(".alert-message").delay(2000).fadeOut('slow');
 })

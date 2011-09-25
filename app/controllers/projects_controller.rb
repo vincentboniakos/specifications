@@ -4,11 +4,6 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
-  def index
-    @title = "Projects"
-    @projects = Project.page(params[:page]).per(10)
-  end
-
   def show
     @project = Project.find(params[:id])
     @title = @project.name
@@ -22,6 +17,22 @@ class ProjectsController < ApplicationController
     else
       @title = "New project"
       render "new"
+    end
+  end
+
+  def edit
+    @project = Project.find(params[:id])
+    @title = "Edit project"
+  end
+
+  def update
+    @project = Project.find(params[:id])
+    if @project.update_attributes(params[:project])
+      flash[:success] = "Project updated."
+      redirect_to @project
+    else
+      @title = "Edit project"
+      render 'edit'
     end
   end
 

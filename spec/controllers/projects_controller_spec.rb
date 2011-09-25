@@ -15,44 +15,6 @@ describe ProjectsController do
     end
   end
 
-  describe "GET 'index'" do
-    
-    before(:each) do
-      @project = Factory(:project)
-      @projects = [@project]
-      35.times do
-        @projects << Factory(:project, :name => Factory.next(:name))
-      end
-    end
-    
-    it "should be successful" do
-      get :index
-      response.should be_success
-    end
-
-    it "should have the right title" do
-      get :index
-      response.should have_selector("title", :content => "Projects")
-    end
-    
-    it "should have an element for each project" do
-      get :index
-      @projects[0..3].each do |project|
-        response.should have_selector("a", :content => project.name, :href => project_path(assigns(project)))
-      end
-    end
-
-    it "should paginate projects" do
-      get :index
-      response.should have_selector("nav.pagine")
-      response.should have_selector("a", :href => "/projects?page=2",
-      :content => "2")
-      response.should have_selector("a", :href => "/projects?page=2",
-      :content => "Next")
-    end
-    
-  end
-
 
   describe "GET 'show'" do
     before(:each) do
@@ -68,7 +30,7 @@ describe ProjectsController do
       get :show, :id => @project
       assigns(:project).should == @project
     end
-    
+
     it "should have the right title" do
       get :show, :id => @project
       response.should have_selector("title", :content => @project.name)
@@ -83,9 +45,14 @@ describe ProjectsController do
       get :show, :id => @project
       response.should have_selector("p", :content => @project.description)
     end
-    
+
+    it "should have a link to edit the project" do
+      get :show, :id => @project
+      response.should have_selector("a", :href => edit_project_path(assigns[@project]))
+    end
+
   end
-  
+
   describe "POST 'create'" do
 
     describe "failure" do
@@ -109,19 +76,19 @@ describe ProjectsController do
         post :create, :project => @attr
         response.should render_template('new')
       end
-      
+
       it "should highlight the fields that are wrong" do
         post :create, :project => @attr
         response.should have_selector("div", :class => "clearfix error")
       end
-      
+
       it "should display the reason of the error" do
         post :create, :project => @attr
         response.should have_selector("span", :class => "help-inline")
       end
-      
+
     end
-    
+
     describe "success" do
 
       before(:each) do
@@ -138,14 +105,91 @@ describe ProjectsController do
         post :create, :project => @attr
         response.should redirect_to(project_path(assigns(:project)))
       end   
-      
+
       it "should have a confirmation message" do
         post :create, :project => @attr
         flash[:success].should =~ /Your project has been created successfully./i
       end
-       
+
     end
 
   end
 
+  describe "GET 'edit'" do
+    before(:each) do
+      @project = Factory(:project)
+    end
+
+    it "should be successful" do
+      get :edit, :id => @project
+      response.should be_success
+    end
+
+    it "should find the right project" do
+      get :edit, :id => @project
+      assigns(:project).should == @project
+    end
+
+    it "should have the right title" do
+      get :edit, :id => @project
+      response.should have_selector("title", :content => "Edit project")
+    end
+    
+    it "should have a cancel button that redirect to show project" do
+      get :edit, :id => @project
+      response.should have_selector("a", :href => project_path(@project))
+    end
+  end
+  
+  #########################
+  #### PUT UPDATE
+  #########################
+  
+  describe "PUT 'update'" do
+
+    before(:each) do
+      @project = Factory(:project)
+    end
+
+    describe "failure" do
+
+      before(:each) do
+        @attr = { :name => "", :description => "blabla" }
+      end
+
+      it "should render the 'edit' page" do
+        put :update, :id => @project, :project => @attr
+        response.should render_template('edit')
+      end
+
+      it "should have the right title" do
+        put :update, :id => @project, :project => @attr
+        response.should have_selector("title", :content => "Edit project")
+      end
+    end
+
+    describe "success" do
+
+      before(:each) do
+        @attr = { :name => "New Name", :description => "blabla"}
+      end
+
+      it "should change the project's attributes" do
+        put :update, :id => @project, :project => @attr
+        @project.reload
+        @project.name.should  == @attr[:name]
+        @project.description.should == @attr[:description]
+      end
+
+      it "should redirect to the project show page" do
+        put :update, :id => @project, :project => @attr
+        response.should redirect_to(project_path(@project))
+      end
+
+      it "should have a flash message" do
+        put :update, :id => @project, :project => @attr
+        flash[:success].should =~ /updated/
+      end
+    end
+  end
 end
