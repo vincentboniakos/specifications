@@ -7,7 +7,7 @@
 */
 .main{padding-top:60px;}
 
-h1{
+h1.title{
 	padding:0 0 5px;
 	margin-bottom: 17px;
 	border-bottom: 1px solid #ddd;

@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  before_filter :authenticate
   def new
     @title = "New project"
     @project = Project.new
@@ -34,6 +35,12 @@ class ProjectsController < ApplicationController
       @title = "Edit project"
       render 'edit'
     end
+  end
+  
+  def destroy
+    Project.find(params[:id]).destroy
+    flash[:succes] = "Project destroyed."
+    redirect_to root_path
   end
 
 end

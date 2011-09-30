@@ -1,4 +1,5 @@
-<h1>Projects <%= link_to "<strong>+</strong> New project".html_safe, new_project_path, :class => 'btn success new-action' %></h1>
+<% if signed_in? %>
+<h1 class="title">Projects <%= link_to "<strong>+</strong> New project".html_safe, new_project_path, :class => 'btn success new-action' %></h1>
 
 <%= paginate @projects %>
 
@@ -7,3 +8,10 @@
 </dl>
 
 <%= paginate @projects %>
+<% else %>
+<section class="hero-unit">
+  <h1>Hey there,</h1>
+  <p>Wanna create collaborative functionnal specifications?</p>
+  <p><%= link_to "Sign up now »", signup_path, :class => "btn primary large" %></p>
+</section>
+<% end %>
