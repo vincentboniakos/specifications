@@ -1,17 +1,3 @@
-<div class="topbar">
-	<div class="topbar-inner">
-		<div class="container">
-			<%= link_to "Specifications", root_path, :class => "brand" %>
-			<ul class="nav">
-				<% if signed_in? %>
-					<li class=""><%= link_to "Profile", current_user %></li>
-			    	<li class=""><%= link_to "Log out", logout_path %></li>
-			  	<% else %>
-			    	<li class=""><%= link_to "Sign up", signup_path %></li>
-			    	<li class=""><%= link_to "Log in", login_path %></li>
-			  	<% end %>
-			</ul>
-		</div>
-	</div>
-</div>
-
+<header>
+  <h1><%= title_header %></h1>
+</header>

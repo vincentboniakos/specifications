@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  include ProjectsHelper
   before_filter :authenticate
   def new
     @title = "New project"
@@ -8,7 +9,9 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @title = @project.name
+    @title_header = project_show_title
     @features = @project.features.page(params[:page]).per(10)
+    @actions = add_feature_action
   end
 
   def create

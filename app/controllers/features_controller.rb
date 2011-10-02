@@ -1,4 +1,5 @@
 class FeaturesController < ApplicationController
+  include FeaturesHelper
   before_filter :authenticate, :get_project
   def new
     @title = "New feature"
@@ -8,6 +9,7 @@ class FeaturesController < ApplicationController
   def show
     @feature = Feature.find(params[:id])
     @title = @feature.name
+    @title_header = feature_show_title
   end
 
   def create

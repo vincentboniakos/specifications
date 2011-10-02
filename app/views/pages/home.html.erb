@@ -1,8 +1,4 @@
 <% if signed_in? %>
-<h1 class="title">Projects <%= link_to "<strong>+</strong> New project".html_safe, new_project_path, :class => 'btn success new-action' %></h1>
-
-<%= paginate @projects %>
-
 <dl class="projects">
   <%= render @projects %>
 </dl>

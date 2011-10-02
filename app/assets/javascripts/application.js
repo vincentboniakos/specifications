@@ -24,6 +24,6 @@ $(document).ready(function () {
 	//Edit links
 	$("article h2 small").hide();
 	showHideEditLink("article h2")
-	$("h1.title small").hide();
-	showHideEditLink("h1.title");
+	$("h1 small").hide();
+	showHideEditLink("h1");
 })

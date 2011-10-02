@@ -11,13 +11,19 @@
   <![endif]-->
 </head>
 <body>
-		<%= render 'layouts/header' %>
+		<%= render 'layouts/topbar' %>
 		<div class="container">
-			<div class="main">
-			<% flash.each do |name, msg| %>
-				<%= content_tag(:div, (link_to("×", "#", :class => "close")) + (content_tag(:p, msg)), :class => "alert-message #{name} fade in", :data_alert => "alert") %>
-			<% end %>
-			<%= yield %>
+			<div class="content">
+			<%= render 'layouts/header' %>
+			  <div class="row">
+			    <section class="section span12">
+			    <% flash.each do |name, msg| %>
+				    <%= content_tag(:div, (link_to("×", "#", :class => "close")) + (content_tag(:p, msg)), :class => "alert-message #{name} fade in", :data_alert => "alert") %>
+			    <% end %>
+			    <%= yield %>
+			    </section>
+			    <%= render 'layouts/sidebar', :sidebar => sidebar %>
+			  </div>
 			</div>
 		</div>
 </body>

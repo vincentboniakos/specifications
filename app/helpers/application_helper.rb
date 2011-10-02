@@ -8,4 +8,12 @@ module ApplicationHelper
       "#{base_title} | #{@title}"
     end   
   end
+  
+  def title_header
+    @title_header ||= @title
+  end
+  
+  def sidebar
+    @actions
+  end
 end
