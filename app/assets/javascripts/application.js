@@ -8,8 +8,22 @@
 //= require jquery_ujs
 //= require_tree .
 
+function showHideEditLink(selector){
+	$(selector).mouseenter(function (){		
+		$(this).find('small').show();	
+	}).mouseleave(function(){
+		$(this).find('small').hide();	
+	});
+}
 
 $(document).ready(function () {
-   $(".alert-message").alert();
-   $(".alert-message").delay(2000).fadeOut('slow');
+	// Alert
+	$(".alert-message").alert();
+	$(".alert-message").delay(2000).fadeOut('slow');
+
+	//Edit links
+	$("article h2 small").hide();
+	showHideEditLink("article h2")
+	$("h1.title small").hide();
+	showHideEditLink("h1.title");
 })

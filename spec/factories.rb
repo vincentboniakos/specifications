@@ -12,7 +12,15 @@ end
 Factory.sequence :name do |n|
   "Project-#{n}"
 end
+Factory.sequence :name_feature do |n|
+  "Feature-#{n}"
+end
 Factory.define :project do |project|
   project.name              "Gaming"
-  project.description       "Pellentesque faucibus congue mauris, in fringilla libero interdum sit amet. Suspendisse potenti. Donec pulvinar sapien nec elit pretium aliquam. Proin egestas fringilla porttitor. Vivamus mauris nibh, elementum nec porttitor eget, vehicula in massa. Nam ultricies, sem ac feugiat rhoncus, lacus libero tempus purus, ac faucibus mi nunc sit amet sem. Aenean ornare convallis nisl quis accumsan. Nulla pellentesque sagittis pharetra."
+  project.description       "Lorem ipsum dolor sit amet"
+end
+Factory.define :feature do |feature|
+  feature.name "feature name"
+  feature.description "Foo bar"
+  feature.association :project
 end

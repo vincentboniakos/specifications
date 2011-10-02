@@ -28,3 +28,8 @@ dd{margin-bottom:20px;}
 }
 
 .new-action{float:right;}
+section.features article h2 a {color:black;}
+section.features article h2 a:hoover {color:black;}
+section.features article h2 small a {color:#0069D6;}
+section.features article h2 small a:hoover {color:#00438A;}
+section.features article h2 small {display:none;}

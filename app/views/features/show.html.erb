@@ -1,0 +1,4 @@
+<h1 class="pagine"><%= @feature.name %> <small><%= link_to "edit", edit_project_feature_path(@project) %></small></h1>
+<p><%= @feature.description %></p>
+<%= link_to "delete", project_feature_path(@project), :method => :delete, :confirm => "Are you sure?",
+                              :title => "Delete #{@feature.name}" %>

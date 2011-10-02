@@ -1,2 +1,8 @@
 <h1 class="title"><%= @project.name %> <small><%= link_to "edit", edit_project_path %></small></h1>
 <p><%= @project.description %></p>
+<p><%= link_to "New feature", new_project_feature_path(@project) %></p>
+
+<section class="features">
+  <%= render @features, :project => @project %>
+</section>
+<%= paginate @features %>

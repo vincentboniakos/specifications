@@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @title = @project.name
+    @features = @project.features.page(params[:page]).per(10)
   end
 
   def create

@@ -1,0 +1,25 @@
+<h1 class="title">New feature</h1>
+
+<%= form_for ([@project,@feature]) do |f| %>
+	<%= render 'shared/error_messages', :object => f.object %>
+	<fieldset>
+		<div class="clearfix<%= " error" if @feature.errors[:name].any? %>">
+	    	<%= f.label :name %>
+	        <div class="input">
+				<%= f.text_field :name, :class => "xlarge", :autocomplete => "off" %>
+	        </div>
+		</div>
+		<div class="clearfix<%= " error" if @feature.errors[:description].any? %>">
+	    	<%= f.label :description %>
+	        <div class="input">
+				<%= f.text_area :description, :class => "xxlarge", :rows => "3" %>
+				<span class="help-block">
+					Add a description to the feature.
+				</span>
+	        </div>
+		</div>
+  	</fieldset>
+	<div class="actions">
+		<%= f.submit "Create feature", :class =>  "btn primary" %>
+	</div>
+<% end %>
