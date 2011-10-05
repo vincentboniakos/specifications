@@ -1,7 +1,7 @@
 <p><%= @project.description %></p>
-<p><%= link_to "New feature", new_project_feature_path(@project) %></p>
 
 <section class="features">
+  <h2>Features</h2>
   <%= render @features, :project => @project %>
 </section>
 <%= paginate @features %>

@@ -14,7 +14,8 @@
 		<%= render 'layouts/topbar' %>
 		<div class="container">
 			<div class="content">
-			<%= render 'layouts/header' %>
+			<% if signed_in? %>
+			<%= render 'layouts/header'%>
 			  <div class="row">
 			    <section class="section span12">
 			    <% flash.each do |name, msg| %>
@@ -24,6 +25,12 @@
 			    </section>
 			    <%= render 'layouts/sidebar', :sidebar => sidebar %>
 			  </div>
+			  <% else %>
+			    <% flash.each do |name, msg| %>
+				    <%= content_tag(:div, (link_to("×", "#", :class => "close")) + (content_tag(:p, msg)), :class => "alert-message #{name} fade in", :data_alert => "alert") %>
+			    <% end %>
+			    <%= yield %>
+			  <% end %>
 			</div>
 		</div>
 </body>

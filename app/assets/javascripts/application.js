@@ -22,8 +22,8 @@ $(document).ready(function () {
 	$(".alert-message").delay(2000).fadeOut('slow');
 
 	//Edit links
-	$("article h2 small").hide();
-	showHideEditLink("article h2")
+	$("article h3 small").hide();
+	showHideEditLink("article h3")
 	$("h1 small").hide();
 	showHideEditLink("h1");
 })

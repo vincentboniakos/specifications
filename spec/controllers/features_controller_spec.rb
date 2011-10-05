@@ -80,9 +80,9 @@ describe FeaturesController do
         response.should have_selector("p", :content => @feature.description)
       end
 
-      it "should have a link to edit the project" do
+      it "should have a link to edit the feature" do
         get_show
-        response.should have_selector("a", :href => edit_project_feature_path(assigns([ @project,@feature ])))
+        response.should have_selector("a", :href => edit_project_feature_path(@feature.project,@feature))
       end
     end
   end
@@ -155,10 +155,10 @@ describe FeaturesController do
           end.should change(Feature, :count).by(1)
         end
 
-        it "should redirect to the feature page" do
+        it "should redirect to the project page" do
           
           post :create, :feature => @attr, :project_id => @project
-          response.should redirect_to(project_feature_path(@project,assigns(:feature)))
+          response.should redirect_to(project_path(@project))
         end   
 
         it "should have a confirmation message" do

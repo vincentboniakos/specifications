@@ -16,7 +16,7 @@ class FeaturesController < ApplicationController
     @feature = @project.features.build(params[:feature])
     if @feature.save
       flash[:success] = "Your feature has been created successfully."
-      redirect_to project_feature_path(@project,@feature)
+      redirect_to project_path(@project)
     else
       @title = "New feature"
       render "new"
