@@ -22,11 +22,13 @@ describe Project do
     long_name_project = Project.new(@attr.merge(:name => long_name))
     long_name_project.should_not be_valid
   end
-  
+
   it "should reject a description that is too long" do
     long_name = "a" * 513
     long_name_project = Project.new(@attr.merge(:description => long_name))
     long_name_project.should_not be_valid
   end
+
+  
 
 end

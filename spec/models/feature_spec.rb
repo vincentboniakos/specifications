@@ -54,4 +54,14 @@ describe Feature do
       @project.features.build(:description => "a" * 141).should_not be_valid
     end
   end
+  
+  ## DELETE ON CASCADE
+  describe 'delete a project' do
+    it "should destroy all the associated features" do
+      @feature = @project.features.create(@attr)
+      lambda do
+        @feature.project.destroy
+      end.should change(Feature, :count).by(-1)
+    end
+  end
 end
