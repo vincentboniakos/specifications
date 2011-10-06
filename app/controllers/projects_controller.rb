@@ -1,13 +1,15 @@
 class ProjectsController < ApplicationController
   include ProjectsHelper
   before_filter :authenticate
+  before_filter :get_project, :only => ["show","edit","update"]
+  add_crumb "Projects", :root_path
+  before_filter :breadcrumb, :only => ["show","new"]
   def new
     @title = "New project"
     @project = Project.new
   end
 
   def show
-    @project = Project.find(params[:id])
     @title = @project.name
     @title_header = project_show_title
     @features = @project.features.page(params[:page]).per(10)
@@ -26,12 +28,12 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = Project.find(params[:id])
+    add_crumb @project.name, project_path(@project)
+    add_crumb "Edit"
     @title = "Edit project"
   end
 
   def update
-    @project = Project.find(params[:id])
     if @project.update_attributes(params[:project])
       flash[:success] = "Project updated."
       redirect_to @project
@@ -46,5 +48,13 @@ class ProjectsController < ApplicationController
     flash[:succes] = "Project destroyed."
     redirect_to root_path
   end
+  
+  private 
+    def get_project
+      @project = Project.find(params[:id])
+    end
+    def breadcrumb
+       add_crumb @project.name
+    end
 
 end

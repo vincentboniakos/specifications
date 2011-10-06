@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
   include PagesHelper
+  add_crumb "Projects"
+  
   def home
     @actions = home_actions
     @title = "Your projects"

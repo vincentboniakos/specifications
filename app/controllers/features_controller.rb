@@ -1,13 +1,19 @@
 class FeaturesController < ApplicationController
   include FeaturesHelper
+  add_crumb "Projects", :root_path
   before_filter :authenticate, :get_project
+  before_filter :breadcrumb, :only => ["show","edit","new"]
+  
+  
   def new
+    add_crumb "New feature"
     @title = "New feature"
     @feature = Feature.new
   end
 
   def show
     @feature = Feature.find(params[:id])
+    add_crumb @feature.name
     @title = @feature.name
     @title_header = feature_show_title
   end
@@ -25,6 +31,8 @@ class FeaturesController < ApplicationController
 
   def edit
     @feature = Feature.find(params[:id])
+    add_crumb @feature.name, project_feature_path(@project,@feature)
+    add_crumb "Edit"
     @title = "Edit feature"
   end
 
@@ -50,5 +58,8 @@ class FeaturesController < ApplicationController
   private
     def get_project
       @project = Project.find(params[:project_id])
+    end
+    def breadcrumb
+       add_crumb @project.name, project_path(@project)
     end
 end
