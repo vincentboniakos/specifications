@@ -3,13 +3,14 @@ class ProjectsController < ApplicationController
   before_filter :authenticate
   before_filter :get_project, :only => ["show","edit","update"]
   add_crumb "Projects", :root_path
-  before_filter :breadcrumb, :only => ["show","new"]
   def new
+    add_crumb "New"
     @title = "New project"
     @project = Project.new
   end
 
   def show
+    add_crumb @project.name
     @title = @project.name
     @title_header = project_show_title
     @features = @project.features.page(params[:page]).per(10)
@@ -52,9 +53,6 @@ class ProjectsController < ApplicationController
   private 
     def get_project
       @project = Project.find(params[:id])
-    end
-    def breadcrumb
-       add_crumb @project.name
     end
 
 end
