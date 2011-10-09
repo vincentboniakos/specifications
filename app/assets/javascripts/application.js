@@ -16,6 +16,20 @@ function showHideEditLink(selector){
 	});
 }
 
+function showFormNewUserStory(selector){
+	$(selector).click(function (){
+		$(this).hide();
+		$(this).parent().find("form.new_userstory").show();
+		$("#userstory_content").focus();
+	});
+}
+function hideFormNewUserStory(selector){
+	$(selector).click(function (){
+		$(this).parent().hide();
+		$(this).parent().parent().find("a.show_form_new_userstory").show();
+	});
+}
+
 $(document).ready(function () {
 	// Alert
 	$(".alert-message").alert();
@@ -26,4 +40,13 @@ $(document).ready(function () {
 	showHideEditLink("article h3")
 	$("h1 small").hide();
 	showHideEditLink("h1");
+	
+	//Show form link
+	$("a.show_form_new_userstory").hide();
+	if (!$("div.clearfix").hasClass("error")) {
+		$("form.new_userstory").hide();
+		$("a.show_form_new_userstory").show();
+	}
+	showFormNewUserStory("a.show_form_new_userstory");
+	hideFormNewUserStory("a.hide_form_new_userstory");
 })

@@ -1,8 +1,14 @@
 Specifications::Application.routes.draw do
 
   resources :projects do
-    resources :features
+    resources :features do
+      member do
+        post 'userstories'
+      end
+    end
   end
+  
+  resource :userstories
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signup',    :to => 'users#new'

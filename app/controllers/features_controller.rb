@@ -1,8 +1,8 @@
 class FeaturesController < ApplicationController
   include FeaturesHelper
   add_crumb "Projects", :root_path
-  before_filter :authenticate, :get_project
-  before_filter :breadcrumb, :only => ["show","edit","new"]
+  before_filter :authenticate
+  before_filter :breadcrumb, :only => ["show","edit","new","userstories"]
   
   
   def new
@@ -16,9 +16,12 @@ class FeaturesController < ApplicationController
     add_crumb @feature.name
     @title = @feature.name
     @title_header = feature_show_title
+    @userstories = @feature.userstories
+    @userstory = Userstory.new
   end
 
   def create
+    @project = Project.find(params[:project_id])
     @feature = @project.features.build(params[:feature])
     if @feature.save
       flash[:success] = "Your feature has been created successfully."
@@ -37,6 +40,7 @@ class FeaturesController < ApplicationController
   end
 
   def update
+    @project = Project.find(params[:project_id])
     @feature = Feature.find(params[:id])
     if @feature.update_attributes(params[:feature])
       flash[:success] = "Feature updated."
@@ -55,11 +59,25 @@ class FeaturesController < ApplicationController
     redirect_to @project
   end
   
-  private
-    def get_project
-      @project = Project.find(params[:project_id])
+  def userstories
+    @feature = Feature.find(params[:id])
+    @userstories = @feature.userstories
+    @userstory = @feature.userstories.build(params[:userstory])
+    if @userstory.save
+      flash[:success] = "Your user story has been created successfully."
+      redirect_to project_feature_path(@feature.project,@feature)
+    else
+      add_crumb @feature.name
+      @title = @feature.name
+      @title_header = feature_show_title
+      render "show"
     end
+  end
+  
+  private
+
     def breadcrumb
+       @project = Project.find(params[:project_id])
        add_crumb @project.name, project_path(@project)
     end
 end

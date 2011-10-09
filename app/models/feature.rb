@@ -6,4 +6,5 @@ class Feature < ActiveRecord::Base
   validates_presence_of :project_id
   
   belongs_to :project
+  has_many :userstories, :dependent => :destroy
 end

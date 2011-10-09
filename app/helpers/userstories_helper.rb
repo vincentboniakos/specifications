@@ -1,0 +1,2 @@
+module UserstoriesHelper
+end

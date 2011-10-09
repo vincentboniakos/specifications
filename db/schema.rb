@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111001100859) do
+ActiveRecord::Schema.define(:version => 20111007162555) do
 
   create_table "features", :force => true do |t|
     t.string   "name"
@@ -42,5 +42,14 @@ ActiveRecord::Schema.define(:version => 20111001100859) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+
+  create_table "userstories", :force => true do |t|
+    t.string   "content"
+    t.integer  "feature_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "userstories", ["feature_id"], :name => "index_userstories_on_feature_id"
 
 end

@@ -110,7 +110,7 @@ describe FeaturesController do
           @attr = { :name => "", :description => "Lorem ipsum"}
         end
 
-        it "should not create a project" do
+        it "should not create a feature" do
           
           lambda do
             post :create, :feature => @attr, :project_id => @project
@@ -134,8 +134,7 @@ describe FeaturesController do
           response.should have_selector("div", :class => "clearfix error")
         end
 
-        it "should display the reason of the error" do
-          
+        it "should display the reason of the error" do        
           post :create, :feature => @attr, :project_id => @project
           response.should have_selector("span", :class => "help-inline")
         end
@@ -310,6 +309,70 @@ describe FeaturesController do
         lambda do 
           delete :destroy, :id => @feature, :project_id => @project
         end.should change(Feature, :count).by(-1)
+      end
+    end
+  end
+  
+  ######################################
+  ## POST USERSTORIES
+  ######################################
+  
+  describe "POST 'userstories'" do
+    
+    before (:each) do 
+      @feature = Factory(:feature)
+    end
+  
+    describe "for non signed-in user" do
+      it "should deny access" do
+        @attr = { :content => "My userstory"}
+        post :userstories, :userstory => @attr, :id => @feature, :project_id => @feature.project 
+        response.should redirect_to(login_path)
+      end
+    end
+
+    describe "for signed-in user" do
+      before(:each) do
+        @user = Factory(:user)
+        test_sign_in(@user)
+      end
+      
+      def post_userstories
+        post :userstories, :userstory => @attr, :id => @feature, :project_id => @feature.project 
+      end
+      
+
+      describe "failure" do
+
+        before(:each) do
+          @attr = { :content => ""}
+        end
+        
+        it "should not create a feature" do
+          
+          lambda do
+            post_userstories
+          end.should_not change(Project, :count)
+        end
+
+        it "should display an error message" do 
+          post_userstories
+          response.should have_selector("span", :class => "help-inline")
+        end
+        
+      end
+
+      describe "success" do
+
+        before(:each) do
+          @attr = { :content => "My User story" }
+        end
+
+        it "should create a userstories" do          
+          lambda do
+            post_userstories
+          end.should change(Userstory, :count).by(1)
+        end
       end
     end
   end

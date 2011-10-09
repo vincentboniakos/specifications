@@ -24,3 +24,7 @@ Factory.define :feature do |feature|
   feature.description "Foo bar"
   feature.association :project
 end
+Factory.define :userstory do |userstory|
+  userstory.content "userstory name"
+  userstory.association :feature
+end

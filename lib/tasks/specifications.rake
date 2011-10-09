@@ -9,13 +9,17 @@ namespace :db do
     :password_confirmation => "foobar")
 
     20.times do |n|
-      name  = Faker::Name.name
+      name  = "Project-#{n}"
       description = "Pellentesque faucibus congue mauris, in fringilla libero interdum sit amet. Suspendisse potenti. Donec pulvinar sapien nec elit pretium aliquam. Proin egestas fringilla porttitor. Vivamus mauris nibh, elementum nec porttitor eget, vehicula in massa. Nam ultricies, sem ac feugiat rhoncus, lacus libero tempus purus, ac faucibus mi nunc sit amet sem. Aenean ornare convallis nisl quis accumsan. Nulla pellentesque sagittis pharetra."
       @project = Project.create!(:name => name, :description => description)
       20.times do |m|
         name = Faker::Name.name
         description = "Pellentesque faucibus congue mauris, in fringilla libero interdum sit amet. Suspendisse potenti."
-        @project.features.create!(:name => name, :description => description)
+        @feature = @project.features.create!(:name => name, :description => description)
+        10.times do |l|
+          content ="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
+          @feature.userstories.create!(:content => content)
+        end
       end
     end
     

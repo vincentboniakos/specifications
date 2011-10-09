@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
     add_crumb @project.name
     @title = @project.name
     @title_header = project_show_title
-    @features = @project.features.page(params[:page]).per(10)
+    @features = @project.features
     @actions = add_feature_action
   end
 

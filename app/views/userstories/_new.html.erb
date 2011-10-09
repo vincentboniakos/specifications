@@ -1,0 +1,15 @@
+<div class="new_userstory">
+    <a href="#new_userstory" class="show_form_new_userstory" >Add a user story</a>
+    <%= form_for @userstory, :url => userstories_project_feature_path(@feature.project,@feature) do |f| %>
+    	<fieldset>
+    		<div class="clearfix<%= " error" if @userstory.errors[:content].any? %>">
+    	    <div>
+    				<%= f.text_area :content, :class => "xxlarge", :rows => "3" %>
+    	    </div>
+    		</div>
+      </fieldset>
+
+    		<%= f.submit "Create userstory", :class =>  "btn primary" %>
+    		<a href="#" class="hide_form_new_userstory btn">Cancel</a>
+    <% end %>
+</div>

@@ -63,3 +63,19 @@ section.features article h3 small a:hoover {color:#00438A;}
 h1 small.danger {float:right;font-size:0.4em;}
 h1 small.danger a {color:red;text-decoration:underline;}
 h1 small.danger a:hoover {color:red;}
+
+div.new_userstory {
+	background-color: whiteSmoke;
+	padding: 2px 0 2px 20px;
+}
+
+form.new_userstory div.clearfix.error {
+	padding-left: 10px;
+	margin-right: 10px;
+}
+a.show_form_new_userstory{
+	color: red;
+	font-size: 0.9em;
+	text-decoration: underline;
+}
+
