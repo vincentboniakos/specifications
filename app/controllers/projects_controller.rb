@@ -15,6 +15,7 @@ class ProjectsController < ApplicationController
     @title_header = project_show_title
     @features = @project.features
     @actions = add_feature_action
+    @userstory = Userstory.new
   end
 
   def create

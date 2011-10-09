@@ -1,4 +1,8 @@
-<article>
-  <h3><%= link_to feature.name, project_feature_path(project,feature) %> <small><%= link_to "edit", edit_project_feature_path(project,feature) %></small></h3>
+<article id="feature-<%= feature.id %>">
+  <h3><%= link_to feature.name, project_feature_path(project,feature) %> <small><%= link_to "edit", edit_project_feature_path(feature.project,feature) %></small></h3>
   <p><%= feature.description %></p>
+  <ul>
+  <%= render feature.userstories %>
+  </ul>
+  <%= render 'userstories/new', :feature => feature, :userstory => @userstory %>
 </article>

@@ -17,14 +17,16 @@ function showHideEditLink(selector){
 }
 
 function showFormNewUserStory(selector){
-	$(selector).click(function (){
+	$(selector).click(function (e){
+		e.preventDefault();
 		$(this).hide();
 		$(this).parent().find("form.new_userstory").show();
 		$("#userstory_content").focus();
 	});
 }
 function hideFormNewUserStory(selector){
-	$(selector).click(function (){
+	$(selector).click(function (e){
+		e.preventDefault();
 		$(this).parent().hide();
 		$(this).parent().parent().find("a.show_form_new_userstory").show();
 	});
