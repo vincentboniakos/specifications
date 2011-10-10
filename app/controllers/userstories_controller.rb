@@ -32,8 +32,6 @@ class UserstoriesController < ApplicationController
         format.html do
           if request.xhr?
             render :partial => "userstories/userstory", :locals => { :userstory => @userstory }, :layout => false, :status => :created
-          else
-            redirect_to project_feature_path(@feature.project,@feature)
           end
         end
       end
@@ -42,8 +40,6 @@ class UserstoriesController < ApplicationController
         format.html do
           if request.xhr?
             render :json => @userstory.errors, :status => :unprocessable_entity
-          else
-            # TODO
           end
         end
       end

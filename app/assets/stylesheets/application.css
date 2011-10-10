@@ -74,7 +74,7 @@ form.new_userstory div.clearfix.error {
 	padding-left: 10px;
 	margin-right: 10px;
 }
-a.show_form_new_userstory{
+a.show_form_new_userstory, a.hide_form_new_userstory{
 	color: red;
 	font-size: 0.9em;
 	text-decoration: underline;

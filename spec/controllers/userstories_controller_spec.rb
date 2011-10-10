@@ -64,6 +64,10 @@ describe UserstoriesController do
     end
   end
   
+  ######################
+  ## DELETE DESTROY
+  ######################
+  
   describe "DELETE 'destroy'" do
 
     describe "for a non signed in user" do
@@ -90,6 +94,64 @@ describe UserstoriesController do
         lambda do 
           delete :destroy, :id => @userstory
         end.should change(Userstory, :count).by(-1)
+      end
+    end
+  end
+  
+  #########################
+  ## POST CREATE
+  #########################
+  describe "POST 'create'" do
+
+    before (:each) do 
+      @feature = Factory(:feature)
+    end
+
+    describe "for non signed-in user" do
+      it "should deny access" do
+        @attr = { :content => "My userstory"}
+        post :create, :userstory => @attr, :feature_id => @feature, :project_id => @feature.project 
+        response.should redirect_to(login_path)
+      end
+    end
+
+    describe "for signed-in user" do
+      before(:each) do
+        @user = Factory(:user)
+        test_sign_in(@user)
+      end
+
+      def post_create_ajax
+        xhr :post, :create, :userstory => @attr, :feature_id => @feature, :project_id => @feature.project
+      end
+
+
+      describe "failure" do
+
+        before(:each) do
+          @attr = { :content => ""}
+        end
+
+        it "should not create a user story using ajax" do
+          lambda do
+            post_create_ajax
+          end.should_not change(Userstory, :count)
+        end
+
+      end
+
+      describe "success" do
+
+        before(:each) do
+          @attr = { :content => "My User story" }
+        end
+
+        it "should create a user story using Ajax" do
+          lambda do
+            post_create_ajax
+            response.should be_success
+          end.should change(Userstory, :count).by(1)
+        end
       end
     end
   end

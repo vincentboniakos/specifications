@@ -6,7 +6,7 @@ Specifications::Application.routes.draw do
     end
   end
   
-  resource :userstories, :only => [:update, :create]
+  resource :userstories, :only => [:update, :create, :destroy]
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signup',    :to => 'users#new'

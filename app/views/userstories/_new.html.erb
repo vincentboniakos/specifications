@@ -5,11 +5,12 @@
     		<div class="clearfix<%= " error" if @userstory.errors[:content].any? %>">
     	    <div>
     				<%= f.text_area :content, :class => "xxlarge submit_on_return", :id => "user_story_content_#{feature.id}", :rows => "3" %>
+					<span class="help-block">Give one sentence that captures what the user wants to achieve.</span>
     	    </div>
     		</div>
       </fieldset>
 
-    		<%= f.submit "Create userstory", :class =>  "btn primary" %>
-    		<a href="#" class="hide_form_new_userstory btn">Cancel</a>
+    		<%= f.submit "Add this userstory", :class =>  "btn primary" %>
+    		or <a href="#" class="hide_form_new_userstory">I'm done with user stories</a>
     <% end %>
 </div>
