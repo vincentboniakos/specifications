@@ -3,8 +3,8 @@ class FeaturesController < ApplicationController
   add_crumb "Projects", :root_path
   before_filter :authenticate
   before_filter :breadcrumb, :only => ["show","edit","new","userstories"]
-  
-  
+
+
   def new
     add_crumb "New feature"
     @title = "New feature"
@@ -50,7 +50,7 @@ class FeaturesController < ApplicationController
       render 'edit'
     end
   end
-  
+
   def destroy
     @feature = Feature.find(params[:id])
     @project = @feature.project
@@ -58,26 +58,11 @@ class FeaturesController < ApplicationController
     flash[:succes] = "Feature destroyed."
     redirect_to @project
   end
-  
-  def userstories
-    @feature = Feature.find(params[:id])
-    @userstories = @feature.userstories
-    @userstory = @feature.userstories.build(params[:userstory])
-    if @userstory.save
-      flash[:success] = "Your user story has been created successfully."
-      redirect_to project_feature_path(@feature.project,@feature)
-    else
-      add_crumb @feature.name
-      @title = @feature.name
-      @title_header = feature_show_title
-      render "show"
-    end
-  end
-  
+
   private
 
-    def breadcrumb
-       @project = Project.find(params[:project_id])
-       add_crumb @project.name, project_path(@project)
-    end
+  def breadcrumb
+    @project = Project.find(params[:project_id])
+    add_crumb @project.name, project_path(@project)
+  end
 end

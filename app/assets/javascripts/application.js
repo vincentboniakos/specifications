@@ -21,7 +21,7 @@ function showFormNewUserStory(selector){
 		e.preventDefault();
 		$(this).hide();
 		$(this).parent().find("form.new_userstory").show();
-		$("#userstory_content").focus();
+		$(this).parent().find("form.new_userstory").find("textarea").focus();
 	});
 }
 function hideFormNewUserStory(selector){
@@ -29,6 +29,52 @@ function hideFormNewUserStory(selector){
 		e.preventDefault();
 		$(this).parent().hide();
 		$(this).parent().parent().find("a.show_form_new_userstory").show();
+	});
+}
+
+function handleUserstoryAjaxForm(){
+	$('form.new_userstory')
+	.bind("ajax:beforeSend", function(evt, xhr, settings){
+		var $submitButton = $(this).find('input[name="commit"]');
+
+		// Update the text of the submit button to let the user know stuff is happening.
+		// But first, store the original text of the submit button, so it can be restored when the request is finished.
+		$submitButton.data( 'origText', $(this).text() );
+		$submitButton.text( "Submitting..." );
+
+	})
+	.bind("ajax:success", function(evt, data, status, xhr){
+		var $form = $(this);
+
+		// Reset fields and any validation errors, so form can be used again, but leave hidden_field values intact.
+		$form.find('textarea,input[type="text"],input[type="file"]').val("");
+		$form.find('div.clearfix').removeClass("error");
+
+		// Insert response partial into page below the form.
+		$form.parent().parent().find("ul").append(xhr.responseText);
+
+	})
+	.bind('ajax:complete', function(evt, xhr, status){
+		var $submitButton = $(this).find('input[name="commit"]');
+
+		// Restore the original submit button text
+		$submitButton.text( $(this).data('origText') );
+	})
+	.bind("ajax:error", function(evt, xhr, status, error){
+		var $form = $(this),
+		errors,
+		errorText;
+
+		$form.find('div.clearfix').addClass("error");
+		$form.find('input[name="userstory[content]"]').focus();
+	});
+}
+
+function submitOnReturn(){
+	$('.submit_on_return').keydown(function() {
+		if (event.keyCode == 13) {
+			$(this).closest('form').find('input[name="commit"]').click();
+		}
 	});
 }
 
@@ -42,7 +88,7 @@ $(document).ready(function () {
 	showHideEditLink("article h3")
 	$("h1 small").hide();
 	showHideEditLink("h1");
-	
+
 	//Show form link
 	$("a.show_form_new_userstory").hide();
 	if (!$("div.clearfix").hasClass("error")) {
@@ -51,4 +97,10 @@ $(document).ready(function () {
 	}
 	showFormNewUserStory("a.show_form_new_userstory");
 	hideFormNewUserStory("a.hide_form_new_userstory");
+
+	//hadle user story form
+	handleUserstoryAjaxForm();
+
+	//Submit on return
+	submitOnReturn();
 })

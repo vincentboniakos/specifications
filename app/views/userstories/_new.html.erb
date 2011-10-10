@@ -1,10 +1,10 @@
 <div class="new_userstory">
-    <a href="#new_userstory" class="show_form_new_userstory" >Add a user story</a>
-    <%= form_for @userstory, :url => userstories_project_feature_path(feature.project,feature) do |f| %>
+    <a href="#" class="show_form_new_userstory" >Add a user story</a>
+    <%= form_for @userstory, :url => project_feature_userstories_path(feature.project,feature), :html => { :'data-type' => 'html', :id => "userstory-form-#{feature.id}" }, :remote => true do |f| %>
     	<fieldset>
     		<div class="clearfix<%= " error" if @userstory.errors[:content].any? %>">
     	    <div>
-    				<%= f.text_area :content, :class => "xxlarge", :rows => "3" %>
+    				<%= f.text_area :content, :class => "xxlarge submit_on_return", :id => "user_story_content_#{feature.id}", :rows => "3" %>
     	    </div>
     		</div>
       </fieldset>
