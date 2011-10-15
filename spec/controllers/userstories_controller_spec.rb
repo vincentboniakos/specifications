@@ -30,14 +30,15 @@ describe UserstoriesController do
         @user = Factory(:user)
         test_sign_in(@user)
       end
+      
+      def put_update_ajax
+        xhr :put, :update, :id => @userstory, :userstory => @attr
+      end
+      
       describe "failure" do
 
         before(:each) do
           @attr = { :content => ""}
-        end
-        
-        def put_update_fail
-          put :update, :id => @userstory, :userstory => @attr
         end
 
         it "should display an error message"
@@ -49,13 +50,9 @@ describe UserstoriesController do
         before(:each) do
           @attr = { :content => "New Content"}
         end
-        
-        def put_update_success
-          put :update, :id => @userstory, :userstory => @attr
-        end
 
-        it "should change the userstory's attributes" do
-          put_update_success
+        it "should change the userstory's attributes using ajax" do
+          put_update_ajax
           @userstory.reload
           @userstory.content.should  == @attr[:content]
         end
@@ -89,10 +86,14 @@ describe UserstoriesController do
         test_sign_in(@user)
         @userstory = Factory(:userstory)
       end
+      
+      def delete_destroy_ajax
+        xhr :delete, :destroy, :id => @userstory
+      end
 
-      it "should destroy the userstory" do
+      it "should destroy the userstory using ajax" do
         lambda do 
-          delete :destroy, :id => @userstory
+          delete_destroy_ajax
         end.should change(Userstory, :count).by(-1)
       end
     end

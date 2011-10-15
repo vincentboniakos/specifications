@@ -1,12 +1,14 @@
 Specifications::Application.routes.draw do
 
+  match "/userstories/:id" => "userstories#destroy", :via => :delete, :as => :destroy_userstory
+  match "/userstories/:id" => "userstories#update", :via => :put, :as => :update_userstory
+
   resources :projects do
     resources :features do
       resources :userstories, :only => :create
     end
   end
-  
-  resource :userstories, :only => [:update, :create, :destroy]
+ 
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signup',    :to => 'users#new'

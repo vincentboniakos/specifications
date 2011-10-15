@@ -69,8 +69,13 @@ div.new_userstory {
 	background-color: whiteSmoke;
 	padding: 2px 0 2px 20px;
 }
+div.edit_userstory {
+	background-color: whiteSmoke;
+	padding: 2px 0 2px 20px;
+	margin: 0 0 0 25px;
+}
 
-form.new_userstory div.clearfix.error {
+form.new_userstory div.clearfix.error, form.edit_userstory div.clearfix.error {
 	padding-left: 10px;
 	margin-right: 10px;
 }
@@ -79,4 +84,35 @@ a.show_form_new_userstory, a.hide_form_new_userstory{
 	font-size: 0.9em;
 	text-decoration: underline;
 }
+li.load { list-style-image: url(loading.gif) }
+p.load {text-decoration:line-through;}
+a.action-link{
+	text-indent: -50000px;
+	display: block;
+	width:15px;
+	height:15px;
+}
+a.delete.action-link{
+	background: url(trash.png) no-repeat;
+}
+a.update.action-link{
+	background: url(edit.png) no-repeat;
+}
+div.action{
+		float: left;
+		width:20px;
+		margin-top:5px;
+}
+article li p {
+	float:left;
+	display:block;
+	margin:5px 0px 0 10px;
+	max-width: 650px;
+}
+article ul { margin-left:-35px;}
+
+li {list-style:none;display:block;}
+
+div.edit_userstory{display:none;}
+
 

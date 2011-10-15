@@ -1,3 +1,11 @@
-<li>
-  <p><%= userstory.content %></p>
+<li class="clearfix">
+  	<div class="action">
+	<%= link_to "Delete", destroy_userstory_path(userstory), :method => :delete, :confirm => "Are you sure?", :title => "Delete", :remote => true, :class => "delete action-link" %>
+	</div>
+	<div class="action">
+	<%= link_to "Modify", "",:title => "Modify", :class => "update action-link show_form_edit_userstory" %>
+	</div>
+	<p><%= userstory.content %></p>
+	<%= render 'userstories/edit', :userstory => userstory %>
+	<div style='clear:both'></div>
 </li>
