@@ -20,6 +20,10 @@ test:
   #port: 3306
 
 production:
-    
+    adapter: pg
+    database: ujfuxrgwgx
+    username: ujfuxrgwgx
+    password: Cgie9h_uSSCPheCOEdOS
+    host: ec2-107-22-249-125.compute-1.amazonaws.com
 
             
