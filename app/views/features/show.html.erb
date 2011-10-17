@@ -1,5 +1,7 @@
-<p><%= @feature.description %></p>
-<ul>
-<%= render @userstories %>
-</ul>
-<%= render 'userstories/new', :feature => @feature, :userstory => @userstory %>
+<article>
+	<p><%= @feature.description %></p>
+	<ul>
+		<%= render @userstories %>
+	</ul>
+	<%= render 'userstories/new', :feature => @feature, :userstory => @userstory %>
+</article>

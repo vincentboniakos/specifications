@@ -20,11 +20,7 @@ test:
   #port: 3306
 
 production:
-  adapter: mysql
-  database: specifications_production
-  username: specifications
-  password: parakalo
-  socket: /Applications/rubystack-2.3-0/mysql/tmp/mysql.sock
-  #port: 3306
+    adapter: sqlite3
+    database: db/production.sqlite3
 
             
