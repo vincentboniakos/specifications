@@ -32,7 +32,7 @@ gem "bcrypt-ruby", :require => "bcrypt"
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :production do
-	gem 'sqlite3-ruby'
+	gem 'sqlite3', '1.3.3'
 end
 
 group :development do
