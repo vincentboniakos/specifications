@@ -20,7 +20,6 @@ test:
   #port: 3306
 
 production:
-    adapter: sqlite3
-    database: db/production.sqlite3
+    
 
             
