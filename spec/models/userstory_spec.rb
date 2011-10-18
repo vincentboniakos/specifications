@@ -47,7 +47,7 @@ describe Userstory do
     end
     
     it "should reject long content" do
-      @feature.userstories.build(:content => "a" * 141).should_not be_valid
+      @feature.userstories.build(:content => "a" * 251).should_not be_valid
     end
 
   end
