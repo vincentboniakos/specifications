@@ -32,6 +32,7 @@ gem "bcrypt-ruby", :require => "bcrypt"
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :production do
+  gem 'therubyracer'
   gem 'pg'
 end
 
@@ -48,7 +49,7 @@ group :test do
   gem 'rspec-rails', '2.6.1'
   gem 'webrat', '0.7.0'
   gem 'factory_girl_rails', '1.0'
-  gem 'mysql'
+  gem 'sqlite3'
 end
 
 
