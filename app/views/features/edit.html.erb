@@ -4,13 +4,13 @@
 		<div class="clearfix<%= " error" if @feature.errors[:name].any? %>">
 	    	<%= f.label :name %>
 	        <div class="input">
-				<%= f.text_field :name, :class => "xlarge", :autocomplete => "off" %>
+				<%= f.text_field :name, :class => "xlarge", :autocomplete => "off", :value => @feature.name.force_encoding(Encoding::UTF_8) %>
 	        </div>
 		</div>
 		<div class="clearfix<%= " error" if @feature.errors[:description].any? %>">
 	    	<%= f.label :description %>
 	        <div class="input">
-				<%= f.text_area :description, :class => "xxlarge", :rows => "3" %>
+				<%= f.text_area :description, :class => "xxlarge", :rows => "3", :value => @feature.description.force_encoding(Encoding::UTF_8) %>
 				<span class="help-block">
 					Add a description to the feature.
 				</span>

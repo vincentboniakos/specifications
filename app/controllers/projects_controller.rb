@@ -1,3 +1,4 @@
+# coding: utf-8
 class ProjectsController < ApplicationController
   include ProjectsHelper
   before_filter :authenticate

@@ -1,22 +1,19 @@
 # Database configuration file
 development:
-  adapter: mysql
-  database: specifications_development
-  username: specifications
-  password: parakalo
-  host: localhost
-  socket: /Applications/rubystack-2.3-0/mysql/tmp/mysql.sock
+    adapter: sqlite3
+    database: db/development.sqlite3
+    timeout: 5000
+    encoding: utf8
   #port: 3306
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
 # Do not set this db to the same as development or production.
 
 test:
-  adapter: mysql
-  database: specifications_test
-  username: specifications
-  password: parakalo
-  socket: /Applications/rubystack-2.3-0/mysql/tmp/mysql.sock
+  adapter: sqlite3
+  database: db/test.sqlite3
+  timeout: 5000
+  encoding: utf8
   #port: 3306
 
 production:

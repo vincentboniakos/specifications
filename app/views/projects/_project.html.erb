@@ -1,2 +1,2 @@
-<dt><%= link_to project.name, project %></dt>
-<dd><%= project.description %></dd>
+<dt><%= link_to project.name.force_encoding(Encoding::UTF_8), project %></dt>
+<dd><%= project.description.force_encoding(Encoding::UTF_8) %></dd>

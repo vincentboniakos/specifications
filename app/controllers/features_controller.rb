@@ -1,3 +1,4 @@
+# coding: utf-8
 class FeaturesController < ApplicationController
   include FeaturesHelper
   add_crumb "Projects", :root_path
@@ -63,6 +64,6 @@ class FeaturesController < ApplicationController
 
   def breadcrumb
     @project = Project.find(params[:project_id])
-    add_crumb @project.name, project_path(@project)
+    add_crumb @project.name.force_encoding(Encoding::UTF_8), project_path(@project)
   end
 end

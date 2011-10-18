@@ -1,3 +1,4 @@
+# coding: utf-8
 class UsersController < ApplicationController
   before_filter :authenticate, :only => [:show]
   

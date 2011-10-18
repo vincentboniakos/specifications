@@ -1,3 +1,4 @@
+# coding: utf-8
 class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation
   

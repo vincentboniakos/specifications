@@ -1,5 +1,5 @@
 <article>
-	<p><%= @feature.description %></p>
+	<p><%= @feature.description.force_encoding(Encoding::UTF_8) %></p>
 	<ul>
 		<%= render @userstories %>
 	</ul>

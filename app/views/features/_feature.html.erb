@@ -1,6 +1,6 @@
 <article id="feature-<%= feature.id %>">
-  <h3><%= link_to feature.name, project_feature_path(project,feature) %> <small><%= link_to "edit", edit_project_feature_path(feature.project,feature) %></small></h3>
-  <p><%= feature.description %></p>
+  <h3><%= link_to feature.name.force_encoding(Encoding::UTF_8), project_feature_path(project,feature) %> <small><%= link_to "edit", edit_project_feature_path(feature.project,feature) %></small></h3>
+  <p><%= feature.description.force_encoding(Encoding::UTF_8).encode %></p>
   <ul>
   <%= render feature.userstories %>
   </ul>

@@ -1,3 +1,4 @@
+# coding: utf-8
 class PagesController < ApplicationController
   include PagesHelper
   add_crumb "Projects"

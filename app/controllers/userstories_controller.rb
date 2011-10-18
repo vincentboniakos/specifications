@@ -1,3 +1,4 @@
+# coding: utf-8
 class UserstoriesController < ApplicationController
   before_filter :authenticate
 

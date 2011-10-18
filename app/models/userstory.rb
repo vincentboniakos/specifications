@@ -1,3 +1,4 @@
+# coding: utf-8
 class Userstory < ActiveRecord::Base
   default_scope order('created_at ASC')
   validates_presence_of :content 
