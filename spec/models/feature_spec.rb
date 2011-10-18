@@ -51,7 +51,7 @@ describe Feature do
     end
 
     it "should reject long description" do
-      @project.features.build(:description => "a" * 141).should_not be_valid
+      @project.features.build(:description => "a" * 251).should_not be_valid
     end
   end
   
