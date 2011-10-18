@@ -9,6 +9,25 @@
 //= require_tree .
 
 
+///// PLUGIN 
+
+function Utils(){
+
+
+this.debug = function($value_str){
+if (window.console) {
+console.log($value_str);
+}else {
+alert($value_str);
+}
+}
+}
+var _utils5g =  new Utils();
+
+
+////////////
+
+
 function showHideEditLink(selector){
 	$(selector).mouseenter(function (){		
 		$(this).find('small').show();	
@@ -159,10 +178,11 @@ function handleDeleteUserstoryAjaxLink(){
 }
 
 function submitOnReturn(){
-	$('.submit_on_return').live("keydown",function() {
+	$('.submit_on_return').live("keydown",function(event) {
 		if (event.keyCode == 13) {
 			event.preventDefault();
 			$(this).closest('form').find('input[name="commit"]').click();
+			return false;
 		}
 	});
 }
