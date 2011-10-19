@@ -83,8 +83,7 @@ function handleUserstoryAjaxForm(){
 
 		// Update the text of the submit button to let the user know stuff is happening.
 		// But first, store the original text of the submit button, so it can be restored when the request is finished.
-		$submitButton.data( 'origText', $(this).text() );
-		$submitButton.text( "Submitting..." );
+		$submitButton.attr('disabled','disabled');
 	})
 	.live("ajax:success", function(evt, data, status, xhr){
 		var $form = $(this);
@@ -101,8 +100,8 @@ function handleUserstoryAjaxForm(){
 	.live('ajax:complete', function(evt, xhr, status){
 		var $submitButton = $(this).find('input[name="commit"]');
 
-		// Restore the original submit button text
-		$submitButton.text( $(this).data('origText') );
+		// Restore the original submit button state
+		$submitButton.removeAttr('disabled');
 	})
 	.live("ajax:error", function(evt, xhr, status, error){
 		var $form = $(this),
@@ -111,6 +110,7 @@ function handleUserstoryAjaxForm(){
 
 		$form.find('div.clearfix').addClass("error");
 		$form.find('input[name="userstory[content]"]').focus();
+
 	});
 }
 
@@ -129,10 +129,7 @@ function handleUpdateUserstoryAjaxForm(){
 	.live("ajax:beforeSend", function (evt, xhr, settings){
 		var $submitButton = $(this).find('input[name="commit"]');
 
-		// Update the text of the submit button to let the user know stuff is happening.
-		// But first, store the original text of the submit button, so it can be restored when the request is finished.
-		$submitButton.data( 'origText', $(this).text() );
-		$submitButton.text( "Submitting..." );
+		$submitButton.attr('disabled','disabled');
 	})
 	.live("ajax:success", function(evt, data, status, xhr){
 		var $form = $(this);
@@ -149,8 +146,7 @@ function handleUpdateUserstoryAjaxForm(){
 	.live('ajax:complete', function(evt, xhr, status){
 		var $submitButton = $(this).find('input[name="commit"]');
 
-		// Restore the original submit button text
-		$submitButton.text( $(this).data('origText') );
+		$submitButton.removeAttr('disabled');
 	})
 	.live("ajax:error", function(evt, xhr, status, error){
 		var $form = $(this),
