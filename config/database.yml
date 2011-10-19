@@ -14,13 +14,9 @@ test:
   database: db/test.sqlite3
   timeout: 5000
   encoding: utf8
-  #port: 3306
 
 production:
-    adapter: pg
-    database: ujfuxrgwgx
-    username: ujfuxrgwgx
-    password: Cgie9h_uSSCPheCOEdOS
-    host: ec2-107-22-249-125.compute-1.amazonaws.com
-
-            
+    adapter: sqlite3
+    database: db/production.sqlite3
+    timeout: 5000
+    encoding: utf8
