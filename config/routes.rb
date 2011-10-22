@@ -9,6 +9,7 @@ Specifications::Application.routes.draw do
     end
   end
  
+  resources :invitations, :only => [:new, :create]
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signup',    :to => 'users#new'

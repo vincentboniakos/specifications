@@ -1,0 +1,14 @@
+<%= form_for @invitation do |f| %>
+	<%= render 'shared/error_messages', :object => f.object %>
+	<fieldset>
+		<div class="clearfix<%= " error" if @invitation.errors[:recipient_email].any? %>">
+	    	<%= f.label :recipient_email, "E-mail" %>
+	        <div class="input">
+				<%= f.text_field :recipient_email, :class => "xlarge", :autocomplete => "off" %>
+	        </div>
+		</div>
+  	</fieldset>
+	<div class="actions">
+		<%= f.submit @send_label, :class =>  "btn primary" %>
+	</div>
+<% end %>

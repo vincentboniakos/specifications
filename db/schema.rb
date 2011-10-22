@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111007162555) do
+ActiveRecord::Schema.define(:version => 20111021161528) do
 
   create_table "features", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(:version => 20111007162555) do
 
   add_index "features", ["created_at"], :name => "index_features_on_created_at"
   add_index "features", ["project_id"], :name => "index_features_on_project_id"
+
+  create_table "invitations", :force => true do |t|
+    t.string   "recipient_email"
+    t.string   "token"
+    t.datetime "sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "projects", :force => true do |t|
     t.string   "name"
