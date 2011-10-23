@@ -72,7 +72,8 @@ div.new_userstory {
 div.edit_userstory {
 	background-color: whiteSmoke;
 	padding: 2px 0 2px 20px;
-	margin: 0 0 0 25px;
+	margin: 10px 0 0 55px;
+	display:none;
 }
 
 form.new_userstory div.clearfix.error, form.edit_userstory div.clearfix.error {
@@ -116,7 +117,6 @@ article ul { margin-left:-55px;}
 
 li {list-style:none;display:block;}
 
-div.edit_userstory{display:none;}
 span.handle{cursor:move;}
 li.anchor{text-indent:-5000px;height: 2px;}
 nav.features{
