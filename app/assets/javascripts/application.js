@@ -189,7 +189,7 @@ function sortableUserstories(selector){
 		dropOnEmpty: false,
 		handle: '.handle',
 		cursor: 'move',
-		items: 'li',
+		items: "li",
 		connectWith: '.userstories',
 		opacity: 0.4,
 		scroll: true,
