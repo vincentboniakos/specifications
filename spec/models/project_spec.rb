@@ -29,6 +29,4 @@ describe Project do
     long_name_project.should_not be_valid
   end
 
-  
-
 end

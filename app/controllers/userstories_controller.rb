@@ -57,4 +57,17 @@ class UserstoriesController < ApplicationController
       end
     end
   end
+
+  def sort
+    @project = Project.find(params[:project_id])
+    @project.features.each do |feature|
+      params["#{feature.id}"].each do |param_userstory|
+        userstory = Userstory.find(param_userstory[1])
+        userstory.feature_id = feature.id
+        userstory.position = param_userstory[0].to_i + 1
+        userstory.save
+      end
+    end
+    render :nothing => true
+  end
 end

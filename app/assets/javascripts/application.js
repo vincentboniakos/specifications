@@ -116,9 +116,9 @@ function handleUserstoryAjaxForm(){
 
 function eventOnLi(selector) {
 	$(selector).live("mouseenter",function (){		
-		$(this).find('a.action-link').show();	
+		$(this).find('.action-link').show();	
 	}).live("mouseleave",function(){
-		$(this).find('a.action-link').hide();	
+		$(this).find('.action-link').hide();	
 	}).live("dblclick",function(){
 		eventFormEditUserStory($(this))
 	});
@@ -183,6 +183,45 @@ function submitOnReturn(){
 	});
 }
 
+function sortableUserstories(selector){
+	$(selector).sortable({
+		axis: 'y',
+		dropOnEmpty: false,
+		handle: '.handle',
+		cursor: 'move',
+		items: 'li',
+		connectWith: '.userstories',
+		opacity: 0.4,
+		scroll: true,
+		update: function(event, ui){
+			//_utils5g.debug($(".userstories").serial());
+			$.ajax({
+				type: 'post',
+				data: $(".userstories").serial(),
+				dataType: 'script',
+				url: '/projects/'+$('#project').attr('data-project-id')+'/userstories/sort'
+			})
+			
+		}
+	})
+}
+
+
+
+(function($) {
+    $.fn.serial = function() {
+        var array = [];
+        var $elem = $(this);
+        $elem.each(function(i) {
+            var feature = this.id.split('_')[1];
+            $('li', this).each(function(e) {
+                array.push(feature + '[' + e + ']=' + this.id.split('_')[1]);
+            });
+        });
+        return array.join('&');
+    }
+})(jQuery);
+
 $(document).ready(function () {
 	// Alert
 	$(".alert-message").alert();
@@ -221,9 +260,7 @@ $(document).ready(function () {
 	//Hide delete link
 	$(".action-link").hide();
 	eventOnLi("article li");
-	
 
-	
-	
+	sortableUserstories("ul.userstories");
 
 })

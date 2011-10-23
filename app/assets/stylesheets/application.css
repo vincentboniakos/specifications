@@ -86,7 +86,7 @@ a.show_form_new_userstory, a.hide_form_new_userstory{
 }
 li.load { list-style-image: url(loading.gif) }
 p.load {text-decoration:line-through;}
-a.action-link{
+.action-link{
 	text-indent: -50000px;
 	display: block;
 	width:15px;
@@ -97,6 +97,9 @@ a.delete.action-link{
 }
 a.update.action-link{
 	background: url(edit.png) no-repeat;
+}
+span.sort.action-link{
+	background: url(move.png) no-repeat;
 }
 div.action{
 		float: left;
@@ -109,10 +112,11 @@ article li p {
 	margin:5px 0px 0 10px;
 	max-width: 650px;
 }
-article ul { margin-left:-35px;}
+article ul { margin-left:-55px;}
 
 li {list-style:none;display:block;}
 
 div.edit_userstory{display:none;}
+span.handle{cursor:move;}
 
 
