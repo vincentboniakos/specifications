@@ -65,7 +65,7 @@ function eventFormEditUserStory(object){
 	object.find("div.edit_userstory").show();
 	object.find("div.edit_userstory").find("textarea").focus();
 	object.find("p").hide();
-	object.find("a.action-link").hide();
+	object.find(".action-link").hide();
 }
 
 function hideFormEditUserStory(selector){
