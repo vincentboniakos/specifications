@@ -132,7 +132,7 @@ nav.features{
 	margin-top:20px;
 	padding-top:5px;
 }
-nav.features {width:200px;}
+nav.features {width: 190px;padding-right: 10px;}
 nav.features ul {margin-left:15px;}
 nav.features h4 {margin-left:15px;}
 .sticky{position:fixed;top:25px;}
