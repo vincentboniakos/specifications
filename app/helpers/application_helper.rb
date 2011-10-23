@@ -14,6 +14,6 @@ module ApplicationHelper
   end
   
   def sidebar
-    @actions
+    @actions + @nav
   end
 end

@@ -16,6 +16,7 @@ class ProjectsController < ApplicationController
     @title_header = project_show_title
     @features = @project.features
     @actions = add_feature_action
+    @nav = nav_features
     @userstory = Userstory.new
   end
 
