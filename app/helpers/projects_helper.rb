@@ -7,8 +7,9 @@ module ProjectsHelper
   end
 
   def nav_features
-  	nav = "<nav>"
-  	nav += "<ul>"
+  	nav = "<nav class='features'>"
+  	nav += "<h4>Features</h4>"
+    nav += "<ul>"
   	@project.features.each do |feature|
   		nav += "<li><a href='#a_feature_#{feature.id}'>#{feature.name}</a></li>"
   	end
