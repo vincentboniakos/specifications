@@ -1,6 +1,6 @@
-<article>
+<article id="project" class="features" data-project-id="<%= @project.id %>">
 	<p><%= @feature.description.force_encoding(Encoding::UTF_8) %></p>
-	<ul>
+	<ul class="userstories" id="feature_<%= @feature.id %>">
 		<%= render @userstories %>
 	</ul>
 	<%= render 'userstories/new', :feature => @feature, :userstory => @userstory %>
