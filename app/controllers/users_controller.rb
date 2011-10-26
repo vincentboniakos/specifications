@@ -1,6 +1,7 @@
 # coding: utf-8
 class UsersController < ApplicationController
   before_filter :authenticate, :only => [:show]
+  before_filter :breadcrumb
   
   def show
     @user =  User.find(params[:id])
@@ -9,7 +10,8 @@ class UsersController < ApplicationController
   
   def new
     @title = "Sign up"
-    @user = User.new
+    @user = User.new(:invitation_token => params[:invitation_token])
+    @user.email = @user.invitation.recipient_email if @user.invitation
   end
 
   def create
@@ -25,5 +27,11 @@ class UsersController < ApplicationController
       render "new"
     end
   end
+
+  private
+    def breadcrumb
+      add_crumb "Home", root_path
+        add_crumb "New invitation"
+    end
 
 end

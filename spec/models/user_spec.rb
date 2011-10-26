@@ -3,12 +3,14 @@ require 'spec_helper'
 describe User do
 
   before(:each) do
+      @invitation = Factory(:invitation)
       @attr = {
         :first_name => "Example",
         :last_name => "User",
         :email => "user@example.com",
         :password => "foobar",
-        :password_confirmation => "foobar"
+        :password_confirmation => "foobar",
+        :invitation_token => @invitation.token
       }
     end
 

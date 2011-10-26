@@ -1,7 +1,8 @@
-<article id="feature-<%= feature.id %>">
+<article id="a_feature_<%= feature.id %>">
   <h3><%= link_to feature.name.force_encoding(Encoding::UTF_8), project_feature_path(project,feature) %> <small><%= link_to "edit", edit_project_feature_path(feature.project,feature) %></small></h3>
-  <p><%= feature.description.force_encoding(Encoding::UTF_8).encode %></p>
-  <ul>
+  <p><%= feature.description.force_encoding(Encoding::UTF_8) if feature.description != nil %></p>
+  <ul class="userstories" id="feature_<%= feature.id %>">
+  <li class="anchor clearfix">anchor</li>
   <%= render feature.userstories %>
   </ul>
   <%= render 'userstories/new', :feature => feature, :userstory => @userstory %>

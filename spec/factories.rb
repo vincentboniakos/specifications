@@ -1,10 +1,14 @@
 # By using the symbol ':user', we get Factory Girl to simulate the User model.
+Factory.define :invitation do |invitation|
+  invitation.recipient_email "francis.gallet@example.com"
+end
 Factory.define :user do |user|
-  user.first_name            "Michael"
-  user.last_name             "Hartl"
-  user.email                 "mhartl@example.com"
+  user.first_name            "Francis"
+  user.last_name             "Gallet"
+  user.email                 "francis.gallet@example.com"
   user.password              "foobar"
   user.password_confirmation "foobar"
+  user.association           :invitation
 end
 Factory.sequence :email do |n|
   "person-#{n}@example.com"

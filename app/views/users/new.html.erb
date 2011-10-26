@@ -1,6 +1,6 @@
-<h1>Sign up</h1>
 <%= form_for @user do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
+	<%= f.hidden_field :invitation_token %>
 	<fieldset>
 		<div class="clearfix<%= " error" if @user.errors[:first_name].any? %>">
 	    	<%= f.label :first_name %>

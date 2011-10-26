@@ -1,8 +1,11 @@
 class Invitation < ActiveRecord::Base
 	has_one :recipient, :class_name => 'User'
 
+	email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
 	validates_presence_of :recipient_email
 	validate :recipient_is_not_registered
+	validates_format_of :recipient_email, :with => email_regex
 
 	before_create :generate_token
 

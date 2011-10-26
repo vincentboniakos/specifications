@@ -65,7 +65,7 @@ function eventFormEditUserStory(object){
 	object.find("div.edit_userstory").show();
 	object.find("div.edit_userstory").find("textarea").focus();
 	object.find("p").hide();
-	object.find("a.action-link").hide();
+	object.find(".action-link").hide();
 }
 
 function hideFormEditUserStory(selector){
@@ -116,9 +116,9 @@ function handleUserstoryAjaxForm(){
 
 function eventOnLi(selector) {
 	$(selector).live("mouseenter",function (){		
-		$(this).find('a.action-link').show();	
+		$(this).find('.action-link').show();	
 	}).live("mouseleave",function(){
-		$(this).find('a.action-link').hide();	
+		$(this).find('.action-link').hide();	
 	}).live("dblclick",function(){
 		eventFormEditUserStory($(this))
 	});
@@ -183,6 +183,74 @@ function submitOnReturn(){
 	});
 }
 
+function sortableUserstories(selector){
+	$(selector).sortable({
+		axis: 'y',
+		dropOnEmpty: false,
+		handle: '.handle',
+		cursor: 'move',
+		items: "li",
+		connectWith: '.userstories',
+		opacity: 0.4,
+		scroll: true,
+		update: function(event, ui){
+			//_utils5g.debug($(".userstories").serial());
+			$.ajax({
+				type: 'post',
+				data: $(".userstories").serial(),
+				dataType: 'script',
+				url: '/projects/'+$('#project').attr('data-project-id')+'/userstories/sort'
+			})
+			
+		}
+	})
+}
+
+
+
+(function($) {
+    $.fn.serial = function() {
+        var array = [];
+        var $elem = $(this);
+        $elem.each(function(i) {
+            var feature = this.id.split('_')[1];
+            $('li', this).each(function(e) {
+                array.push(feature + '[' + e + ']=' + this.id.split('_')[1]);
+            });
+        });
+        return array.join('&');
+    }
+})(jQuery);
+
+
+function smoothScrolling(){
+	var scrollElement = 'html, body';
+    $('html, body').each(function () {
+        var initScrollTop = $(this).attr('scrollTop');
+        $(this).attr('scrollTop', initScrollTop + 1);
+        if ($(this).attr('scrollTop') == initScrollTop + 1) {
+            scrollElement = this.nodeName.toLowerCase();
+            $(this).attr('scrollTop', initScrollTop);
+            return false;
+        }    
+    });
+	// Smooth scrolling for internal links
+    $("a[href^='#']").click(function(event) {
+        event.preventDefault();
+        
+        var $this = $(this),
+        target = this.hash,
+        $target = $(target);
+        
+        $(scrollElement).stop().animate({
+            'scrollTop': $target.offset().top - 50
+        }, 500, 'swing', function() {
+            window.location.hash = target;
+        });
+        
+    });
+}
+
 $(document).ready(function () {
 	// Alert
 	$(".alert-message").alert();
@@ -221,9 +289,17 @@ $(document).ready(function () {
 	//Hide delete link
 	$(".action-link").hide();
 	eventOnLi("article li");
-	
 
-	
-	
+	sortableUserstories("ul.userstories");
+
+	smoothScrolling();
+
+	$.waypoints.settings.scrollThrottle = 10;
+    $('nav.features').waypoint(function(event, direction) {
+    	$(this).toggleClass('sticky', direction === "down");
+        event.stopPropagation();
+    },{
+        offset: '8'
+    });
 
 })

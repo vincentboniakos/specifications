@@ -2,11 +2,15 @@ namespace :db do
   desc "Fill database with sample data"
   task :populate => :environment do
     Rake::Task['db:reset'].invoke
+
+    invitation = Invitation.create!(:recipient_email => "vincent.boniakos@gmail.com")
+
     user = User.create!(:first_name => "Vincent",
     :last_name => "Boniakos",
     :email => "vincent.boniakos@gmail.com",
     :password => "foobar",
-    :password_confirmation => "foobar")
+    :password_confirmation => "foobar",
+    :invitation_token => invitation.token)
 
     20.times do |n|
       name  = "Project-#{n}"

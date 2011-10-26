@@ -6,4 +6,5 @@ class Project < ActiveRecord::Base
   validates_length_of :description, :maximum => 512
   
   has_many :features, :dependent => :destroy
+
 end

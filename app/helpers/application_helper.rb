@@ -14,6 +14,10 @@ module ApplicationHelper
   end
   
   def sidebar
-    @actions
+    sidebar = @actions
+    if !@nav.nil?
+      sidebar += @nav
+    end
+    return sidebar
   end
 end

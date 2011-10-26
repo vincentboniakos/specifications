@@ -2,17 +2,17 @@ require 'spec_helper'
 
 describe "LayoutLinks" do
 
-  
-  it "should have a signup page at '/signup'" do
-    get '/signup'
-    response.should have_selector('title', :content => "Sign up")
-  end
 
   describe "when not signed in" do
     it "should have a signin link" do
       visit root_path
       response.should have_selector("a", :href => login_path,
                                          :content => "Log in")
+    end
+
+    it "should have an invitation link" do
+      visit root_path
+      response.should have_selector("a", :href => invitation_path, :content => "Get an invitation")
     end
   end
 
@@ -27,6 +27,11 @@ describe "LayoutLinks" do
       visit root_path
       response.should have_selector("a", :href => logout_path,
                                          :content => "Log out")
+    end
+
+    it "should have an invitation link" do
+      visit root_path
+      response.should have_selector("a", :href => invitation_path, :content => "Invite people")
     end
     
   end

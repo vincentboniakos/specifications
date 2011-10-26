@@ -1,6 +1,6 @@
 <p><%= @project.description.force_encoding(Encoding::UTF_8) %></p>
 
-<section class="features">
+<section id="project" class="features" data-project-id="<%= @project.id %>">
   <h2>Features</h2>
   <%= render @features, :project => @project %>
 </section>

@@ -52,13 +52,21 @@ describe UsersController do
 
   describe "GET 'new'" do
 
+    before (:each) do
+      @invitation = Factory(:invitation)
+    end
+
+    def get_new
+      get :new, :invitation_token => @invitation.token
+    end
+
     it "should be successful" do
-      get :new
+      get_new
       response.should be_success
     end
 
     it "should have the right title" do
-      get :new
+      get_new
       response.should have_selector("title", :content => "Sign up")
     end
   end
@@ -68,8 +76,9 @@ describe UsersController do
     describe "failure" do
 
       before(:each) do
+        @invitation = Factory(:invitation)
         @attr = { :first_name => "", :last_name => "", :email => "", :password => "",
-          :password_confirmation => "" }
+          :password_confirmation => "", :invitation_token => @invitation.token}
         end
 
         it "should not create a user" do
@@ -98,13 +107,23 @@ describe UsersController do
           response.should have_selector("span", :class => "help-inline")
         end
 
+        describe "when not invited" do
+          before(:each) do
+            @attr = { :first_name => "", :last_name => "", :email => "", :password => "",
+          :password_confirmation => "", :invitation_token => "123"}
+          end
+
+          it "should tell the user he is not invited"
+        end
+
       end
 
       describe "success" do
 
         before(:each) do
+          @invitation = Factory(:invitation)
           @attr = { :first_name => "New", :last_name => "User", :email => "user@example.com",
-            :password => "foobar", :password_confirmation => "foobar" }
+            :password => "foobar", :password_confirmation => "foobar", :invitation_token => @invitation.token }
           end
 
           it "should create a user" do

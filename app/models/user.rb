@@ -1,6 +1,13 @@
 # coding: utf-8
 class User < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation
+
+  validates_presence_of :invitation_id, :message => 'is required'
+  validates_uniqueness_of :invitation_id
+
+  belongs_to :invitation
+
+
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :invitation_token
   
   attr_accessor :password
   before_save :encrypt_password
@@ -18,7 +25,14 @@ class User < ActiveRecord::Base
   validates_length_of :last_name, :maximum => 50
   
   
-  
+  def invitation_token
+    invitation.token if invitation
+  end
+
+  def invitation_token=(token)
+    self.invitation = Invitation.find_by_token(token)
+  end
+
   def self.authenticate(email, password)
     user = find_by_email(email)
     if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
