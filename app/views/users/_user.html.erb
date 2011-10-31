@@ -1,0 +1,9 @@
+<li>
+  <%= gravatar_for user, :size => 30 %>
+  <%= link_to user.name.force_encoding(Encoding::UTF_8), user %>
+  <% if current_user.admin? %>
+  <%= link_to "delete", user, :method => :delete, :confirm => "You sure?",
+                                :title => "Delete #{user.name.force_encoding(Encoding::UTF_8)}",
+                                :class => "btn danger" %>
+  <% end %>
+</li>

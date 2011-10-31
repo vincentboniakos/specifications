@@ -11,7 +11,7 @@ Specifications::Application.routes.draw do
   end
  
   resources :invitations, :only => [:new, :create]
-  resources :users, :only => [:show, :create]
+  resources :users, :only => [:show, :create, :index, :destroy]
   resources :sessions, :only => [:new, :create, :destroy]
   match '/invitation',    :to => 'invitations#new'
   match '/signup/:invitation_token',  :to => 'users#new', :as => 'signup'

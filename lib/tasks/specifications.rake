@@ -10,7 +10,20 @@ namespace :db do
     :email => "vincent.boniakos@gmail.com",
     :password => "foobar",
     :password_confirmation => "foobar",
-    :invitation_token => invitation.token)
+    :invitation_token => invitation.token,
+    :admin => true)
+
+    30.times do |n|
+      first_name  = Faker::Name.name
+      last_name  = Faker::Name.name
+      email = "example-#{n+1}@railstutorial.org"
+      password  = "password"
+      invitation = Invitation.create!(:recipient_email => email)
+      User.create!(:first_name => first_name, :last_name => last_name,
+      :email => email,
+      :password => password,
+      :password_confirmation => password)
+    end
 
     20.times do |n|
       name  = "Project-#{n}"
