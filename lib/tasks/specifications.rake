@@ -10,8 +10,8 @@ namespace :db do
     :email => "vincent.boniakos@gmail.com",
     :password => "foobar",
     :password_confirmation => "foobar",
-    :invitation_token => invitation.token,
-    :admin => true)
+    :invitation_token => invitation.token)
+    user.toggle!(:admin)
 
     30.times do |n|
       first_name  = Faker::Name.name
@@ -22,7 +22,8 @@ namespace :db do
       User.create!(:first_name => first_name, :last_name => last_name,
       :email => email,
       :password => password,
-      :password_confirmation => password)
+      :password_confirmation => password,
+      :invitation_token => invitation.token)
     end
 
     20.times do |n|

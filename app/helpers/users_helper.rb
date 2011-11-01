@@ -4,4 +4,9 @@ module UsersHelper
                                             :class => 'gravatar',
                                             :gravatar => options)
   end
+
+  def add_user_action
+    "<a title='Invite people' href='#{new_invitation_path}' class ='btn success new-action'><strong>+</strong> Invite people </a>".html_safe
+  end
+
 end

@@ -10,7 +10,7 @@ describe "LayoutLinks" do
                                          :content => "Log in")
     end
 
-    it "should have an invitation link" do
+    it "should have a link to get an invitation" do
       visit root_path
       response.should have_selector("a", :href => invitation_path, :content => "Get an invitation")
     end
@@ -29,9 +29,9 @@ describe "LayoutLinks" do
                                          :content => "Log out")
     end
 
-    it "should have an invitation link" do
+    it "should have a link to see all the people registered" do
       visit root_path
-      response.should have_selector("a", :href => invitation_path, :content => "Invite people")
+      response.should have_selector("a", :href => users_path, :content => "People")
     end
     
   end

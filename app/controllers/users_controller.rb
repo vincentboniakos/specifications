@@ -1,5 +1,6 @@
 # coding: utf-8
 class UsersController < ApplicationController
+  include UsersHelper
   before_filter :authenticate, :only => [:show, :index, :destroy]
   before_filter :breadcrumb
   before_filter :admin_user, :only => [:destroy]
@@ -31,9 +32,10 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.page(params[:params]).per(10)
+    @users = User.page(params[:page]).per(10)
     @title = "People"
     add_crumb "People"
+    @actions = add_user_action
   end
 
   def destroy

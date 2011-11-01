@@ -1,3 +1,7 @@
+<div class="hero-unit">
+	<h2>Welcome on board!</h2>
+	<p>You've been invited to join Specifications. Please fill in the form to complete your registration.</p>
+</div>
 <%= form_for @user do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
 	<%= f.hidden_field :invitation_token %>

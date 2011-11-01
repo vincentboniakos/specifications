@@ -5,7 +5,7 @@
 			<ul class="nav">
 				<% if signed_in? %>
 					<li class=""><%= link_to "Profile", current_user %></li>
-					<li class=""><%= link_to "Invite people", invitation_path %></li>
+					<li class=""><%= link_to "People", users_path %></li>
 			    	<li class=""><%= link_to "Log out", logout_path %></li>
 			  	<% else %>
 			    	<li class=""><%= link_to "Log in", login_path %></li>
