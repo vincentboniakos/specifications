@@ -43,4 +43,13 @@ describe Invitation do
     end
   end
 
+  it "should have a pending method that returns only the invitation that has not been sent" do
+    @invitation_sent = Invitation.create!({:recipient_email => "invitations_sent@exemple.com", :sent_at => Time.now})
+    @invitation_not_sent = Invitation.create!({:recipient_email => "invitations_not_sent@exemple.com"})
+
+    Invitation.should respond_to(:pendings)
+
+    Invitation.pendings.length.should == 1
+  end
+
 end

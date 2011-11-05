@@ -10,7 +10,7 @@ Specifications::Application.routes.draw do
     end
   end
  
-  resources :invitations, :only => [:new, :create]
+  resources :invitations
   resources :users, :only => [:show, :create, :index, :destroy]
   resources :sessions, :only => [:new, :create, :destroy]
   match '/invitation',    :to => 'invitations#new'

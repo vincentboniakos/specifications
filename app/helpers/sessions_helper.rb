@@ -9,6 +9,13 @@ module SessionsHelper
     @current_user ||= user_from_remember_token
   end
 
+  def admin_user
+    if  !current_user.admin?
+      flash[:error] = "You are not authorized to do this"
+      redirect_to(root_path)
+    end 
+  end
+
   def signed_in?
     !current_user.nil?
   end

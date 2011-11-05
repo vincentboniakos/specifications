@@ -1,4 +1,6 @@
 class Invitation < ActiveRecord::Base
+
+	default_scope order('created_at DESC')
 	has_one :recipient, :class_name => 'User'
 
 	email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -17,6 +19,10 @@ class Invitation < ActiveRecord::Base
 
 	def generate_token
 	  self.token = Digest::SHA1.hexdigest([Time.now, rand].join)
+	end
+
+	def self.pendings
+		where(:sent_at => nil)
 	end
 
 end

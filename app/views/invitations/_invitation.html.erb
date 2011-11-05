@@ -1,0 +1,13 @@
+<li>
+  <%= invitation.recipient_email %>
+  <% if current_user.admin? %>
+   <%= link_to "Delete", invitation, :method => :delete, :confirm => "You sure?",
+                                :title => "Delete invitation",
+                                :class => "btn danger list" %>
+
+  <%= form_for invitation, :html => { :class => "list" } do |f| %>
+		<%= f.hidden_field :recipient_email %>
+		<%= f.submit "Send invitation", :class =>  "btn primary list" %>
+  <% end %>
+<% end %>
+</li>

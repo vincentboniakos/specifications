@@ -1,6 +1,8 @@
 class InvitationsController < ApplicationController
 
-	before_filter :breadcrumb
+	before_filter :breadcrumb, :except => [:index]
+	before_filter :authenticate, :only => [:index]
+	before_filter :admin_user, :only => [:index]
 
 	def new
 	  @invitation = Invitation.new
@@ -16,9 +18,7 @@ class InvitationsController < ApplicationController
 	  @invitation = Invitation.new(params[:invitation])
 	  if @invitation.save
 	    if signed_in?
-	      Mailer.invitation(@invitation, signup_url(@invitation.token)).deliver
-	      flash[:notice] = "Thank you, the invitation was sent."
-	      redirect_to root_url
+	      send_invitation
 	    else
 	      flash[:notice] = "Thank you, we will notify when we are ready."
 	      redirect_to root_url
@@ -28,10 +28,29 @@ class InvitationsController < ApplicationController
 	  end
 	end
 
+	def update
+		@invitation = Invitation.find(params[:id])
+		send_invitation if signed_in?
+	end
+
+	def index
+		add_crumb "Home", root_path
+		add_crumb "Pending invitations"
+		@title = "Pending invitations"
+		@invitations = Invitation.pendings.page(params[:page]).per(10)
+	end
+
 	private
 		def breadcrumb
 			add_crumb "Home", root_path
+			add_crumb "Invitations", users_path
 	  		add_crumb "New invitation"
+		end
+
+		def send_invitation
+	    		Mailer.invitation(@invitation, signup_url(@invitation.token)).deliver
+	    		flash[:notice] = "Thank you, the invitation was sent."
+	    		redirect_to root_url
 		end
 	
 end

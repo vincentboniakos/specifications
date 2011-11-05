@@ -136,8 +136,8 @@ nav.features {width: 190px;padding-right: 10px;}
 nav.features ul {margin-left:15px;}
 nav.features h4 {margin-left:15px;}
 .sticky{position:fixed;top:25px;}
-a.btn.delete-user{float:right;}
-ul.users li{
+a.list, form.list{float:right; margin:0 5px 0 5px;}
+ul.list li{
 	border-bottom: 1px solid #DDD;
 	margin-bottom: 10px;
 	height:40px;

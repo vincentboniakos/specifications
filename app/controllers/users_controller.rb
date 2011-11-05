@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   
   def show
     @user =  User.find(params[:id])
+    add_crumb "People", users_path
     add_crumb @user.name
     @title = @user.name
   end
@@ -50,10 +51,4 @@ class UsersController < ApplicationController
       add_crumb "Home", root_path
     end
 
-    def admin_user
-      if  !current_user.admin?
-        flash[:error] = "You are not authorized to do this"
-        redirect_to(root_path)
-      end 
-    end
 end
