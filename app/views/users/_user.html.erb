@@ -4,6 +4,6 @@
   <% if current_user.admin? %>
   <%= link_to "Delete", user, :method => :delete, :confirm => "You sure?",
                                 :title => "Delete #{user.name.force_encoding(Encoding::UTF_8)}",
-                                :class => "btn danger list-delete" %>
+                                :class => "btn danger list" %>
   <% end %>
 </li>
