@@ -1,5 +1,5 @@
 <li>
-  <%= invitation.recipient_email %>
+  <span><%= invitation.recipient_email %></span>
   <% if current_user.admin? %>
    <%= link_to "Delete", invitation, :method => :delete, :confirm => "You sure?",
                                 :title => "Delete invitation",

@@ -4,11 +4,15 @@ describe "Users" do
   
   describe "signup" do
     
+    before(:each) do
+      @invitation = Factory(:invitation)
+    end
+
     describe "failure" do
     
       it "should not make a new user" do
         lambda do
-          visit signup_path
+          visit signup_path :invitation_token => @invitation.token
           fill_in "First Name",   :with => ""
           fill_in "Last Name",    :with => ""
           fill_in "Email",        :with => ""
@@ -25,7 +29,7 @@ describe "Users" do
 
       it "should make a new user" do
         lambda do
-          visit signup_path
+          visit signup_path :invitation_token => @invitation.token
           fill_in "First Name",   :with => "Example"
           fill_in "Last Name",    :with => "User"
           fill_in "Email",        :with => "user@example.com"

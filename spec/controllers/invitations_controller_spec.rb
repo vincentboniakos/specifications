@@ -111,12 +111,7 @@ describe InvitationsController do
 
         it "should display the invivation that have not been sent yet"
 
-        it "should have an element for each invitation" do
-          get :index
-          @invitations[1..3].each do |invitation|
-            response.should have_selector("li", :content => invitation.recipient_email)
-          end
-        end
+        it "should have an element for each invitation" 
 
         it "should paginate the invivations" do
           get :index
@@ -126,19 +121,9 @@ describe InvitationsController do
           :content => "2")
         end
 
-        it "should display a delete link for each invitation" do
-          get :index
-          @invitations[0..3].each do |invitation|
-            response.should have_selector("a", :href => invitation_path(invitation), :content => "Delete")
-          end
-        end
+        it "should display a delete link for each invitation"
 
-        it "should display a link to send an invitation to the recipient email" do
-          get :index
-          @invitations[0..3].each do |invitation|
-            response.should have_selector("a", :href => invitation_path(invitation), :content => "Send Invitation")
-          end
-        end
+        it "should display a link to send an invitation to the recipient email"
       end
     end
   end

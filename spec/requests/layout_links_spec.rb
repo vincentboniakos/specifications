@@ -12,7 +12,7 @@ describe "LayoutLinks" do
 
     it "should have a link to get an invitation" do
       visit root_path
-      response.should have_selector("a", :href => invitation_path, :content => "Get an invitation")
+      response.should have_selector("a", :href => new_invitation_path, :content => "Get an invitation")
     end
   end
 
