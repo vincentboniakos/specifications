@@ -1,10 +1,8 @@
 namespace :db do
-  desc "Fill database with sample data"
-  task :populate => :environment do
-    Rake::Task['db:reset'].invoke
 
+  desc "Fill database with a admin user"
+  task :create_admin => :environment do
     invitation = Invitation.create!(:recipient_email => "vincent.boniakos@gmail.com")
-
     user = User.create!(:first_name => "Vincent",
     :last_name => "Boniakos",
     :email => "vincent.boniakos@gmail.com",
@@ -12,6 +10,13 @@ namespace :db do
     :password_confirmation => "foobar",
     :invitation_token => invitation.token)
     user.toggle!(:admin)
+  end
+
+  desc "Fill database with sample data"
+  task :populate => :environment do
+    Rake::Task['db:reset'].invoke
+
+    Rake::Task['db:create_admin'].invoke
 
     30.times do |n|
       first_name  = Faker::Name.name
