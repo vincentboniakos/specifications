@@ -59,7 +59,4 @@ Specifications::Application.configure do
   config.active_support.deprecation = :notify
 
   config.assets.compile = true
-
-  
-
 end
