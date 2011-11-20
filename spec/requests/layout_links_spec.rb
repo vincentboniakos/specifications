@@ -34,6 +34,13 @@ describe "LayoutLinks" do
       response.should have_selector("a", :href => users_path, :content => "People")
     end
     
+    describe "and admin" do
+      it "should have a link to see the pending invitations" do
+        visit root_path
+        response.should have_selector("a", :href => invitations_path, :content => "Pending invitation")
+      end
+    end
+    
   end
   
 end

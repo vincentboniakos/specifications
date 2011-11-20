@@ -127,4 +127,57 @@ describe InvitationsController do
       end
     end
   end
+  
+  describe "DELETE 'destroy'" do
+    
+    before(:each) do
+      @invitation = Factory(:invitation)
+    end
+    
+    def delete_destroy
+      delete :destroy, :id => @invitation
+    end
+    
+    describe "when not signed in" do
+      it "should not destroy the invitation" do
+        lambda do
+          delete_destroy
+        end.should_not change(User, :count)
+      end
+      it "should redirect to signin path" do
+        delete_destroy
+        response.should redirect_to(login_path)
+      end
+    end
+    describe "when signed in" do
+      before(:each) do
+        @user = Factory(:user)
+        test_sign_in(@user)
+      end
+      
+      it "should not destroy the invitation" do
+        lambda do
+          delete_destroy
+        end.should_not change(User, :count)
+      end
+      it "should redirect to signin path" do
+        delete_destroy
+        response.should redirect_to(login_path)
+      end
+      describe "and admin" do
+        before(:each) do
+          @user.toggle!(:admin)
+        end
+        it "should destroy the invitation" do
+          lambda do
+            delete_destroy
+          end.should change(Invitation, :count).by(-1)
+        end
+        it "should redirect to invitations path" do
+          delete_destroy
+          response.should redirect_to(invitations_path)
+        end
+      end
+    end
+  end
 end

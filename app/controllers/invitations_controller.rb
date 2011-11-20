@@ -1,8 +1,8 @@
 class InvitationsController < ApplicationController
 
 	before_filter :breadcrumb, :except => [:index]
-	before_filter :authenticate, :only => [:index]
-	before_filter :admin_user, :only => [:index]
+	before_filter :authenticate, :only => [:index, :destroy]
+	before_filter :admin_user, :only => [:index, :destroy]
 
 	def new
 	  @invitation = Invitation.new
@@ -39,6 +39,12 @@ class InvitationsController < ApplicationController
 		@title = "Pending invitations"
 		@invitations = Invitation.pendings.page(params[:page]).per(10)
 	end
+	
+  def destroy
+    Invitation.find(params[:id]).destroy
+    flash[:succes] = "Inviation destroyed."
+    redirect_to invitations_path
+  end
 
 	private
 		def breadcrumb
