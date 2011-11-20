@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.page(params[:page]).per(10)
+    @users = User.where("id <> ?", current_user.id).page(params[:page]).per(10)
     @title = "People"
     add_crumb "People"
     @actions = add_user_action

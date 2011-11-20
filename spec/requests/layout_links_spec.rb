@@ -35,6 +35,9 @@ describe "LayoutLinks" do
     end
     
     describe "and admin" do
+      before(:each) do
+        @user.toggle!(:admin)
+      end
       it "should have a link to see the pending invitations" do
         visit root_path
         response.should have_selector("a", :href => invitations_path, :content => "Pending invitation")

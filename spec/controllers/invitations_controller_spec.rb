@@ -160,10 +160,7 @@ describe InvitationsController do
           delete_destroy
         end.should_not change(User, :count)
       end
-      it "should redirect to signin path" do
-        delete_destroy
-        response.should redirect_to(login_path)
-      end
+      
       describe "and admin" do
         before(:each) do
           @user.toggle!(:admin)
