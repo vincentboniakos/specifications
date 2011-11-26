@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   belongs_to :invitation
 
 
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :invitation_token
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :invitation_token, :admin
   
   attr_accessor :password
   before_save :encrypt_password
