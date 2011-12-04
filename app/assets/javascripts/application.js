@@ -95,6 +95,7 @@ function handleUserstoryAjaxForm(){
 		// Insert response partial into page below the form.
 		$featuresList = $form.closest("article").find("ul");
 		$featuresList.append(xhr.responseText);
+		updatePosition();
 		$(".action-link").hide();
 	})
 	.live('ajax:complete', function(evt, xhr, status){
@@ -193,19 +194,18 @@ function sortableUserstories(selector){
 		connectWith: '.userstories',
 		opacity: 0.4,
 		scroll: true,
-		update: function(event, ui){
-			//_utils5g.debug($(".userstories").serial());
-			$.ajax({
-				type: 'post',
-				data: $(".userstories").serial(),
-				dataType: 'script',
-				url: '/projects/'+$('#project').attr('data-project-id')+'/userstories/sort'
-			})
-			
-		}
+		update: updatePosition()
 	})
 }
 
+function updatePosition (){
+	$.ajax({
+		type: 'post',
+		data: $(".userstories").serial(),
+		dataType: 'script',
+		url: '/projects/'+$('#project').attr('data-project-id')+'/userstories/sort'
+	})
+}
 
 
 (function($) {
@@ -235,7 +235,7 @@ function smoothScrolling(){
         }    
     });
 	// Smooth scrolling for internal links
-    $("a[href^='#']").click(function(event) {
+    $("a.anchor[href^='#']").click(function(event) {
         event.preventDefault();
         
         var $this = $(this),

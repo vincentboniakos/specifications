@@ -142,5 +142,10 @@ ul.list li{
 	margin-bottom: 10px;
 	height:40px;
 }
+p.flash{
+	background-color: #FEE9CC;
+	color: rgba(0, 0, 0, 0.75);
+	padding: 1px 3px;
+}
 
 
