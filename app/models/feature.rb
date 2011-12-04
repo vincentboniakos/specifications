@@ -1,5 +1,6 @@
 # coding: utf-8
 class Feature < ActiveRecord::Base
+  has_paper_trail
   default_scope order('created_at DESC')
   validates_presence_of :name 
   validates_length_of :name, :maximum => 50

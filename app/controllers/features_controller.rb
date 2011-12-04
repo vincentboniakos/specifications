@@ -25,7 +25,7 @@ class FeaturesController < ApplicationController
     @project = Project.find(params[:project_id])
     @feature = @project.features.build(params[:feature])
     if @feature.save
-      flash[:success] = "Your feature has been created successfully."
+      flash[:success] = "Your feature has been created successfully. #{undo_link}"
       redirect_to project_path(@project)
     else
       @title = "New feature"
@@ -44,8 +44,8 @@ class FeaturesController < ApplicationController
     @project = Project.find(params[:project_id])
     @feature = Feature.find(params[:id])
     if @feature.update_attributes(params[:feature])
-      flash[:success] = "Feature updated."
-      redirect_to project_feature_path(@project,@feature)
+      flash[:success] = "Feature updated. #{undo_link}"
+      redirect_to @project
     else
       @title = "Edit feature"
       render 'edit'
@@ -65,5 +65,9 @@ class FeaturesController < ApplicationController
   def breadcrumb
     @project = Project.find(params[:project_id])
     add_crumb @project.name.force_encoding(Encoding::UTF_8), project_path(@project)
+  end
+  
+  def undo_link
+    view_context.link_to("undo", revert_version_path(@feature.versions.scoped.last), :method => :post)
   end
 end

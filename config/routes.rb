@@ -3,6 +3,8 @@ Specifications::Application.routes.draw do
   match "/userstories/:id" => "userstories#destroy", :via => :delete, :as => :destroy_userstory
   match "/userstories/:id" => "userstories#update", :via => :put, :as => :update_userstory
   match "projects/:project_id/userstories/sort" => "userstories#sort", :via => :post, :as => :sort_userstories
+  
+  post "versions/:id/revert" => "versions#revert", :as => "revert_version"
 
   resources :projects do
     resources :features do

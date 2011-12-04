@@ -254,7 +254,7 @@ function smoothScrolling(){
 $(document).ready(function () {
 	// Alert
 	$(".alert-message").alert();
-	$(".alert-message").delay(2000).fadeOut('slow');
+	$(".alert-message").delay(12000).fadeOut('slow');
 
 	//Edit links
 	$("article h3 small").hide();

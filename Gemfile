@@ -10,6 +10,7 @@ gem 'kaminari'
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem "crummy", "~> 1.2"
 
+gem 'paper_trail'
 
 # Gems used only for assets and not required
 # in production environments by default.
