@@ -1,0 +1,5 @@
+<p><%= @project.description.force_encoding(Encoding::UTF_8) %></p>
+<%= render 'layouts/tab_nav', :tab => 'activity', :project => @project %>
+<section id="project" class="features" data-project-id="<%= @project.id %>">
+  <%= render @versions %>
+</section>

@@ -95,7 +95,11 @@ function handleUserstoryAjaxForm(){
 		// Insert response partial into page below the form.
 		$featuresList = $form.closest("article").find("ul");
 		$featuresList.append(xhr.responseText);
-		updatePosition();
+		$featuresList.find("li").last().find("p").addClass("flash").delay(200).queue(function(next){
+		   $(this).removeClass("flash");
+
+		});
+		//updatePosition();
 		$(".action-link").hide();
 	})
 	.live('ajax:complete', function(evt, xhr, status){
@@ -108,7 +112,6 @@ function handleUserstoryAjaxForm(){
 		var $form = $(this),
 		errors,
 		errorText;
-
 		$form.find('div.clearfix').addClass("error");
 		$form.find('input[name="userstory[content]"]').focus();
 
@@ -194,7 +197,9 @@ function sortableUserstories(selector){
 		connectWith: '.userstories',
 		opacity: 0.4,
 		scroll: true,
-		update: updatePosition()
+		update: function (){
+			updatePosition ();
+		}
 	})
 }
 
@@ -301,5 +306,7 @@ $(document).ready(function () {
     },{
         offset: '8'
     });
+
+	$('.tabs').tabs();
 
 })

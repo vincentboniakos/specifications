@@ -18,6 +18,7 @@ class ProjectsController < ApplicationController
     @actions = add_feature_action
     @nav = nav_features
     @userstory = Userstory.new
+    @versions = Version.all(:conditions => ['project_id = ?', @project.id])
   end
 
   def create

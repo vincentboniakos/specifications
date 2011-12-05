@@ -145,7 +145,10 @@ ul.list li{
 p.flash{
 	background-color: #FEE9CC;
 	color: rgba(0, 0, 0, 0.75);
-	padding: 1px 3px;
+	
+}
+#activity h6 {
+	margin-bottom:10px;
 }
 
 

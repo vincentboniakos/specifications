@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111204144129) do
+ActiveRecord::Schema.define(:version => 20111204165354) do
 
   create_table "features", :force => true do |t|
     t.string   "name"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20111204144129) do
     t.string   "whodunnit"
     t.text     "object"
     t.datetime "created_at"
+    t.integer  "project_id"
   end
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"

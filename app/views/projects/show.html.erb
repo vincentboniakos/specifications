@@ -1,6 +1,29 @@
 <p><%= @project.description.force_encoding(Encoding::UTF_8) %></p>
+<ul class="tabs">
+  <li class ="active"><%= link_to "Features", "#project" %></li>
+  <li><%= link_to "Activity", "#activity" %></li>
+</ul>
+<div class="pill-content">
+  <section id="project" class="active features" data-project-id="<%= @project.id %>">
+  	<%= render @features, :project => @project %>
+  </section>
+  <section id="activity">
+	<h5>Monday, 5 december 2011</h3>
+	<table class="condensed-table">
+	        <tbody>
+	          <tr>
+	            <td><span class="label success">Userstory</span></td>
+	            <td>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</td>
+	            <td>Created by <a href="#">Vincent B.</a></td>
+	          </tr>
+	          <tr>
+	            <td><span class="label notice">Feature</span></td>
+	            <td>Neque porro quisquam est</td>
+	            <td>Modified by <a href="#">Lousie B.</a></td>
+	          </tr>
+	        </tbody>
+	      </table>
+	<%= render @versions %>
+  </section>
+</div>
 
-<section id="project" class="features" data-project-id="<%= @project.id %>">
-  <h2>Features</h2>
-  <%= render @features, :project => @project %>
-</section>
