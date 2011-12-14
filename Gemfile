@@ -31,9 +31,9 @@ gem "bcrypt-ruby", :require => "bcrypt"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+gem 'therubyracer'
 
 group :production do
-  gem 'therubyracer'
   gem 'pg'
 end
 

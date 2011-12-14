@@ -2,10 +2,10 @@
 development:
     adapter: mysql
     database: specifications_development
-    username: specifications
+    username: root
     password: parakalo
     host: localhost
-    socket: /Applications/rubystack-2.3-0/mysql/tmp/mysql.sock
+    socket: /var/run/mysqld/mysqld.sock
     encoding: utf8
   #port: 3306
 # Warning: The database defined as 'test' will be erased and
@@ -15,9 +15,9 @@ development:
 test:
   adapter: mysql
   database: specifications_test
-  username: specifications
+  username: root
   password: parakalo
-  socket: /Applications/rubystack-2.3-0/mysql/tmp/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock
   encoding: utf8
 
 production:

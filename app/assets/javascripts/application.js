@@ -194,7 +194,9 @@ function sortableUserstories(selector){
 		connectWith: '.userstories',
 		opacity: 0.4,
 		scroll: true,
-		update: updatePosition()
+		update: function () {
+			updatePosition();
+		}
 	})
 }
 
