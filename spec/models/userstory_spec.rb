@@ -30,6 +30,7 @@ describe Userstory do
       @userstory.feature.should == @feature
     end
   end
+  
 
 
   ###################################

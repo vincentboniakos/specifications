@@ -7,4 +7,8 @@ class Project < ActiveRecord::Base
   
   has_many :features, :dependent => :destroy
 
+  def userstories
+    Userstory.joins(:feature => :project).where("projects.id = ?", self.id).readonly(false)
+  end
+
 end
