@@ -268,10 +268,10 @@ describe FeaturesController do
           @feature.description.should == @attr[:description]
         end
 
-        it "should redirect to the feature show page" do
+        it "should redirect to the project show page" do
 
           put :update, :id => @feature, :feature => @attr, :project_id => @project
-          response.should redirect_to(project_feature_path(@project,@feature))
+          response.should redirect_to(project_path(@project))
         end
 
         it "should have a flash message" do

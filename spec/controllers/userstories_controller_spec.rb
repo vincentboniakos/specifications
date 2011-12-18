@@ -162,19 +162,20 @@ describe UserstoriesController do
   ############################
   describe "POST 'sort'" do 
     before (:each) do 
+      @user = Factory(:user)
+      test_sign_in(@user)
       @feature = Factory(:feature)
       @first_userstory = @feature.userstories.create!({:content => "First User story", :position => 1 })
       @second_userstory = @feature.userstories.create!({:content => "Second User story", :position => 2 })
-      @param = { "project_id" => @feature.project.id, @feature.id => { "0"=>"undefined", "1"=> @second_userstory.id, "2"=> @first_userstory.id } }
+      @param = { "0"=>"undefined", "1"=> @second_userstory.id, "2"=> @first_userstory.id }
     end
     
     def post_sort
-      xhr :post, :sort, @param
+      xhr :post, :sort, :project_id => @feature.project.id, "#{@feature.id}" => @param
     end
     it "should change the position of the userstories" do
       post_sort
-      @first_userstory.reload().position.should == 2
-      @second_userstory.reload().position.should == 1
+      @first_userstory.reload().position.should > @second_userstory.reload().position
     end
   end
 end

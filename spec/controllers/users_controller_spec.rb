@@ -220,7 +220,7 @@ describe UsersController do
 
         it "should display a delete link for each user" do
           get :index
-          @users[0..3].each do |user|
+          @users[1..4].each do |user|
             response.should have_selector("a", :href => user_path(user), :content => "Delete")
           end
         end

@@ -96,6 +96,9 @@ describe ProjectsController do
         get_show
         response.should_not contain(@other_feature.name)
       end
+
+      it "should display the activity of the project"
+      
     end
   end
 
@@ -326,67 +329,4 @@ describe ProjectsController do
       end
     end
   end
-  
-  ####################################
-  ## GET ACTIVITY
-  ####################################
-  
-  describe "GET 'activity'" do
-    before(:each) do
-      @project = Factory(:project)
-    end
-
-    describe "for non signed-in user" do
-      it "should deny access" do
-        get :activity, :project_id => @project
-        response.should redirect_to(login_path)
-      end
-    end
-    describe "for signed-in user" do
-      
-      before(:each) do
-        test_sign_in(Factory(:user))
-        @feature = @project.features.create!(:name => "first")
-        @second = @project.features.create!(:name => "second")
-        @third = @project.features.create!(:name => "third")
-        @features = [@feature,@second,@third]
-      end
-      
-      def get_activity       
-        get :activity, :project_id => @project
-      end
-      
-      it "should be successful" do
-        get_activity
-        response.should be_success
-      end
-
-      it "should find the right project" do
-        get_activity
-        assigns(:project).should == @project
-      end
-
-      it "should have the right title" do
-        get_activity
-        response.should have_selector("title", :content => @project.name)
-      end
-
-      it "should include the project's name" do
-        get_activity
-        response.should have_selector("h1", :content => @project.name)
-      end
-
-      it "should include the project's description" do
-        get_activity
-        response.should have_selector("p", :content => @project.description)
-      end
-
-      it "should have a link to edit the project" do
-        get_activity
-        response.should have_selector("a", :href => edit_project_path(assigns[@project]))
-      end
-      
-    end
-  end
-  
 end
