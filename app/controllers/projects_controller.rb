@@ -2,7 +2,7 @@
 class ProjectsController < ApplicationController
   include ProjectsHelper
   before_filter :authenticate
-  before_filter :get_project, :only => ["show","edit","update"]
+  before_filter :get_project, :only => ["show","edit","update", "activity"]
   add_crumb "Projects", :root_path
   def new
     add_crumb "New"
@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
     @actions = add_feature_action
     @nav = nav_features
     @userstory = Userstory.new
-    @versions = Version.all(:conditions => ['project_id = ?', @project.id], :order => "created_at DESC")
+    @versions = get_versions @project
   end
 
   def create
@@ -53,10 +53,27 @@ class ProjectsController < ApplicationController
     flash[:succes] = "Project destroyed."
     redirect_to root_path
   end
+
+  def activity
+    @versions = get_versions @project
+    respond_to do |format|
+        format.html do
+          if request.xhr?
+            render :partial => "versions/index", :locals => { :versions => @version }, :layout => false, :status => :accepted
+          else
+            redirect_to @project
+          end
+        end
+      end
+  end
   
   private 
     def get_project
       @project = Project.find(params[:id])
+    end
+
+    def get_versions project
+      Version.all(:conditions => ['project_id = ?', project.id], :order => "created_at DESC")
     end
 
 end

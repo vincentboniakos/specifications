@@ -101,6 +101,7 @@ function handleUserstoryAjaxForm(){
 		});
 		//updatePosition();
 		$(".action-link").hide();
+		updateActivity();
 	})
 	.live('ajax:complete', function(evt, xhr, status){
 		var $submitButton = $(this).find('input[name="commit"]');
@@ -146,6 +147,7 @@ function handleUpdateUserstoryAjaxForm(){
 		$li.closest("li").after(xhr.responseText);
 		$li.remove();
 		$(".action-link").hide();
+		updateActivity();
 	})
 	.live('ajax:complete', function(evt, xhr, status){
 		var $submitButton = $(this).find('input[name="commit"]');
@@ -168,6 +170,7 @@ function handleDeleteUserstoryAjaxLink(){
 	})
 	.live("ajax:success", function(evt, data, status, xhr){
 		$(this).closest("li").remove();
+		updateActivity();
 	})
 	.live('ajax:complete', function(evt, xhr, status){
 		
@@ -254,6 +257,12 @@ function smoothScrolling(){
         });
         
     });
+}
+
+function updateActivity(){
+	$.get('/projects/'+$('#project').attr('data-project-id')+'/activity', function(data) {
+  		$('#activity').html(data);
+	});
 }
 
 $(document).ready(function () {

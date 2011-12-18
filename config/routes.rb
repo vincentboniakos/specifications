@@ -4,7 +4,9 @@ Specifications::Application.routes.draw do
   put "/userstories/:id" => "userstories#update", :as => :update_userstory
   post "projects/:project_id/userstories/sort" => "userstories#sort", :as => :sort_userstories
   
-  post "versions/:id/revert" => "versions#revert", :as => "revert_version"
+  post "versions/:id/revert" => "versions#revert", :as => :revert_version
+
+  get "projects/:id/activity" => "projects#activity", :as => :project_activity
 
   resources :projects do
     resources :features do

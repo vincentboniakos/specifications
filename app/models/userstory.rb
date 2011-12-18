@@ -1,6 +1,6 @@
 # coding: utf-8
 class Userstory < ActiveRecord::Base 
-  has_paper_trail :meta => { :project_id  => Proc.new { |userstory| userstory.feature.project.id } }, :ignore => [:position]
+  has_paper_trail :meta => { :project_id  => Proc.new { |userstory| userstory.feature.project.id } }, :ignore => [:position, :feature_id]
   default_scope order('position ASC')
   validates_presence_of :content 
   validates_length_of :content, :maximum => 250

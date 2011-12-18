@@ -1,5 +1,14 @@
 // Place all the styles related to the versions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-code.current {background-color:#c8f4d5;}
-code.creation {background-color:transparent}
+
+#activity table.condensed-table code {background-color:transparent}
+code.delete {text-decoration:line-through;}
+table.condensed-table{
+	border:none;
+}
+table.condensed-table th + th, table.condensed-table td + td {
+	border-left:10px;
+}
+table.condensed-table td.author {white-space: nowrap;text-align:right;}
+td.action {width:15%;}
