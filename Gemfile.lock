@@ -44,6 +44,7 @@ GEM
     coffee-script-source (1.1.3)
     crummy (1.3.5)
     diff-lcs (1.1.3)
+    differ (0.1.2)
     erubis (2.7.0)
     execjs (1.2.12)
       multi_json (~> 1.0)
@@ -153,6 +154,7 @@ DEPENDENCIES
   bcrypt-ruby
   coffee-rails (~> 3.1.0)
   crummy (~> 1.2)
+  differ
   factory_girl_rails (= 1.0)
   faker (= 0.3.1)
   gravatar_image_tag (= 1.0.0.pre2)

@@ -98,6 +98,7 @@ describe ProjectsController do
       end
 
       it "should display the activity of the project"
+
       
     end
   end
