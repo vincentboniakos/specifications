@@ -12,3 +12,4 @@ table.condensed-table th + th, table.condensed-table td + td {
 }
 table.condensed-table td.author {white-space: nowrap;text-align:right;}
 td.action {width:15%;}
+#activity table.condensed-table tr.first td {border-top:none;}

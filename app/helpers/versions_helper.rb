@@ -1,5 +1,9 @@
 module VersionsHelper
 
+	def date_format date 
+		date.strftime('%A, %d %B %Y')
+	end
+
 	def label_for_activity version
 		css_class = case version.event
 			when "update" then "notice"

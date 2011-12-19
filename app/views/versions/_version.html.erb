@@ -1,4 +1,11 @@
-<tr>
+<% if (@date != date_format(version.created_at)) %>
+	<%= render 'versions/date', :date => version.created_at %>
+	<% 
+	@date = date_format version.created_at 
+	first = true
+	%>
+<% end %>
+<tr<%= " class='first'" if first %>>
 	<td class="action"><%= label_for_activity version %></td>
 	<td><%= content_for_activity version %></td>
 	<td class="author"><%= action_for_activity version %></td>

@@ -1,5 +1,5 @@
   <table class="condensed-table">
     <tbody>
-      <%= render @versions %>
+      <%= render @versions, :date => @versions.last.created_at %>
     </tbody>
   </table>
