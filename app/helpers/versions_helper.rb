@@ -75,7 +75,7 @@ module VersionsHelper
 	private
 
 		def diff (previous_userstory, next_userstory)
-			"<code class='delete'>#{previous_userstory.content.force_encoding(Encoding::UTF_8)}</code><br/><code>#{next_userstory.content.force_encoding(Encoding::UTF_8)}</code>".html_safe
+			"<code class='delete'>#{previous_userstory.content.force_encoding(Encoding::UTF_8)}</code><br/><code>#{next_userstory.content.force_encoding(Encoding::UTF_8)}</code><span class='help-block'>#{next_userstory.feature.name.force_encoding(Encoding::UTF_8)}</span>".html_safe
 		end
 
 		def content_for_feature (feature, delete = false)
@@ -83,7 +83,7 @@ module VersionsHelper
 		end
 
 		def content_for_userstory (userstory, delete = false)
-			"<code#{" class='delete'" if delete}>#{userstory.content.force_encoding(Encoding::UTF_8)}</code>".html_safe
+			"<code#{" class='delete'" if delete}>#{userstory.content.force_encoding(Encoding::UTF_8)}</code><span class='help-block'>#{userstory.feature.name.force_encoding(Encoding::UTF_8)}</span>".html_safe
 		end
 
 end
