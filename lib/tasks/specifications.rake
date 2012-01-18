@@ -20,6 +20,8 @@ namespace :db do
 
     Rake::Task['db:create_admin'].invoke
 
+    PaperTrail.enabled = false
+
     20.times do |n|
       first_name  = Faker::Name.name
       last_name  = Faker::Name.name
@@ -33,8 +35,9 @@ namespace :db do
       :invitation_token => invitation.token,
       :invitation_id => invitation.id)
       user.save
-
     end
+
+    
 
     10.times do |n|
       name  = "Project-#{n}"
