@@ -3,12 +3,14 @@ namespace :db do
   desc "Fill database with a admin user"
   task :create_admin => :environment do
     invitation = Invitation.create!(:recipient_email => "vincent.boniakos@gmail.com")
-    user = User.create!(:first_name => "Vincent",
+    user = User.new(:first_name => "Vincent",
     :last_name => "Boniakos",
     :email => "vincent.boniakos@gmail.com",
     :password => "foobar",
     :password_confirmation => "foobar",
-    :invitation_token => invitation.token)
+    :invitation_token => invitation.token,
+    :invitation_id => invitation.id)
+    user.save
     user.toggle!(:admin)
   end
 
@@ -24,11 +26,14 @@ namespace :db do
       email = "example-#{n+1}@railstutorial.org"
       password  = "password"
       invitation = Invitation.create!(:recipient_email => email)
-      User.create!(:first_name => first_name, :last_name => last_name,
+      user = User.new(:first_name => first_name, :last_name => last_name,
       :email => email,
       :password => password,
       :password_confirmation => password,
-      :invitation_token => invitation.token)
+      :invitation_token => invitation.token,
+      :invitation_id => invitation.id)
+      user.save
+
     end
 
     10.times do |n|
