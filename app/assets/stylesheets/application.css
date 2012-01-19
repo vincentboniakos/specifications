@@ -43,6 +43,11 @@ h3{line-height: 20px;}
 	min-height: 500px;
 }
 
+.content .row {
+	padding: 9px;
+	padding-top: 0;
+}
+
 dd{margin-bottom:20px;}
 
 .pagine{
@@ -54,18 +59,20 @@ dd{margin-bottom:20px;}
 	border-radius: 6px;
 }
 
-section.features article {margin-top:20px;}
+section.features {padding-left:10px;padding-right:10px;}
+section.features article h3 {margin-left: -20px;}
 section.features article h3 a {color:black;}
 section.features article h3 a:hoover {color:black;}
 section.features article h3 small a {color:#0069D6;}
 section.features article h3 small a:hoover {color:#00438A;}
+section.features article .feature-content {padding-bottom:20px;}
+
 
 h1 small.danger {float:right;font-size:0.4em;}
 h1 small.danger a {color:red;text-decoration:underline;}
 h1 small.danger a:hoover {color:red;}
 
 div.new_userstory {
-	background-color: whiteSmoke;
 	padding: 2px 0 2px 20px;
 }
 div.edit_userstory {
@@ -131,10 +138,10 @@ nav.features{
 	margin-top:20px;
 	padding-top:5px;
 }
-nav.features {width: 190px;padding-right: 10px;}
+nav.features {width: 160px; padding-right: 10px;}
 nav.features ul {margin-left:15px;}
 nav.features h4 {margin-left:15px;}
-.sticky{position:fixed;top:25px;}
+.sticky{position:fixed;top:40px;}
 a.list, form.list{float:right; margin:0 5px 0 5px;}
 ul.list li{
 	border-bottom: 1px solid #DDD;
