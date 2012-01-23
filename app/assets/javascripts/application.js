@@ -318,4 +318,6 @@ $(document).ready(function () {
 
 	$('.tabs').tabs();
 
+	$('.topbar').dropdown();
+
 })
