@@ -261,7 +261,13 @@ function smoothScrolling(){
 
 function updateActivity(){
 	$.get('/projects/'+$('#project').attr('data-project-id')+'/activity', function(data) {
-  		$('#activity').html(data);
+  		$('#activity table tbody').html(data);
+	});
+}
+
+function updateOldActivity(page){
+	$.get('/projects/'+$('#project').attr('data-project-id')+'/activity?page='+page, function(data) {
+  		$('#activity table tbody').append(data);
 	});
 }
 
@@ -308,6 +314,7 @@ $(document).ready(function () {
 
 	smoothScrolling();
 
+	// Right menu
 	$.waypoints.settings.scrollThrottle = 10;
     $('nav.features').waypoint(function(event, direction) {
     	$(this).toggleClass('sticky', direction === "down");
@@ -316,6 +323,20 @@ $(document).ready(function () {
         offset: '8'
     });
 
+    // Tabs
 	$('.tabs').tabs();
+
+	// Infinite scroll on activity
+	var $footer = $('footer'),
+	opts = {
+		offset: '110%'
+	},
+	page = 1;
+	$footer.waypoint(function(event, direction) {
+		$footer.waypoint('remove');
+		page ++;
+		updateOldActivity(page);
+		$footer.waypoint(opts);
+	},{offset:'95'});
 
 })
