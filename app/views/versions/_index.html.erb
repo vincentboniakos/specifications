@@ -1,8 +1,9 @@
-  <% if @versions.any? %>
   <table class="condensed-table">
     <tbody>
+  <% if @versions.any? %>
       <%= render @versions, :date => @versions.last.created_at %>
-
-    </tbody>
-  </table>
+  <% else %>
+  <p class="empty">No activity yet !</p>
   <% end %>
+      </tbody>
+  </table>

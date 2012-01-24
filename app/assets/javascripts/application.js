@@ -261,13 +261,11 @@ function smoothScrolling(){
 
 function updateActivity(){
 	$.get('/projects/'+$('#project').attr('data-project-id')+'/activity', function(data) {
+  		$('#activity .empty').remove();
   		$('#activity table tbody').html(data);
 	});
 }
 
-function updateOldActivity(page){
-	
-}
 
 $(document).ready(function () {
 	// Alert
