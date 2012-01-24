@@ -73,7 +73,7 @@ class ProjectsController < ApplicationController
     end
 
     def get_versions project
-      Version.where('project_id = ?', project.id).order("created_at DESC").page(params[:page]).per(2)
+      Version.where('project_id = ?', project.id).order("created_at DESC").page(params[:page]).per(10)
     end
 
 end

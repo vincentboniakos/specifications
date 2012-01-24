@@ -266,9 +266,7 @@ function updateActivity(){
 }
 
 function updateOldActivity(page){
-	$.get('/projects/'+$('#project').attr('data-project-id')+'/activity?page='+page, function(data) {
-  		$('#activity table tbody').append(data);
-	});
+	
 }
 
 $(document).ready(function () {
@@ -327,16 +325,21 @@ $(document).ready(function () {
 	$('.tabs').tabs();
 
 	// Infinite scroll on activity
-	var $footer = $('footer'),
+	var $loading ="<div class='load'><img src='/assets/loading.gif'/></div>"
+	$footer = $('footer'),
 	opts = {
-		offset: '110%'
+		offset: '100%'
 	},
 	page = 1;
 	$footer.waypoint(function(event, direction) {
 		$footer.waypoint('remove');
+		$('#activity').append($loading);
 		page ++;
-		updateOldActivity(page);
-		$footer.waypoint(opts);
-	},{offset:'95'});
+		$.get('/projects/'+$('#project').attr('data-project-id')+'/activity?page='+page, function(data) {
+  			$('#activity table tbody').append(data);
+  			$('#activity div.load').remove();
+  			$footer.waypoint(opts);
+		});
+	},{offset:'200'});
 
 })
