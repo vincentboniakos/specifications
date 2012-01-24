@@ -151,8 +151,12 @@ p.flash{
 }
 #project div.empty{text-align:center;}
 
+
 .dropdown-toggle img {
 	margin-right: 8px;
 	vertical-align: top;
 }
+
+
+#activity .load{text-align:center;}
 

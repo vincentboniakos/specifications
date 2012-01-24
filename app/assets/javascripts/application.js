@@ -261,8 +261,12 @@ function smoothScrolling(){
 
 function updateActivity(){
 	$.get('/projects/'+$('#project').attr('data-project-id')+'/activity', function(data) {
-  		$('#activity').html(data);
+  		$('#activity table tbody').html(data);
 	});
+}
+
+function updateOldActivity(page){
+	
 }
 
 $(document).ready(function () {
@@ -308,6 +312,7 @@ $(document).ready(function () {
 
 	smoothScrolling();
 
+	// Right menu
 	$.waypoints.settings.scrollThrottle = 10;
     $('nav.features').waypoint(function(event, direction) {
     	$(this).toggleClass('sticky', direction === "down");
@@ -316,8 +321,29 @@ $(document).ready(function () {
         offset: '8'
     });
 
+    // Tabs
 	$('.tabs').tabs();
 
+
 	$('.topbar').dropdown();
+
+	// Infinite scroll on activity
+	var $loading ="<div class='load'><img src='/assets/loading.gif'/></div>"
+	$footer = $('footer'),
+	opts = {
+		offset: '100%'
+	},
+	page = 1;
+	$footer.waypoint(function(event, direction) {
+		$footer.waypoint('remove');
+		$('#activity').append($loading);
+		page ++;
+		$.get('/projects/'+$('#project').attr('data-project-id')+'/activity?page='+page, function(data) {
+  			$('#activity table tbody').append(data);
+  			$('#activity div.load').remove();
+  			$footer.waypoint(opts);
+		});
+	},{offset:'200'});
+
 
 })
