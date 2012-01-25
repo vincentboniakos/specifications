@@ -160,3 +160,10 @@ p.flash{
 
 #activity .load{text-align:center;}
 #activity .empty{font-style:italic;}
+
+.breadcrumb{
+	margin-left: auto;
+	margin-right: auto;
+	width: 953px;
+	margin-top: -0.5px;
+}
