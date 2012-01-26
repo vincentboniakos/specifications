@@ -6,6 +6,7 @@ class Userstory < ActiveRecord::Base
   validates_length_of :content, :maximum => 250
   validates_presence_of :feature_id
   belongs_to :feature
+  has_many :comments
 
   acts_as_list
 end

@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/Casecommons/kaminari.git
+  remote: git://github.com/Casecommons/kaminari.git
   revision: 6998b5f0f5fbbf47b1aad2a6c0293766a720e616
   specs:
     kaminari (0.12.4)
@@ -74,7 +74,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.17.2)
     multi_json (1.0.4)
-    mysql (2.8.1)
+    mysql2 (0.3.11)
     nokogiri (1.5.0)
     paper_trail (2.5.0)
       rails (~> 3)
@@ -165,7 +165,7 @@ DEPENDENCIES
   gravatar_image_tag (= 1.0.0.pre2)
   jquery-rails
   kaminari!
-  mysql
+  mysql2
   paper_trail
   pg
   rails (= 3.1.0)

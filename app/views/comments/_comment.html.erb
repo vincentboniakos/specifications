@@ -1,0 +1,10 @@
+<article class="comment">
+	<div class="profile-picture">
+		<%= gravatar_for(comment.user, {:size => 50})%>
+	</div>
+	<div class="body-comment">
+		<strong><%= comment.user.name %></strong> <span class="help-block"><%= time_format comment.created_at %></span>
+		<p><%= comment.body %></p>
+	</div>
+	<%= link_to(image_tag('trash.png'), userstory_comment_path(comment.userstory, comment), :method => :delete, :confirm => "Are you sure?", :title => "Delete", :remote => true, :class => "delete") if from_current_user? comment %>
+</article>

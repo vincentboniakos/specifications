@@ -3,7 +3,17 @@ class UserstoriesController < ApplicationController
   before_filter :authenticate
 
   #respond_to :html, :xml, :json
+  add_crumb "Projects", :root_path
+  before_filter :breadcrumb, :only => ["show"]
 
+  def show
+    @userstory = Userstory.find(params[:id])
+    add_crumb @userstory.feature.name.force_encoding(Encoding::UTF_8), project_feature_path(@project, @userstory.feature)
+    add_crumb "Userstory #{@userstory.id}"
+    @title = @userstory.content
+    @comment = Comment.new
+    @comments = @userstory.comments
+  end
 
   def update
     @userstory = Userstory.find(params[:id])
@@ -75,4 +85,10 @@ class UserstoriesController < ApplicationController
     end
     render :nothing => true
   end
+
+  private
+    def breadcrumb
+      @project = Project.find(params[:project_id])
+      add_crumb @project.name.force_encoding(Encoding::UTF_8), project_path(@project)
+    end
 end

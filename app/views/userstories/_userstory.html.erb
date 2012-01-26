@@ -10,6 +10,12 @@
 		<span class="handle action-link sort">[drag]</span>
 	</div>
 	<p><%= userstory.content.force_encoding(Encoding::UTF_8)%></p>
+
+	<div class="action">
+	<%= link_to "Comment", project_userstory_path(userstory.feature.project, userstory), :title => "Comments", :class => "#{"has-" if userstory.comments.any?}comment action-link" %>
+
+	</div>
+
 	<%= render 'userstories/edit', :userstory => userstory %>
 	<div style='clear:both'></div>
 </li>

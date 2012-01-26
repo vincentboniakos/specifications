@@ -1,5 +1,10 @@
 Specifications::Application.routes.draw do
 
+  
+  resources :userstories do
+    resources :comments, :only => [:create, :destroy]
+  end
+
   delete "/userstories/:id" => "userstories#destroy", :as => :destroy_userstory
   put "/userstories/:id" => "userstories#update", :as => :update_userstory
   post "projects/:project_id/userstories/sort" => "userstories#sort", :as => :sort_userstories
@@ -10,9 +15,11 @@ Specifications::Application.routes.draw do
 
   resources :projects do
     resources :features do
-      resources :userstories, :only => :create
+      resources :userstories, :only => [:create] 
     end
   end
+
+  get "projects/:project_id/userstories/:id" => "userstories#show", :as => :project_userstory
  
   resources :invitations
   resources :users, :only => [:show, :create, :index, :destroy]

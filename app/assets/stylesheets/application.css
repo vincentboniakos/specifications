@@ -99,6 +99,14 @@ a.delete.action-link{
 a.update.action-link{
 	background: url(edit.png) no-repeat;
 }
+a.comment.action-link{
+	background: url(comment.png) no-repeat;
+	margin-left:10px;
+}
+a.has-comment.action-link{
+	background: url(has-comment.png) no-repeat;
+	margin-left:10px;
+}
 span.sort.action-link{
 	background: url(move.png) no-repeat;
 }
@@ -167,3 +175,31 @@ p.flash{
 	width: 953px;
 	margin-top: -0.5px;
 }
+#comments .profile-picture {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 10px;
+}
+#comments .body-comment {
+	display: inline-block;
+	width: 630px;
+}
+#comments article {
+	margin-bottom: 20px;
+	border-bottom: 1px solid #DDD;
+}
+#comments .comment .delete {
+	float: right;
+	position: absolute;
+	width:16px;
+	height:16px;
+}
+.new_comment .profile-picture {
+	display: inline-block;
+	vertical-align: top;
+	margin: 20px 20px 0 0;
+}
+.new_comment form {
+	display: inline-block;
+}
+

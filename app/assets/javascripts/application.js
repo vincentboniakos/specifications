@@ -76,6 +76,14 @@ function hideFormEditUserStory(selector){
 	});
 }
 
+function showHideDeleteComment(selector){
+	$(selector).mouseenter(function (){		
+		$(this).find('a.delete').attr("style","");	
+	}).mouseleave(function(){
+		$(this).find('a.delete').attr("style","display:none;");	
+	});
+}
+
 function handleUserstoryAjaxForm(){
 	$('form.new_userstory')
 	.live("ajax:beforeSend", function (evt, xhr, settings){
@@ -180,6 +188,22 @@ function handleDeleteUserstoryAjaxLink(){
 	});
 }
 
+function handleDeleteCommentAjaxLink(){
+	$('article.comment a.delete')
+	.live("ajax:beforeSend", function (evt, xhr, settings){
+		//
+	})
+	.live("ajax:success", function(evt, data, status, xhr){
+		
+	})
+	.live('ajax:complete', function(evt, xhr, status){
+		$(this).closest("article").fadeOut();
+	})
+	.live("ajax:error", function(evt, xhr, status, error){
+		
+	});
+}
+
 function submitOnReturn(){
 	$('.submit_on_return').live("keydown",function(event) {
 		if (event.keyCode == 13) {
@@ -266,6 +290,45 @@ function updateActivity(){
 	});
 }
 
+function handleCommentAjaxForm(){
+	$('form.new_comment')
+	.live("ajax:beforeSend", function (evt, xhr, settings){
+		var $submitButton = $(this).find('input[name="commit"]');
+
+		// Update the text of the submit button to let the user know stuff is happening.
+		// But first, store the original text of the submit button, so it can be restored when the request is finished.
+		$submitButton.attr('disabled','disabled');
+	})
+	.live("ajax:success", function(evt, data, status, xhr){
+		var $form = $(this);
+
+		// Reset fields and any validation errors, so form can be used again, but leave hidden_field values intact.
+		$form.find('textarea,input[type="text"],input[type="file"]').val("");
+		$form.find('div.clearfix').removeClass("error");
+
+		// Insert response partial into page below the form.
+		$featuresList = $form.closest("article").find("ul");
+		$('#comments').append(xhr.responseText);
+		$("#comments article.comment a.delete").hide();
+		showHideDeleteComment("article.comment");
+		
+	})
+	.live('ajax:complete', function(evt, xhr, status){
+		var $submitButton = $(this).find('input[name="commit"]');
+
+		// Restore the original submit button state
+		$submitButton.removeAttr('disabled');
+	})
+	.live("ajax:error", function(evt, xhr, status, error){
+		var $form = $(this),
+		errors,
+		errorText;
+		$form.find('div.clearfix').addClass("error");
+		$form.find('input[name="comment[body]"]').focus();
+
+	});
+}
+
 
 $(document).ready(function () {
 	// Alert
@@ -343,5 +406,11 @@ $(document).ready(function () {
 		});
 	},{offset:'200'});
 
+	handleCommentAjaxForm();
+
+	$("#comments article.comment a.delete").hide();
+	showHideDeleteComment("article.comment");
+
+	handleDeleteCommentAjaxLink();
 
 })
