@@ -28,18 +28,36 @@ describe CommentsController do
       before(:each) do
         @user = Factory(:user)
         test_sign_in(@user)
-        @comment = Factory(:comment)
+        @userstory = Factory(:userstory)
+        @mycomment = @userstory.comments.create!({:body => "A comment", :user_id => @user.id})
       end
       
-      def delete_destroy_ajax
-        xhr :delete, :destroy, :userstory_id => @comment.userstory, :id => @comment
+      def delete_destroy_ajax comment
+        xhr :delete, :destroy, :userstory_id => comment.userstory, :id => comment
       end
 
-      it "should destroy the comment using ajax" do
-        lambda do 
-          delete_destroy_ajax
-        end.should change(Comment, :count).by(-1)
+      describe "failure" do
+        before(:each) do
+          @comment_from_other = @userstory.comments.create!({:body => "A comment", :user_id => Factory(:user,{:email => "test_destroy_comment@example.com"}).id})
+        end
+
+        it "should not destroy a comment that not belongs to me" do
+          lambda do
+            delete_destroy_ajax @comment_from_other
+          end.should_not change(Comment, :count)
+
+        end        
+
       end
+
+      describe "success" do
+        it "should destroy the comment using ajax" do
+          lambda do 
+            delete_destroy_ajax @mycomment
+          end.should change(Comment, :count).by(-1)
+        end
+      end
+      
     end
   end
   

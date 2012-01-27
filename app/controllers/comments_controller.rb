@@ -25,8 +25,12 @@ class CommentsController < ApplicationController
 
   def destroy
   	@comment = Comment.find(params[:id])
-    @comment.destroy
-    render :text => "Ok"
+    if @comment.user_id == current_user.id 
+      @comment.destroy
+      render :status => :accepted
+    else
+      render :status => :forbidden
+    end
   end
 
 end

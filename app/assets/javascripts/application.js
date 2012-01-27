@@ -194,10 +194,10 @@ function handleDeleteCommentAjaxLink(){
 		//
 	})
 	.live("ajax:success", function(evt, data, status, xhr){
-		
+		$(this).closest("article").fadeOut();
 	})
 	.live('ajax:complete', function(evt, xhr, status){
-		$(this).closest("article").fadeOut();
+
 	})
 	.live("ajax:error", function(evt, xhr, status, error){
 		
