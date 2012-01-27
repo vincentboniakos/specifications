@@ -99,14 +99,26 @@ a.delete.action-link{
 a.update.action-link{
 	background: url(edit.png) no-repeat;
 }
-a.comment.action-link{
+a.comment{
 	background: url(comment.png) no-repeat;
 	margin-left:10px;
 }
-a.has-comment.action-link{
+a.has-comment{
 	background: url(has-comment.png) no-repeat;
 	margin-left:10px;
 }
+.has-comment{
+	text-indent: 20px;
+	display: block;
+	width:15px;
+	height:15px;
+	color: #BFBFBF;
+}
+.has-comment:hover{
+	color: #BFBFBF;
+	text-decoration:none;
+}
+
 span.sort.action-link{
 	background: url(move.png) no-repeat;
 }
