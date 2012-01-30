@@ -2,4 +2,8 @@
   <h1><%= title_header %></h1>
   
 </header>
-<nav class="breadcrumb"><%= (render_crumbs :separator => '<span class="divider">»</span>').html_safe %></nav>
+<div class="breadcrumb-container">
+	<nav class="breadcrumb">
+		<%= (render_crumbs :separator => '<span class="divider">»</span>').html_safe %>
+	</nav>
+</div>

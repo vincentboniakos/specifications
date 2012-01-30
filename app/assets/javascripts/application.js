@@ -200,7 +200,7 @@ function sortableFeatures(selector){
 		tolerance: "pointer",
 		opacity: 0.4,
 		start: function(){
-			//$(".feature-content").hide();
+
 		}
 	});
 }
@@ -245,7 +245,6 @@ function updatePosition (){
     }
 })(jQuery);
 
-
 function smoothScrolling(){
 	var scrollElement = 'html, body';
     $('html, body').each(function () {
@@ -257,26 +256,42 @@ function smoothScrolling(){
             return false;
         }    
     });
-	// Smooth scrolling for internal links
-    $("a.anchor[href^='#']").click(function(event) {
-        event.preventDefault();
-        
-        var $this = $(this),
-        target = this.hash,
-        $target = $(target);
+
+    // Smooth scrolling for internal links
+    $("a.anchor[href^='#']").click(function(event){
+		event.preventDefault();
         
         $(scrollElement).stop().animate({
-            'scrollTop': $target.offset().top - 50
+            'scrollTop': $(event.target.hash).offset().top - 100
         }, 500, 'swing', function() {
-            window.location.hash = target;
         });
-        
     });
+
+    //highlight match article
+    $(".features>article").mouseenter(function(event){
+		var $featureLink = $(".anchor[feature-id = "+$(this).attr('id')+"]");
+		$featureLink.addClass("anchorHover");
+        //$(this).addClass("highlight-feature");
+    });
+    $(".features>article").mouseleave(function(event){
+		var $featureLink = $(".anchor[feature-id = "+$(this).attr('id')+"]");
+		$featureLink.removeClass("anchorHover");
+        //$(this).removeClass("highlight-feature");
+    });
+
+    //highlight matching article
+    $("a.anchor[href^='#']").mouseenter(function(event) {
+		console.info(event.target.hash);
+        $(event.target.hash).addClass("highlight-feature");
+    });
+    $("a.anchor[href^='#']").mouseleave(function(e){
+		$(event.target.hash).removeClass("highlight-feature");
+	});
 }
 
 function updateActivity(){
 	$.get('/projects/'+$('#project').attr('data-project-id')+'/activity', function(data) {
-  		$('#activity').html(data);
+		$('#activity').html(data);
 	});
 }
 
@@ -326,12 +341,19 @@ $(document).ready(function () {
 	smoothScrolling();
 
 	$.waypoints.settings.scrollThrottle = 50;
+    $('nav.breadcrumb').waypoint(function(event, direction) {
+			$(this).toggleClass('sticky', direction === "down");
+	        event.stopPropagation();
+	    },{
+	        offset: 47
+	    });
+
     $('nav.features').waypoint(function(event, direction) {
-    	$(this).toggleClass('sticky', direction === "down");
-        event.stopPropagation();
-    },{
-        offset: 60
-    });
+			$(this).toggleClass('sticky', direction === "down");
+			event.stopPropagation();
+		},{
+			offset: 90
+		});
 
 	$('.tabs').tabs();
 
