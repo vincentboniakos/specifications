@@ -59,7 +59,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
         format.html do
           if request.xhr?
-            render :partial => "versions/index", :locals => { :versions => @version }, :layout => false, :status => :accepted
+            render :partial => @versions, :layout => false, :status => :accepted
           else
             redirect_to @project
           end
@@ -73,7 +73,7 @@ class ProjectsController < ApplicationController
     end
 
     def get_versions project
-      Version.all(:conditions => ['project_id = ?', project.id], :order => "created_at DESC")
+      Version.where('project_id = ?', project.id).order("created_at DESC").page(params[:page]).per(10)
     end
 
 end

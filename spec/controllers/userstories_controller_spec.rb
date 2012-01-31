@@ -178,4 +178,74 @@ describe UserstoriesController do
       @first_userstory.reload().position.should > @second_userstory.reload().position
     end
   end
+
+  ############################
+  ## GET SHOW
+  ############################
+  describe "GET 'show'" do
+    before(:each) do
+      @userstory = Factory(:userstory)
+    end
+
+    def get_show
+      get :show, :id => @userstory, :project_id => @userstory.feature.project 
+      
+    end
+
+    describe "for non signed-in user" do
+      it "should deny access" do
+        get_show
+        response.should redirect_to(login_path)
+      end
+    end
+    
+    describe "for signed-in user" do
+
+      before(:each) do
+        @user = test_sign_in(Factory(:user))
+      end
+
+      it "should be successful" do
+        get_show
+        response.should be_success
+      end
+
+      it "should find the right userstory" do
+        get_show
+        assigns(:userstory).should == @userstory
+      end
+
+      it "should include the userstory's content" do
+        get_show
+        response.should have_selector("h1", :content => @userstory.content)
+      end
+
+      describe "comment" do
+      
+        before(:each) do
+          @comment = @userstory.comments.create!({:body => "A comment", :user_id => Factory(:user,{:email => "test_comment@example.com"}).id})
+          @owned_comment = Comment.create!({:body => "A comment owned", :userstory_id => @userstory.id, :user_id => @user.id})
+          @other_comment = Factory(:userstory).comments.create!({:body => "A other comment", :user_id => Factory(:user,{:email => "test_comment_2@example.com"}).id})
+        end  
+      
+
+        it "should display the comment of the userstory" do
+          get_show
+          response.should have_selector("p", :content => @comment.body)
+        end
+
+        it "should display a delete comment link only if the current user is the author of the comment" do
+          get_show
+          response.should_not have_selector("a.delete", :href => userstory_comment_path(@userstory,@comment))
+          response.should have_selector("a.delete", :href => userstory_comment_path(@userstory,@owned_comment))
+        end
+
+        it "should not display the comment of another userstory" do
+          get_show
+          response.should_not have_selector("p", :content => @other_comment.body)
+        end
+      end
+    end
+  end
+
 end

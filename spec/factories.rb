@@ -1,11 +1,11 @@
 # By using the symbol ':user', we get Factory Girl to simulate the User model.
 Factory.define :invitation do |invitation|
-  invitation.recipient_email "francis.gallet@example.com"
+  invitation.recipient_email "john.doe#{Time.now.to_f}@example.com".downcase
 end
 Factory.define :user do |user|
-  user.first_name            "Francis"
-  user.last_name             "Gallet"
-  user.email                 "francis.gallet@example.com"
+  user.first_name            "John"
+  user.last_name             "Doe"
+  user.email                 "john.doe#{Time.now.to_f}@example.com".downcase
   user.password              "foobar"
   user.password_confirmation "foobar"
   user.association           :invitation
@@ -31,4 +31,8 @@ end
 Factory.define :userstory do |userstory|
   userstory.content "userstory name"
   userstory.association :feature
+end
+Factory.define :comment do |comment|
+  comment.body "It is a comment"
+  comment.association :userstory
 end

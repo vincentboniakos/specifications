@@ -7,7 +7,7 @@ gem 'rails', '3.1.0'
 
 gem 'sqlite3'
 
-gem 'kaminari'
+gem 'kaminari', :git=>"git://github.com/Casecommons/kaminari.git"
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem "crummy", "~> 1.2"
 

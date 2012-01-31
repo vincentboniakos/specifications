@@ -45,9 +45,9 @@ describe ProjectsController do
       
       before(:each) do
         test_sign_in(Factory(:user))
-        @feature = @project.features.create!(:name => "first")
-        @second = @project.features.create!(:name => "second")
-        @third = @project.features.create!(:name => "third")
+        @feature = @project.features.create!(:name => "first", :description => "descr")
+        @second = @project.features.create!(:name => "second", :description => "descr")
+        @third = @project.features.create!(:name => "third", :description => "descr")
         @features = [@feature,@second,@third]
       end
       

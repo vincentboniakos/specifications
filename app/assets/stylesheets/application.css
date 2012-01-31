@@ -14,7 +14,8 @@ header{
 	padding: 20px 20px 10px;
 	margin: -20px -20px 20px;
 }
-
+.topbar .brand{font-family: 'Lobster';}
+.topbar .nav {float:right;}
 h2{
 	margin-bottom: 17px;
 	border-bottom: 1px solid #ddd;
@@ -32,10 +33,19 @@ dd{margin-bottom:20px;}
 
 
 /**************** content ****************/
+.breadcrumb{
+	position: fixed;
+	margin-left: -22px;
+	margin-bottom: 10px;
+	width: 954px;
+	z-index: 1002;
+}
+
 .content {
 	background-color: #fff;
 	padding: 20px;
 	margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+	margin-top: 40px;
 	-webkit-border-radius: 0 0 6px 6px;
 	-moz-border-radius: 0 0 6px 6px;
 	border-radius: 0 0 6px 6px;
@@ -74,7 +84,6 @@ section.features article h3 a {color:black;}
 section.features article h3 a:hoover {color:black;}
 section.features article h3 small a {color:#0069D6;}
 section.features article h3 small a:hoover {color:#00438A;}
-section.features article .feature-content {}
 
 h1 small.danger {float:right;font-size:0.4em;}
 h1 small.danger a {color:red;text-decoration:underline;}
@@ -83,6 +92,7 @@ h1 small.danger a:hoover {color:red;}
 
 /**************** userstories ****************/
 div.new_userstory {
+	background-color: whiteSmoke;
 	padding: 2px 0 2px 20px;
 }
 div.edit_userstory {
@@ -115,6 +125,26 @@ a.delete.action-link{
 a.update.action-link{
 	background: url(edit.png) no-repeat;
 }
+a.comment{
+	background: url(comment.png) no-repeat;
+	margin-left:10px;
+}
+a.has-comment{
+	background: url(has-comment.png) no-repeat;
+	margin-left:10px;
+}
+.has-comment{
+	text-indent: 20px;
+	display: block;
+	width:15px;
+	height:15px;
+	color: #BFBFBF;
+}
+.has-comment:hover{
+	color: #BFBFBF;
+	text-decoration:none;
+}
+
 span.sort.action-link{
 	background: url(move.png) no-repeat;
 }
@@ -132,8 +162,6 @@ nav.features {width: 160px; padding-right: 10px;}
 nav.features ul {margin-left:15px;}
 nav.features h4 {margin-left:15px;}
 .sticky{position:fixed;top:70px;}
-.breadcrumb-container { height:57px; }
-.sticky.breadcrumb{position:fixed;top:47px;width: 910px; z-index: 1002;}
 
 .features article {
 	clear: both;
@@ -189,7 +217,6 @@ li {list-style:none;display:block;}
 
 span.handle,span.article-handle{cursor:move;}
 li.anchor{text-indent:-5000px;height: 2px;}
-
 nav.features{
 	background-color: whiteSmoke;
 	border: 1px solid #EEE;
@@ -222,4 +249,43 @@ p.flash{
 	margin-bottom:10px;
 }
 #project div.empty{text-align:center;}
+
+
+.dropdown-toggle img {
+	margin-right: 8px;
+	vertical-align: top;
+}
+
+
+#activity .load{text-align:center;}
+#activity .empty{font-style:italic;}
+
+
+#comments .profile-picture {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 10px;
+}
+#comments .body-comment {
+	display: inline-block;
+	width: 630px;
+}
+#comments article {
+	margin-bottom: 20px;
+	border-bottom: 1px solid #DDD;
+}
+#comments .comment .delete {
+	float: right;
+	position: absolute;
+	width:16px;
+	height:16px;
+}
+.new_comment .profile-picture {
+	display: inline-block;
+	vertical-align: top;
+	margin: 20px 20px 0 0;
+}
+.new_comment form {
+	display: inline-block;
+}
 

@@ -1,0 +1,17 @@
+<div class="new_comment">
+    <div class="profile-picture">
+        <%= gravatar_for(current_user, {:size => 50})%>
+    </div>
+    <%= form_for @comment, :url => userstory_comments_path(userstory), :html => { :'data-type' => 'html', :id => "comment-form-#{comment.id}" }, :remote => true do |f| %>
+    	<fieldset>
+    		<div class="clearfix<%= " error" if @comment.errors[:content].any? %>">
+    	    <div>
+    				<%= f.text_area :body, :class => "xxlarge submit_on_return", :id => "comment_body_#{comment.id}", :rows => "5" %>
+					<span class="help-block">Leave a comment.</span>
+    	    </div>
+    		</div>
+      </fieldset>
+
+    		<%= f.submit "Send", :class =>  "btn primary" %>
+    <% end %>
+</div>
