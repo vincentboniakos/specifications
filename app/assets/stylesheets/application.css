@@ -35,9 +35,10 @@ dd{margin-bottom:20px;}
 /**************** content ****************/
 .breadcrumb{
 	position: fixed;
-	margin-left: -22px;
+	margin-left: -21px;
 	margin-bottom: 10px;
-	width: 954px;
+	margin-top: -3px;
+	width: 952px;
 	z-index: 1002;
 }
 
@@ -216,7 +217,6 @@ article ul { margin-left:-55px;}
 li {list-style:none;display:block;}
 
 span.handle,span.article-handle{cursor:move;}
-li.anchor{text-indent:-5000px;height: 2px;}
 nav.features{
 	background-color: whiteSmoke;
 	border: 1px solid #EEE;
@@ -231,8 +231,9 @@ nav.features{
 	padding-top:5px;
 }
 
+li.anchor{text-indent:-5000px;height: 2px;}
 li a.anchorHover{
-	color: #f00;
+	font-weight: bold;
 }
 
 a.list, form.list{float:right; margin:0 5px 0 5px;}
