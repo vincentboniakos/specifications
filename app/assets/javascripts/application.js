@@ -216,6 +216,12 @@ function submitOnReturn(){
 	});
 }
 
+function toggleFeatureSize(e)
+{
+	var featureId = $(e.target).attr("feature_id");
+	$("#a_feature_"+featureId+" .feature-content").slideToggle();
+}
+
 function sortableFeatures(selector){
 	$(selector).sortable({
 		axis: 'y',
@@ -432,6 +438,9 @@ $(document).ready(function () {
 
 
 	sortableFeatures(".features");
+	$(".size_action").click(toggleFeatureSize);
+
+
 	sortableUserstories("ul.userstories");
 
 	smoothScrolling();
