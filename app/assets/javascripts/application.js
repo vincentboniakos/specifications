@@ -248,16 +248,16 @@ function sortableFeatures(selector){
             ui.item.data('last_pos', index);
         },
         update: function(event, ui) {
+			var serial = "";
+			var artTab = $("section.features article");
+			for (var i = 0; i < artTab.length; i++) {
+				artTab[i] = $(artTab[i]).attr("id").replace(/(a_feature_)/, "");
+				serial += ""+i+"="+artTab[i];
+				if(i!=artTab.length - 1) serial+= "&";
+			};
+			console.log(serial);
            stop(); 
         }
-		// start: function(e, ui){
-		//	$(".feature-content").hide();
-		// },
-		// change: function(e, ui){
-		//	var $featureLink = $(".anchor[feature-id = "+ui.item[0].id+"]");
-		//	console.log(e, ui);
-		//	$featureLink.detach();
-		// }
 	});
 }
 

@@ -8,6 +8,7 @@ Specifications::Application.routes.draw do
   delete "/userstories/:id" => "userstories#destroy", :as => :destroy_userstory
   put "/userstories/:id" => "userstories#update", :as => :update_userstory
   post "projects/:project_id/userstories/sort" => "userstories#sort", :as => :sort_userstories
+  post "projects/:project_id/features/sort" => "features#sort", :as => :sort_features
   
   post "versions/:id/revert" => "versions#revert", :as => :revert_version
 

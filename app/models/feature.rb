@@ -9,4 +9,6 @@ class Feature < ActiveRecord::Base
   
   belongs_to :project
   has_many :userstories, :dependent => :destroy
+
+  acts_as_list
 end
