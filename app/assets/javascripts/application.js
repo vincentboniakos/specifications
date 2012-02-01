@@ -219,7 +219,9 @@ function submitOnReturn(){
 function toggleFeatureSize(e)
 {
 	var featureId = $(e.target).attr("feature_id");
-	$("#a_feature_"+featureId+" .feature-content").slideToggle();
+	var $targetArticle = $("#a_feature_"+featureId);
+	console.log($targetArticle.toggleClass("minimize"))
+	$("article#a_feature_"+featureId+" .feature-content").slideToggle();
 }
 
 function sortableFeatures(selector){
@@ -307,6 +309,7 @@ function updatePosition (){
                 array.push(feature + '[' + e + ']=' + this.id.split('_')[1]);
             });
         });
+        console.log(array.join('&'));
         return array.join('&');
     }
 })(jQuery);
