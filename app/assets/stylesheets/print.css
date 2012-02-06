@@ -1,0 +1,36 @@
+* { font-family: 'Arial', 'Helvetica', sans-serif; background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; }
+a { text-decoration: none; }
+pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+thead { display: table-header-group; }
+tr, img { page-break-inside: avoid; }
+img { max-width: 100% !important; }
+@page { margin: 2cm; }
+p, h2, h3 { margin: 0; orphans: 3; widows: 3; }
+h1 { font-size: 1.5em; }
+h2, h3 { page-break-after: avoid; }
+
+/* Page */
+small,
+div.topbar,
+nav.breadcrumb,
+ul.tabs,
+section#activity,
+aside.sidebar,
+footer
+{ display: none; }
+
+/* Specifications */
+section#project article div.new_userstory,
+section#project article ul.userstories li.anchor,
+section#project article ul.userstories li div.action,
+section#project article ul.userstories li .edit_userstory
+{ display: none; }
+
+/* Restyle */
+section.section > p { padding-bottom: 3em; font-size: 0.7em; color: #aaa !important; }
+section#project article { padding-top: 1.5em; }
+section#project article h3 { font-size: 0.8em; }
+section#project article h3 + p { color: #aaa !important; font-style: italic; }
+section#project article p { font-size: 0.7em; }
+section#project article ul.userstories { padding-left: 1.2em; list-style: circle; }
+section#project article ul.userstories li p { padding-bottom: 2em; font-style: normal; }
