@@ -301,33 +301,5 @@ describe ProjectsController do
     end
   end
   
-  describe "DELETE 'destroy'" do
 
-    describe "for a non signed in user" do
-
-      before(:each) do
-        @project = Factory(:project)
-      end
-
-      it "should deny access" do
-        delete :destroy, :id => @project
-        response.should redirect_to(login_path)
-      end
-    end
-
-    describe "for a signed in user" do
-
-      before(:each) do
-        @user = Factory(:user)
-        test_sign_in(@user)
-        @project = Factory(:project)
-      end
-
-      it "should destroy the project" do
-        lambda do 
-          delete :destroy, :id => @project
-        end.should change(Project, :count).by(-1)
-      end
-    end
-  end
 end
