@@ -28,6 +28,8 @@ Specifications::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  PaperTrail.enabled = false
+
   require 'pusher'
 
   Pusher.app_id = '15405'

@@ -39,10 +39,13 @@ class UserstoriesController < ApplicationController
 
   def destroy
     @userstory = Userstory.find(params[:id])
-    @project = @userstory.feature.project
-    @userstory.destroy
-    flash[:succes] = "User story destroyed."
-    redirect_to @project
+    if request.xhr?
+      if @userstory.destroy
+        render :nothing => true, :status => :accepted     
+      else
+        render :nothing => true, :status => :forbidden
+      end
+    end
   end
 
   def create

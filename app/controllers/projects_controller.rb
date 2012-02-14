@@ -48,11 +48,7 @@ class ProjectsController < ApplicationController
     end
   end
   
-  def destroy
-    Project.find(params[:id]).destroy
-    flash[:succes] = "Project destroyed."
-    redirect_to root_path
-  end
+
 
   def activity
     @versions = get_versions @project
