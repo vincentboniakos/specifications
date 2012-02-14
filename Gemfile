@@ -9,6 +9,8 @@ gem 'kaminari', :git=>"git://github.com/Casecommons/kaminari.git"
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem "crummy", "~> 1.2"
 
+gem 'pusher'
+
 gem 'paper_trail'
 gem 'differ'
 

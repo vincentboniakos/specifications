@@ -27,4 +27,10 @@ Specifications::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  require 'pusher'
+
+  Pusher.app_id = '15405'
+  Pusher.key    = '11514116315596044f67'
+  Pusher.secret = '80be7bb078dc04a23fd4'
 end

@@ -99,10 +99,13 @@ function handleUserstoryAjaxForm(){
 		// Reset fields and any validation errors, so form can be used again, but leave hidden_field values intact.
 		$form.find('textarea,input[type="text"],input[type="file"]').val("");
 		$form.find('div.clearfix').removeClass("error");
-
+ 
 		// Insert response partial into page below the form.
 		$featuresList = $form.closest("article").find("ul");
-		$featuresList.append(xhr.responseText);
+		//console.log($('#'+$(xhr.responseText).attr('id')).length);
+		if (! $('#'+$(xhr.responseText).attr('id')).length) {
+			$featuresList.append($(xhr.responseText));
+		};
 		$featuresList.find("li").last().find("p").addClass("flash").delay(200).queue(function(next){
 		   $(this).removeClass("flash");
 
@@ -454,6 +457,8 @@ $(document).ready(function () {
 	// Alert
 	$(".alert-message").alert();
 	$(".alert-message").delay(12000).fadeOut('slow');
+
+	subscribeToPush();
 
 	//Edit links
 	$("article h3 small").hide();

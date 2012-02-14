@@ -53,10 +53,12 @@ class UserstoriesController < ApplicationController
       respond_to do |format|
         format.html do
           if request.xhr?
-            render :partial => "userstories/userstory", :locals => { :userstory => @userstory }, :layout => false, :status => :created
+            renderString = render :partial => "userstories/userstory", :locals => { :userstory => @userstory }, :layout => false, :status => :created
+            Pusher['userstories-channel'].trigger('new_userstory', { :feature => params[:feature_id], :render => renderString })
           end
         end
       end
+
     else
       respond_to do |format|
         format.html do

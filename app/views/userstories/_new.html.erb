@@ -1,4 +1,4 @@
-<div class="new_userstory">
+<div class="new_userstory" data-pusher-key="<%=Pusher.key%>">
     <a href="#" class="show_form_new_userstory" >Add a user story</a>
     <%= form_for @userstory, :url => project_feature_userstories_path(feature.project,feature), :html => { :'data-type' => 'html', :id => "userstory-form-#{feature.id}" }, :remote => true do |f| %>
     	<fieldset>
