@@ -96,6 +96,12 @@ describe UserstoriesController do
           delete_destroy_ajax
         end.should change(Userstory, :count).by(-1)
       end
+
+      it "should not destroy the entire project" do
+        lambda do 
+          delete_destroy_ajax
+        end.should_not change(Project, :count)
+      end
     end
   end
   
