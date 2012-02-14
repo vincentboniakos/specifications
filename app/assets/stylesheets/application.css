@@ -275,7 +275,7 @@ p.flash{
 #activity .empty{font-style:italic;}
 
 .userstories li p {
-	max-width: 50%;
+	max-width: 80%;
 }
 
 .userstories li p,
