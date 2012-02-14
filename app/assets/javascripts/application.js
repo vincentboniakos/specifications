@@ -12,15 +12,13 @@
 ///// PLUGIN 
 
 function Utils(){
-
-
-this.debug = function($value_str){
-if (window.console) {
-console.log($value_str);
-}else {
-alert($value_str);
-}
-}
+	this.debug = function($value_str){
+		if (window.console) {
+			//console.log($value_str);
+		}else {
+			alert($value_str);
+		}
+	}
 }
 var _utils5g =  new Utils();
 
@@ -30,9 +28,11 @@ var _utils5g =  new Utils();
 
 function showHideEditLink(selector){
 	$(selector).mouseenter(function (){		
-		$(this).find('small').show();	
+	    $(this).find('small').show();
+	    $(this).find('.action-link').show();	
 	}).mouseleave(function(){
-		$(this).find('small').hide();	
+		$(this).find('small').hide();       	
+		$(this).find('.action-link').hide();	
 	});
 }
 
@@ -214,6 +214,111 @@ function submitOnReturn(){
 	});
 }
 
+function toggleFeatureSize(e)
+{
+	var projectId = $('#project').attr('data-project-id');
+
+	if (e) {
+		var featureId = $(e.target).attr("feature_id");
+		var $targetArticle = $("#a_feature_"+featureId);
+		//hack pour connaitre l'état du toggle
+		var currentState = ($("article#a_feature_"+featureId+" .feature-content").slideToggle().css("height").replace(/(px)/, "")*1 > 20);
+
+		//si compatible local storage
+		if(localStorage){
+			//on récupere la variable si elle existe sinon on en créé une nouvelle
+			if(localStorage.getItem("5gSpecifications-minimize")){
+				storableObject = JSON.parse( localStorage.getItem("5gSpecifications-minimize") );
+			} else {
+				storableObject = {};
+			}
+
+			//le projet existe déja en local storage ?
+			if (!storableObject[projectId])
+				storableObject[projectId] = {};
+
+			//créé une entrée pour la feature concerné ou supprime l'entré selon le toggle
+			if (currentState) {
+				storableObject[projectId][featureId] = currentState;
+			} else {
+				delete storableObject[projectId][featureId]; 
+			}
+
+			//save
+			localStorage.setItem("5gSpecifications-minimize", JSON.stringify(storableObject));
+		}
+	} else {
+		if(localStorage){
+			if(!localStorage.getItem("5gSpecifications-minimize"))
+				return;
+
+			storableObject = JSON.parse( localStorage.getItem("5gSpecifications-minimize") );
+
+			if(storableObject[projectId]){
+				//console.log(storableObject);
+				for(var featureId in storableObject[projectId]){
+					if ($("article#a_feature_"+featureId).length) {
+						$("article#a_feature_"+featureId+" .feature-content").hide();
+					} else {
+						delete storableObject[projectId][featureId];
+					}
+				}
+			}
+			//save
+			localStorage.setItem("5gSpecifications-minimize", JSON.stringify(storableObject));
+		}
+	};
+}
+
+function sortableFeatures(selector){
+	$(selector).sortable({
+		axis: 'y',
+		items: "article",
+		handle: '.article-handle',
+		tolerance: "pointer",
+		opacity: 0.4,
+		start: function(event, ui) {
+
+			// $(".feature-content").hide();
+            var start_pos = ui.item.index();
+            var last_pos = start_pos;
+            ui.item.data('start_pos', start_pos);
+            ui.item.data('last_pos', last_pos);
+        },
+        change: function(event, ui) {
+            var start_pos = ui.item.data('start_pos');
+            var last_pos = ui.item.data('last_pos');
+            var index = ui.placeholder.index();
+
+            if (index > start_pos) --index;
+            var $obj = $($("nav.features li")[last_pos]);
+            $obj.detach();
+            if (last_pos < index) {
+				$obj.insertAfter($($("nav.features li")[last_pos]));
+            } else {
+				$obj.insertBefore($($("nav.features li")[index]));
+            }
+            
+            ui.item.data('last_pos', index);
+        },
+        update: function(event, ui) {
+			var serial = "";
+			var artTab = $("section.features article");
+			for (var i = 0; i < artTab.length; i++) {
+				artTab[i] = $(artTab[i]).attr("id").replace(/(a_feature_)/, "");
+				serial += ""+artTab[i]+"="+i;
+				if(i!=artTab.length - 1) serial+= "&";
+			};
+			//console.log(serial);
+			$.ajax({
+				type: 'post',
+				data: serial,
+				url: '/projects/'+$('#project').attr('data-project-id')+'/feature/sort'
+			})
+        }
+	});
+}
+
 function sortableUserstories(selector){
 	$(selector).sortable({
 		axis: 'y',
@@ -227,7 +332,7 @@ function sortableUserstories(selector){
 		update: function (){
 			updatePosition ();
 		}
-	})
+	});
 }
 
 function updatePosition (){
@@ -250,10 +355,10 @@ function updatePosition (){
                 array.push(feature + '[' + e + ']=' + this.id.split('_')[1]);
             });
         });
+        //console.log(array.join('&'));
         return array.join('&');
     }
 })(jQuery);
-
 
 function smoothScrolling(){
 	var scrollElement = 'html, body';
@@ -266,21 +371,36 @@ function smoothScrolling(){
             return false;
         }    
     });
-	// Smooth scrolling for internal links
-    $("a.anchor[href^='#']").click(function(event) {
-        event.preventDefault();
-        
-        var $this = $(this),
-        target = this.hash,
-        $target = $(target);
+
+    // Smooth scrolling for internal links
+    $("a.anchor[href^='#']").click(function(event){
+		event.preventDefault();
         
         $(scrollElement).stop().animate({
-            'scrollTop': $target.offset().top - 50
+            'scrollTop': $(event.target.hash).offset().top - 100
         }, 500, 'swing', function() {
-            window.location.hash = target;
         });
-        
     });
+
+    //highlight match article
+    $(".features>article").mouseenter(function(event){
+		var $featureLink = $(".anchor[feature-id = "+$(this).attr('id')+"]");
+		$featureLink.addClass("anchorHover");
+        //$(this).addClass("highlight-feature");
+    });
+    $(".features>article").mouseleave(function(event){
+		var $featureLink = $(".anchor[feature-id = "+$(this).attr('id')+"]");
+		$featureLink.removeClass("anchorHover");
+        //$(this).removeClass("highlight-feature");
+    });
+
+    //highlight matching article
+    $("a.anchor[href^='#']").mouseenter(function(event) {
+        $(event.target.hash).addClass("highlight-feature");
+    });
+    $("a.anchor[href^='#']").mouseleave(function(event){
+		$(event.target.hash).removeClass("highlight-feature");
+	});
 }
 
 function updateActivity(){
@@ -369,22 +489,27 @@ $(document).ready(function () {
 	$(".action-link").hide();
 	eventOnLi("article li");
 
+
+	sortableFeatures(".features");
+	$(".size_action").click(toggleFeatureSize);
+	toggleFeatureSize();
+
+
 	sortableUserstories("ul.userstories");
 
 	smoothScrolling();
 
 	// Right menu
-	$.waypoints.settings.scrollThrottle = 10;
+	$.waypoints.settings.scrollThrottle = 0;
     $('nav.features').waypoint(function(event, direction) {
-    	$(this).toggleClass('sticky', direction === "down");
-        event.stopPropagation();
-    },{
-        offset: '8'
-    });
+			$(this).toggleClass('sticky', direction === "down");
+			event.stopPropagation();
+		},{
+			offset: 80
+		});
 
     // Tabs
 	$('.tabs').tabs();
-
 
 	$('.topbar').dropdown();
 

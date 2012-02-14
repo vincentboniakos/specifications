@@ -8,20 +8,19 @@
 					<% if current_user.admin? %>
 						<li class=""><%= link_to "Pending invitations", invitations_path %></li>
 					<% end %>
-			    	<li class="menu">
-			    		<%= link_to("#{gravatar_for(current_user, {:size => 20})}#{current_user.name}".html_safe, "#", :class => "menu dropdown-toggle") %>
-			    		<ul class="dropdown-menu">
-			    			<li class=""><%= link_to "Profile", current_user %></li>
-			    			<li class="divider"></li>
-      						<li><%= link_to "Log out", logout_path %></li>
-    					</ul>
-			    	
-			    	</li>
-			  	<% else %>
-			    	<li><%= link_to "Sign in", login_path %></li>
-			  	<% end %>
+				<li class="menu">
+					<%= link_to("#{gravatar_for(current_user, {:size => 20})}#{current_user.name}".html_safe, "#", :class => "menu dropdown-toggle") %>
+					<ul class="dropdown-menu">
+						<li class=""><%= link_to "Profile", current_user %></li>
+						<li class="divider"></li>
+						<li><%= link_to "Log out", logout_path %></li>
+					</ul>
+				
+				</li>
+				<% else %>
+				<li><%= link_to "Sign in", login_path %></li>
+				<% end %>
 			</ul>
 		</div>
 	</div>
 </div>
-<nav class="breadcrumb"><%= (render_crumbs :separator => '<span class="divider">»</span>').html_safe %></nav>

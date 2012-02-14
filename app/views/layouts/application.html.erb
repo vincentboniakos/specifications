@@ -16,6 +16,7 @@
 <body>
 		<%= render 'layouts/topbar' %>
 		<div class="container">
+			<nav class="breadcrumb"><%= (render_crumbs :separator => '<span class="divider">»</span>').html_safe %></nav>
 			<div class="content">
 			<% if signed_in? %>
 			<%= render 'layouts/header'%>

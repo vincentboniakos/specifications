@@ -60,6 +60,15 @@ class FeaturesController < ApplicationController
     redirect_to @project
   end
 
+  def sort
+    @project = Project.find(params[:project_id])
+    @project.features.each do |feature|
+      feature.position = params["#{feature.id}"]
+      feature.save
+    end
+    render :nothing => true
+  end
+
   private
 
   def breadcrumb

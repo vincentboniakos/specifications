@@ -12,11 +12,11 @@ module ProjectsHelper
   	nav = "<nav class='features'>"
   	nav += "<h4>Features</h4>"
     nav += "<ul>"
-  	@project.features.each do |feature|
-  		nav += "<li><a class='anchor' href='#a_feature_#{feature.id}'>#{feature.name}</a></li>"
-  	end
-  	nav += "</ul>"
-  	nav += "</nav>" 
-  	return nav.html_safe
+	@project.features.each do |feature|
+		nav += "<li><a class='anchor' feature-id='a_feature_#{feature.id}' href='#a_feature_#{feature.id}'>#{feature.name}</a></li>"
+	end
+	nav += "</ul>"
+	nav += "</nav>" 
+	return nav.html_safe
   end
 end

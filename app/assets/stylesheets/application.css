@@ -5,8 +5,10 @@
 *= require_self
 *= require_tree ./screen
 */
+
+/**************** general ****************/
 html, body {background-color: #eee;}
-body{padding-top:40px;}
+body{padding-top:50px;}
 header{
 	background-color: #f5f5f5;
 	padding: 20px 20px 10px;
@@ -16,16 +18,35 @@ header{
 .topbar .nav {float:right;}
 h2{
 	margin-bottom: 17px;
-  	border-bottom: 1px solid #ddd;
-  	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  	-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	border-bottom: 1px solid #ddd;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 h3{line-height: 20px;}
+dd{margin-bottom:20px;}
+.tabs{margin-bottom: 10px;}
+
+/**************** header ****************/
+.topbar .brand{font-family: 'Lobster', cursive;}
+.topbar .nav {float:right;}
+
+
+/**************** content ****************/
+.breadcrumb{
+	position: fixed;
+	margin-left: -21px;
+	margin-bottom: 10px;
+	margin-top: -11px;
+	width: 952px;
+	z-index: 1002;
+}
+
 .content {
 	background-color: #fff;
 	padding: 20px;
 	margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+	margin-top: 30px;
 	-webkit-border-radius: 0 0 6px 6px;
 	-moz-border-radius: 0 0 6px 6px;
 	border-radius: 0 0 6px 6px;
@@ -44,7 +65,10 @@ h3{line-height: 20px;}
 	min-height: 500px;
 }
 
-dd{margin-bottom:20px;}
+.content .row {
+	padding: 9px;
+	padding-top: 0;
+}
 
 .pagine{
 	background-color: #f5f5f5;
@@ -55,16 +79,34 @@ dd{margin-bottom:20px;}
 	border-radius: 6px;
 }
 
-section.features article {margin-top:20px;}
+section.features {padding-left:10px;padding-right:10px;}
+section.features article h3 {margin-left: -20px;}
 section.features article h3 a {color:black;}
 section.features article h3 a:hoover {color:black;}
 section.features article h3 small a {color:#0069D6;}
 section.features article h3 small a:hoover {color:#00438A;}
+section.features article h3 .size_action {
+	background: url(minimize.png) no-repeat center center;
+	display: block; height: 20px; width: 20px;
+	float: right;
+	opacity: .5;
+	-moz-opacity: .5;
+	filter:alpha(opacity=.55);
+}
+section.features .minimize h3 .size_action {background-image: url(maximize.png);}
+section.features article h3 .size_action:hover{
+	cursor: pointer;
+	opacity: .8;
+	-moz-opacity: .8;
+	filter:alpha(opacity=.88);
+}
 
 h1 small.danger {float:right;font-size:0.4em;}
 h1 small.danger a {color:red;text-decoration:underline;}
 h1 small.danger a:hoover {color:red;}
 
+
+/**************** userstories ****************/
 div.new_userstory {
 	background-color: whiteSmoke;
 	padding: 2px 0 2px 20px;
@@ -122,11 +164,61 @@ a.has-comment{
 span.sort.action-link{
 	background: url(move.png) no-repeat;
 }
+
 div.action{
 		float: left;
 		width:20px;
 		margin-top:5px;
 }
+
+
+/**************** features ****************/
+
+nav.features {width: 160px; padding-right: 10px;}
+nav.features ul {margin-left:15px;}
+nav.features h4 {margin-left:15px;}
+.sticky{position:fixed;top:60px;}
+
+.features article {
+	clear: both;
+
+	padding-bottom:10px;
+	padding-top:10px;
+
+	padding-left: 25px;
+	padding-right: 20px;
+	margin-left: -25px;
+	margin-right: -20px;
+	border: 1px solid #fff;
+
+	-webkit-transition: border-color,background-color 500ms ease-in-out;
+	-moz-transition: border-color,background-color 500ms ease-in-out;
+	-o-transition: border-color,background-color 500ms ease-in-out;
+	transition: border-color,background-color 500ms ease-in-out;
+
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.highlight-feature {
+	background-color: whiteSmoke;
+	border-color: #666;
+	border-color: rgba(0, 0, 0, 0.3);
+
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.features article:hover {
+	background-color: #fcfcfc;
+
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
 article li p {
 	float:left;
 	display:block;
@@ -137,8 +229,7 @@ article ul { margin-left:-55px;}
 
 li {list-style:none;display:block;}
 
-span.handle{cursor:move;}
-li.anchor{text-indent:-5000px;height: 2px;}
+span.handle,span.article-handle{cursor:move;}
 nav.features{
 	background-color: whiteSmoke;
 	border: 1px solid #EEE;
@@ -152,10 +243,12 @@ nav.features{
 	margin-top:20px;
 	padding-top:5px;
 }
-nav.features {width: 190px;padding-right: 10px;}
-nav.features ul {margin-left:15px;}
-nav.features h4 {margin-left:15px;}
-.sticky{position:fixed;top:25px;}
+
+li.anchor{text-indent:-5000px;height: 2px;}
+li a.anchorHover{
+	font-weight: bold;
+}
+
 a.list, form.list{float:right; margin:0 5px 0 5px;}
 ul.list li{
 	border-bottom: 1px solid #DDD;
@@ -181,12 +274,15 @@ p.flash{
 #activity .load{text-align:center;}
 #activity .empty{font-style:italic;}
 
-.breadcrumb{
-	margin-left: auto;
-	margin-right: auto;
-	width: 953px;
-	margin-top: -0.5px;
+.userstories li p {
+	max-width: 50%;
 }
+
+.userstories li p,
+.userstories li .comment-button {
+	float: left;
+}
+
 #comments .profile-picture {
 	display: inline-block;
 	vertical-align: top;

@@ -33,6 +33,29 @@ describe FeaturesController do
     end
   end
 
+  ############################
+  ## POST SORT 
+  ############################
+  describe "POST 'sort'" do 
+    before (:each) do 
+      @user = Factory(:user)
+      test_sign_in(@user)
+      @project = Factory(:project)
+      @first_feature = @project.features.create!({:name => "f1", :description => "d1", :position => 0 })
+      @second_feature = @project.features.create!({:name => "f2", :description => "d2", :position => 1 })
+    end
+    
+    def post_sort
+      xhr :post, :sort, :project_id => @project.id, "#{@second_feature.id}" => "0", "#{@first_feature.id}" => "1"
+      #xhr :post, :sort, :project_id => @project.id, @param
+    end
+
+    it "should change the position of the features" do
+      post_sort
+      @first_feature.reload().position.should > @second_feature.reload().position
+    end
+  end
+
 
   describe "GET 'show'" do
     before(:each) do
