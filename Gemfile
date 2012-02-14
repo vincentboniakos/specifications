@@ -5,7 +5,6 @@ gem 'rails', '3.1.0'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-
 gem 'kaminari', :git=>"git://github.com/Casecommons/kaminari.git"
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem "crummy", "~> 1.2"

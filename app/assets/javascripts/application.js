@@ -12,15 +12,13 @@
 ///// PLUGIN 
 
 function Utils(){
-
-
-this.debug = function($value_str){
-if (window.console) {
-console.log($value_str);
-}else {
-alert($value_str);
-}
-}
+	this.debug = function($value_str){
+		if (window.console) {
+			//console.log($value_str);
+		}else {
+			alert($value_str);
+		}
+	}
 }
 var _utils5g =  new Utils();
 
@@ -218,10 +216,58 @@ function submitOnReturn(){
 
 function toggleFeatureSize(e)
 {
-	var featureId = $(e.target).attr("feature_id");
-	var $targetArticle = $("#a_feature_"+featureId);
-	console.log($targetArticle.toggleClass("minimize"))
-	$("article#a_feature_"+featureId+" .feature-content").slideToggle();
+	var projectId = $('#project').attr('data-project-id');
+
+	if (e) {
+		var featureId = $(e.target).attr("feature_id");
+		var $targetArticle = $("#a_feature_"+featureId);
+		//hack pour connaitre l'état du toggle
+		var currentState = ($("article#a_feature_"+featureId+" .feature-content").slideToggle().css("height").replace(/(px)/, "")*1 > 20);
+
+		//si compatible local storage
+		if(localStorage){
+			//on récupere la variable si elle existe sinon on en créé une nouvelle
+			if(localStorage.getItem("5gSpecifications-minimize")){
+				storableObject = JSON.parse( localStorage.getItem("5gSpecifications-minimize") );
+			} else {
+				storableObject = {};
+			}
+
+			//le projet existe déja en local storage ?
+			if (!storableObject[projectId])
+				storableObject[projectId] = {};
+
+			//créé une entrée pour la feature concerné ou supprime l'entré selon le toggle
+			if (currentState) {
+				storableObject[projectId][featureId] = currentState;
+			} else {
+				delete storableObject[projectId][featureId]; 
+			}
+
+			//save
+			localStorage.setItem("5gSpecifications-minimize", JSON.stringify(storableObject));
+		}
+	} else {
+		if(localStorage){
+			if(!localStorage.getItem("5gSpecifications-minimize"))
+				return;
+
+			storableObject = JSON.parse( localStorage.getItem("5gSpecifications-minimize") );
+
+			if(storableObject[projectId]){
+				//console.log(storableObject);
+				for(var featureId in storableObject[projectId]){
+					if ($("article#a_feature_"+featureId).length) {
+						$("article#a_feature_"+featureId+" .feature-content").hide();
+					} else {
+						delete storableObject[projectId][featureId];
+					}
+				}
+			}
+			//save
+			localStorage.setItem("5gSpecifications-minimize", JSON.stringify(storableObject));
+		}
+	};
 }
 
 function sortableFeatures(selector){
@@ -263,7 +309,7 @@ function sortableFeatures(selector){
 				serial += ""+artTab[i]+"="+i;
 				if(i!=artTab.length - 1) serial+= "&";
 			};
-			console.log(serial);
+			//console.log(serial);
 			$.ajax({
 				type: 'post',
 				data: serial,
@@ -309,7 +355,7 @@ function updatePosition (){
                 array.push(feature + '[' + e + ']=' + this.id.split('_')[1]);
             });
         });
-        console.log(array.join('&'));
+        //console.log(array.join('&'));
         return array.join('&');
     }
 })(jQuery);
@@ -352,7 +398,7 @@ function smoothScrolling(){
     $("a.anchor[href^='#']").mouseenter(function(event) {
         $(event.target.hash).addClass("highlight-feature");
     });
-    $("a.anchor[href^='#']").mouseleave(function(e){
+    $("a.anchor[href^='#']").mouseleave(function(event){
 		$(event.target.hash).removeClass("highlight-feature");
 	});
 }
@@ -446,6 +492,7 @@ $(document).ready(function () {
 
 	sortableFeatures(".features");
 	$(".size_action").click(toggleFeatureSize);
+	toggleFeatureSize();
 
 
 	sortableUserstories("ul.userstories");
@@ -453,12 +500,12 @@ $(document).ready(function () {
 	smoothScrolling();
 
 	// Right menu
-	$.waypoints.settings.scrollThrottle = 10;
+	$.waypoints.settings.scrollThrottle = 0;
     $('nav.features').waypoint(function(event, direction) {
 			$(this).toggleClass('sticky', direction === "down");
 			event.stopPropagation();
 		},{
-			offset: 90
+			offset: 80
 		});
 
     // Tabs
