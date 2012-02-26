@@ -5,7 +5,7 @@ module ProjectsHelper
   end
 
   def add_feature_action
-    "<a title='Create a project' href='#{new_project_feature_path @project}' class ='btn success new-action'><strong>+</strong> New feature </a>".html_safe
+    "<a title='Create a project' href='#{new_project_feature_path @project}' class ='btn success new-action'><i class='icon-th-list icon-white'></i>&nbsp;&nbsp;New feature</a>".html_safe
   end
 
   def nav_features
