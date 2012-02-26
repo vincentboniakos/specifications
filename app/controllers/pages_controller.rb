@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   def home
     @actions = home_actions
     @title = "Your projects"
-    @projects = Project.page(params[:page]).per(10)
+    @projects = Project.joins(:stakeholders).where("user_id = ?",current_user.id).page(params[:page]).per(10) if signed_in?
   end
 
 end

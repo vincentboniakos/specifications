@@ -2,10 +2,10 @@ namespace :db do
 
   desc "Fill database with a admin user"
   task :create_admin => :environment do
-    invitation = Invitation.create!(:recipient_email => "vincent.boniakos@gmail.com")
-    user = User.new(:first_name => "Vincent",
-    :last_name => "Boniakos",
-    :email => "vincent.boniakos@gmail.com",
+    invitation = Invitation.create!(:recipient_email => "john.doe@example.com")
+    user = User.new(:first_name => "John",
+    :last_name => "Doe",
+    :email => "john.doe@example.com",
     :password => "foobar",
     :password_confirmation => "foobar",
     :invitation_token => invitation.token,
@@ -25,7 +25,7 @@ namespace :db do
     20.times do |n|
       first_name  = Faker::Name.name
       last_name  = Faker::Name.name
-      email = "example-#{n+1}@railstutorial.org"
+      email = "example-#{n+1}@example.com"
       password  = "password"
       invitation = Invitation.create!(:recipient_email => email)
       user = User.new(:first_name => first_name, :last_name => last_name,
@@ -43,6 +43,7 @@ namespace :db do
       name  = "Project-#{n}"
       description = "Pellentesque faucibus congue mauris, in fringilla libero interdum sit amet. Suspendisse potenti. Donec pulvinar sapien nec elit pretium aliquam. Proin egestas fringilla porttitor. Vivamus mauris nibh, elementum nec porttitor eget, vehicula in massa. Nam ultricies, sem ac feugiat rhoncus, lacus libero tempus purus, ac faucibus mi nunc sit amet sem. Aenean ornare convallis nisl quis accumsan. Nulla pellentesque sagittis pharetra."
       @project = Project.create!(:name => name, :description => description)
+      @project.stakeholders.create!(:user_id => 1)
       5.times do |m|
         name = Faker::Name.name
         description = "Pellentesque faucibus congue mauris, in fringilla libero interdum sit amet. Suspendisse potenti."

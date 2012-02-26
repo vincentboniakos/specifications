@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
 
   belongs_to :invitation
 
+  has_many :stakeholders
+  has_many :projects, :through => :stakeholders
+
 
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :invitation_token, :admin
   

@@ -20,7 +20,7 @@ Factory.sequence :name_feature do |n|
   "Feature-#{n}"
 end
 Factory.define :project do |project|
-  project.name              "Gaming"
+  project.name              "A project name"
   project.description       "Lorem ipsum dolor sit amet"
 end
 Factory.define :feature do |feature|

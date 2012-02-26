@@ -42,63 +42,82 @@ describe ProjectsController do
       end
     end
     describe "for signed-in user" do
-      
+
       before(:each) do
-        test_sign_in(Factory(:user))
-        @feature = @project.features.create!(:name => "first", :description => "descr")
-        @second = @project.features.create!(:name => "second", :description => "descr")
-        @third = @project.features.create!(:name => "third", :description => "descr")
-        @features = [@feature,@second,@third]
+        @user = test_sign_in(Factory(:user))
       end
       
       def get_show       
         get :show, :id => @project
       end
-      
-      it "should be successful" do
-        get_show
-        response.should be_success
-      end
 
-      it "should find the right project" do
-        get_show
-        assigns(:project).should == @project
-      end
 
-      it "should have the right title" do
-        get_show
-        response.should have_selector("title", :content => @project.name)
-      end
-
-      it "should include the project's name" do
-        get_show
-        response.should have_selector("h1", :content => @project.name)
-      end
-
-      it "should include the project's description" do
-        get_show
-        response.should have_selector("p", :content => @project.description)
-      end
-
-      it "should have a link to edit the project" do
-        get_show
-        response.should have_selector("a", :href => edit_project_path(assigns[@project]))
-      end
-      it "should display the features of the project" do
-        get_show
-        @features[0..2].each do |feature|
-          response.should contain(feature.name)
+      describe "and not stakeholder" do
+        it "should deny access" do
+          get :show, :id => @project
+          response.should redirect_to(root_path)
+          flash[:error].should =~ /You are not authorized to access this resource./i
         end
       end
-      it "should not display the features of other projects" do
-        @other_project = Factory( :project )
-        @other_feature = @other_project.features.create!( :name=> "other feature" )
-        get_show
-        response.should_not contain(@other_feature.name)
+      
+      describe "and stakeholder" do
+
+        before(:each) do
+          @project.stakeholders.create!(:user_id => controller.current_user.id)
+          @feature = @project.features.create!(:name => "first", :description => "descr")
+          @second = @project.features.create!(:name => "second", :description => "descr")
+          @third = @project.features.create!(:name => "third", :description => "descr")
+          @features = [@feature,@second,@third]
+        end
+
+        def get_show       
+          get :show, :id => @project
+        end
+
+        it "should be successful" do
+          get_show
+          response.should be_success
+        end
+
+        it "should find the right project" do
+          get_show
+          assigns(:project).should == @project
+        end
+
+        it "should have the right title" do
+          get_show
+          response.should have_selector("title", :content => @project.name)
+        end
+
+        it "should include the project's name" do
+          get_show
+          response.should have_selector("h1", :content => @project.name)
+        end
+
+        it "should include the project's description" do
+          get_show
+          response.should have_selector("p", :content => @project.description)
+        end
+
+        it "should have a link to edit the project" do
+          get_show
+          response.should have_selector("a", :href => edit_project_path(assigns[@project]))
+        end
+        it "should display the features of the project" do
+          get_show
+          @features[0..2].each do |feature|
+            response.should contain(feature.name)
+          end
+        end
+        it "should not display the features of other projects" do
+          @other_project = Factory( :project )
+          @other_feature = @other_project.features.create!( :name=> "other feature" )
+          get_show
+          response.should_not contain(@other_feature.name)
+        end
+
+        it "should display the activity of the project"
       end
-
-      it "should display the activity of the project"
-
       
     end
   end
@@ -184,6 +203,8 @@ describe ProjectsController do
           flash[:success].should =~ /Your project has been created successfully./i
         end
 
+        it "should have the current user as stakeholder"
+
       end
     end
   end
@@ -205,28 +226,44 @@ describe ProjectsController do
         @user = Factory(:user)
         test_sign_in(@user)
       end
-      it "should be successful" do
-        
-        get :edit, :id => @project
-        response.should be_success
+
+      describe "but not stakeholder" do
+        it "should deny access" do
+          get :show, :id => @project
+          response.should redirect_to(root_path)
+          flash[:error].should =~ /You are not authorized to access this resource./i
+        end
       end
 
-      it "should find the right project" do
-        
-        get :edit, :id => @project
-        assigns(:project).should == @project
-      end
+      describe "and stakeholder" do
 
-      it "should have the right title" do
-        
-        get :edit, :id => @project
-        response.should have_selector("title", :content => "Edit project")
-      end
+        before(:each) do
+          @project.stakeholders.create!(:user_id => controller.current_user.id)
+        end
 
-      it "should have a cancel button that redirect to show project" do
-        
-        get :edit, :id => @project
-        response.should have_selector("a", :href => project_path(@project))
+        it "should be successful" do
+          
+          get :edit, :id => @project
+          response.should be_success
+        end
+
+        it "should find the right project" do
+          
+          get :edit, :id => @project
+          assigns(:project).should == @project
+        end
+
+        it "should have the right title" do
+          
+          get :edit, :id => @project
+          response.should have_selector("title", :content => "Edit project")
+        end
+
+        it "should have a cancel button that redirect to show project" do
+          
+          get :edit, :id => @project
+          response.should have_selector("a", :href => project_path(@project))
+        end
       end
     end
   end
@@ -253,49 +290,65 @@ describe ProjectsController do
         @user = Factory(:user)
         test_sign_in(@user)
       end
-      describe "failure" do
 
-        before(:each) do
-          @attr = { :name => "", :description => "blabla" }
-        end
-
-        it "should render the 'edit' page" do
-          
-          put :update, :id => @project, :project => @attr
-          response.should render_template('edit')
-        end
-
-        it "should have the right title" do
-          
-          put :update, :id => @project, :project => @attr
-          response.should have_selector("title", :content => "Edit project")
+      describe "but not stakeholder" do
+        it "should deny access" do
+          get :show, :id => @project
+          response.should redirect_to(root_path)
+          flash[:error].should =~ /You are not authorized to access this resource./i
         end
       end
 
-      describe "success" do
+      describe "and stakeholder" do
 
         before(:each) do
-          @attr = { :name => "New Name", :description => "blabla"}
+          @project.stakeholders.create!(:user_id => controller.current_user.id)
         end
 
-        it "should change the project's attributes" do
-          
-          put :update, :id => @project, :project => @attr
-          @project.reload
-          @project.name.should  == @attr[:name]
-          @project.description.should == @attr[:description]
+        describe "failure" do
+
+          before(:each) do
+            @attr = { :name => "", :description => "blabla" }
+          end
+
+          it "should render the 'edit' page" do
+            
+            put :update, :id => @project, :project => @attr
+            response.should render_template('edit')
+          end
+
+          it "should have the right title" do
+            
+            put :update, :id => @project, :project => @attr
+            response.should have_selector("title", :content => "Edit project")
+          end
         end
 
-        it "should redirect to the project show page" do
-          
-          put :update, :id => @project, :project => @attr
-          response.should redirect_to(project_path(@project))
-        end
+        describe "success" do
 
-        it "should have a flash message" do
-          
-          put :update, :id => @project, :project => @attr
-          flash[:success].should =~ /updated/
+          before(:each) do
+            @attr = { :name => "New Name", :description => "blabla"}
+          end
+
+          it "should change the project's attributes" do
+            
+            put :update, :id => @project, :project => @attr
+            @project.reload
+            @project.name.should  == @attr[:name]
+            @project.description.should == @attr[:description]
+          end
+
+          it "should redirect to the project show page" do
+            
+            put :update, :id => @project, :project => @attr
+            response.should redirect_to(project_path(@project))
+          end
+
+          it "should have a flash message" do
+            
+            put :update, :id => @project, :project => @attr
+            flash[:success].should =~ /updated/
+          end
         end
       end
     end

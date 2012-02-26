@@ -1,8 +1,8 @@
 # coding: utf-8
 class ProjectsController < ApplicationController
   include ProjectsHelper
-  before_filter :authenticate
   before_filter :get_project, :only => ["show","edit","update", "activity"]
+  before_filter :authenticate
   add_crumb "Projects", :root_path
   def new
     add_crumb "New"
@@ -24,6 +24,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(params[:project])
     if @project.save
+      @project.stakeholders.create!(:user_id => current_user.id)
       flash[:success] = "Your project has been created successfully."
       redirect_to @project
     else
@@ -48,8 +49,6 @@ class ProjectsController < ApplicationController
     end
   end
   
-
-
   def activity
     @versions = get_versions @project
     respond_to do |format|
@@ -66,10 +65,17 @@ class ProjectsController < ApplicationController
   private 
     def get_project
       @project = Project.find(params[:id])
+      if signed_in?
+        if !@project.users.find_by_id(current_user.id)
+          flash[:error] = "You are not authorized to access this resource."
+          redirect_to root_path, :error => "You are not authorized to access to this resource."
+        end
+      end
     end
 
     def get_versions project
       Version.where('project_id = ?', project.id).order("created_at DESC").page(params[:page]).per(10)
     end
+
 
 end
