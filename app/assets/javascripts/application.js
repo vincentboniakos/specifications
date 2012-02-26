@@ -110,7 +110,7 @@ function handleUserstoryAjaxForm(){
 		   $(this).removeClass("flash");
 
 		});
-		//updatePosition();
+		updatePosition();
 		$(".action-link.sort").hide();
 		updateActivity();
 	})
