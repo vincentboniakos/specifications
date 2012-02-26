@@ -1,7 +1,7 @@
 # coding: utf-8
 class Feature < ActiveRecord::Base
   has_paper_trail :meta => { :project_id  => Proc.new { |feature| feature.project.id } }, :ignore => [:position, :description]
-  default_scope order('position ASC')
+  default_scope order('position DESC')
   validates_presence_of :name 
   validates_length_of :name, :maximum => 50
   validates_length_of :description, :maximum => 250

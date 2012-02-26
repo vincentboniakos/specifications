@@ -306,7 +306,7 @@ function sortableFeatures(selector){
 			var artTab = $("section.features article");
 			for (var i = 0; i < artTab.length; i++) {
 				artTab[i] = $(artTab[i]).attr("id").replace(/(a_feature_)/, "");
-				serial += ""+artTab[i]+"="+i;
+				serial += ""+artTab[i]+"="+(artTab.length - i);
 				if(i!=artTab.length - 1) serial+= "&";
 			};
 			//console.log(serial);

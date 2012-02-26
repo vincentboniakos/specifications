@@ -24,6 +24,7 @@ class FeaturesController < ApplicationController
   def create
     @project = Project.find(params[:project_id])
     @feature = @project.features.build(params[:feature])
+    @feature.position = 0
     if @feature.save
       flash[:success] = "Your feature has been created successfully. #{undo_link}"
       redirect_to project_path(@project)

@@ -189,6 +189,8 @@ describe FeaturesController do
           flash[:success].should =~ /Your feature has been created successfully./i
         end
 
+        it "should be the first feature display on the project page"
+
       end
     end
   end
