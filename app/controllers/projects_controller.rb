@@ -13,10 +13,7 @@ class ProjectsController < ApplicationController
   def show
     add_crumb @project.name
     @title = @project.name
-    @title_header = project_show_title
     @features = @project.features
-    @actions = add_feature_action
-    @nav = nav_features
     @userstory = Userstory.new
     @versions = get_versions @project
   end

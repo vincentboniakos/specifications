@@ -16,7 +16,6 @@ class FeaturesController < ApplicationController
     @feature = Feature.find(params[:id])
     add_crumb @feature.name
     @title = @feature.name
-    @title_header = feature_show_title
     @userstories = @feature.userstories
     @userstory = Userstory.new
   end

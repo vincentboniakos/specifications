@@ -8,16 +8,5 @@ module ApplicationHelper
       "#{base_title} | #{@title}"
     end   
   end
-  
-  def title_header
-    @title_header ||= @title
-  end
-  
-  def sidebar
-    sidebar = @actions
-    if !@nav.nil?
-      sidebar += @nav
-    end
-    return sidebar
-  end
+
 end

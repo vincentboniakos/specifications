@@ -1,3 +1,24 @@
+<% content_for :title_header do %>
+  <%= @project.name.force_encoding(Encoding::UTF_8) %> <small><a href="<%= edit_project_path %>">edit</a></small>
+<% end %>
+
+<% content_for :sidebar do %>
+  <%= link_to "<i class='icon-th-list icon-white'></i>&nbsp;&nbsp;New feature".html_safe,new_project_feature_path(@project), :title => "Create a project", :class => "btn success new-action" %>
+
+  <nav class='features'>
+    <h4>Features</h4>
+    <ul>
+      <% @project.features.each do |feature| %>
+      <li>
+        <%= link_to feature.name, "#a_feature_#{feature.id}", :class=> "anchor", :'feature-id' => "a_feature_#{feature.id}"%>
+      </li>
+      <% end %>
+    </ul>
+  </nav> 
+
+<% end %>
+
+
 <p><%= @project.description.force_encoding(Encoding::UTF_8) %></p>
 <ul class="tabs">
   <li class ="active"><%= link_to "Features", "#project" %></li>
