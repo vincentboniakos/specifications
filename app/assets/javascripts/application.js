@@ -72,7 +72,10 @@ function hideFormEditUserStory(selector){
 	$(selector).live("click",function (e){
 		e.preventDefault();
 		$(this).closest("div.edit_userstory").hide();
-		$(this).closest("li").find("p").show();
+		$li = $(this).closest("li")
+		$li.find("p").show();
+		$li.find(".action-link").show();
+
 	});
 }
 
@@ -108,7 +111,7 @@ function handleUserstoryAjaxForm(){
 
 		});
 		//updatePosition();
-		$(".action-link").hide();
+		$(".action-link.sort").hide();
 		updateActivity();
 	})
 	.live('ajax:complete', function(evt, xhr, status){
@@ -129,9 +132,9 @@ function handleUserstoryAjaxForm(){
 
 function eventOnLi(selector) {
 	$(selector).live("mouseenter",function (){		
-		$(this).find('.action-link').show();	
+		$(this).find('.action-link.sort').show();	
 	}).live("mouseleave",function(){
-		$(this).find('.action-link').hide();	
+		$(this).find('.action-link.sort').hide();	
 	}).live("dblclick",function(){
 		eventFormEditUserStory($(this))
 	});
@@ -154,7 +157,7 @@ function handleUpdateUserstoryAjaxForm(){
 		$li = $form.closest("li");
 		$li.closest("li").after(xhr.responseText);
 		$li.remove();
-		$(".action-link").hide();
+		$(".action-link.sort").hide();
 		updateActivity();
 	})
 	.live('ajax:complete', function(evt, xhr, status){
@@ -486,7 +489,7 @@ $(document).ready(function () {
 	handleDeleteUserstoryAjaxLink();
 	
 	//Hide delete link
-	$(".action-link").hide();
+	$(".action-link.sort").hide();
 	eventOnLi("article li");
 
 
