@@ -1,5 +1,5 @@
 <article id="project" class="features" data-project-id="<%= @project.id %>">
-	<p><%= @feature.description.force_encoding(Encoding::UTF_8) %></p>
+	<p class="description"><%= @feature.description.force_encoding(Encoding::UTF_8) %></p>
 	<ul class="userstories" id="feature_<%= @feature.id %>">
 		<%= render @userstories %>
 	</ul>

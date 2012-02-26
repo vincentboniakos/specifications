@@ -499,14 +499,7 @@ $(document).ready(function () {
 
 	smoothScrolling();
 
-	// Right menu
-	$.waypoints.settings.scrollThrottle = 0;
-    $('nav.features').waypoint(function(event, direction) {
-			$(this).toggleClass('sticky', direction === "down");
-			event.stopPropagation();
-		},{
-			offset: 80
-		});
+	
 
     // Tabs
 	$('.tabs').tabs();

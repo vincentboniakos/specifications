@@ -1,14 +1,14 @@
-<article id="a_feature_<%= feature.id %>" class="">
+<article id="a_feature_<%= feature.id %>">
   <h3>
 	  <div class="action">
-			<span class="article-handle action-link sort">[drag]</span>
+			<span class="icon-move article-handle action-link sort">[drag]</span>
 		</div>
 		<%= link_to feature.name.force_encoding(Encoding::UTF_8), project_feature_path(project,feature) %>
 		<small><%= link_to "edit", edit_project_feature_path(feature.project,feature) %></small>
     <div class="size_action" feature_id="<%= feature.id %>"></div>
 	</h3>
   <div class="feature-content">
-    <p><%= feature.description.force_encoding(Encoding::UTF_8) if feature.description != nil %></p>
+    <p class="description"><%= feature.description.force_encoding(Encoding::UTF_8) if feature.description != nil %></p>
     <ul class="userstories" id="feature_<%= feature.id %>">
     <li class="anchor clearfix">anchor</li>
     <%= render feature.userstories %>

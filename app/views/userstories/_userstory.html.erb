@@ -1,21 +1,22 @@
 <% # encode: UTF-8 %>
 <li id="userstory_<%= userstory.id %>" class="clearfix">
 	<div class="action">
-	<%= link_to "Delete", destroy_userstory_path(userstory), :method => :delete, :confirm => "Are you sure?", :title => "Delete", :remote => true, :class => "delete action-link" %>
-	</div>
-	<div class="action">
-	<%= link_to "Modify", "",:title => "Modify", :class => "update action-link show_form_edit_userstory" %>
-	</div>
-	<div class="action">
-		<span class="handle action-link sort">[drag]</span>
+		<span class="icon-move handle action-link sort">[drag]</span>
 	</div>
 	<p>
 		<%= userstory.content.force_encoding(Encoding::UTF_8)%>
 	</p>
-	<div class="action comment-button">
-		<%= link_to "#{userstory.comments.count if userstory.comments.any?}", project_userstory_path(userstory.feature.project, userstory), :title => "Comments", :class => "#{"has-" if userstory.comments.any?}comment#{ " action-link" unless userstory.comments.any?}" %>
+	<div class="action-group">
+		<div class="action comment-button">
+			<%= link_to "Comment", project_userstory_path(userstory.feature.project, userstory), :title => "Comments", :class => "icon-comment comment#{ " action-link" unless userstory.comments.any?}" %>
+		</div>
+		<div class="action">
+		<%= link_to "Modify", "",:title => "Modify", :class => "icon-pencil update action-link show_form_edit_userstory" %>
+		</div>
+		<div class="action">
+		<%= link_to "Delete", destroy_userstory_path(userstory), :method => :delete, :confirm => "Are you sure?", :title => "Delete", :remote => true, :class => "icon-remove delete action-link" %>
+		</div>
 	</div>
-
 	<%= render 'userstories/edit', :userstory => userstory %>
 	<div style='clear:both'></div>
 </li>
