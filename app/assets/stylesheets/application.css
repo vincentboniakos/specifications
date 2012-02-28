@@ -2,6 +2,7 @@
 * This is a manifest file that'll automatically include all the stylesheets available in this directory
 * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
 * the top of the compiled file, but it's generally better to create a new file per style scope.
+*= require bootstrap.min
 *= require_self
 *= require_tree ./screen
 */
@@ -27,6 +28,23 @@ h3{line-height: 20px;}
 dd{margin-bottom:20px;}
 .tabs{margin-bottom: 10px;}
 
+
+a{
+  color:#308FC2;
+  /* Firefox */
+  -moz-transition-property: color;
+  -moz-transition-duration: 0.4s;
+  /* WebKit */
+  -webkit-transition-property: color;
+  -webkit-transition-duration: 0.4s;
+  /* Opera */
+  -o-transition-property: color;
+  -o-transition-duration: 0.4s;
+  /* Standard */
+  transition-property: color;
+  transition-duration: 0.4s;
+}
+a:hover{color:#226C94;}
 
 /***************** icon ******************/
 [class^="icon-"], [class*=" icon-"] {
@@ -406,9 +424,21 @@ dd{margin-bottom:20px;}
   background-position: -456px -118px;
 }
 
+.btn-small {
+  padding: 5px 9px;
+  font-size: 11px;
+  line-height: 16px;
+}
+
 /**************** header ****************/
 .topbar .brand{font-family: 'Lobster', cursive;}
 .topbar .nav {float:right;}
+
+header h1 a.btn {
+  float: right;
+  margin:5px 5px 0 0;
+}
+
 
 
 /**************** content ****************/
@@ -487,8 +517,7 @@ h1 small.danger a:hoover {color:red;}
 
 /**************** userstories ****************/
 div.new_userstory {
-	background-color: whiteSmoke;
-	padding: 2px 0 2px 20px;
+	padding: 10px 0 10px 20px;
 }
 div.edit_userstory {
 	background-color: whiteSmoke;
@@ -574,9 +603,15 @@ div.action{
 
 /**************** features ****************/
 
-nav.features {width: 160px; padding-right: 10px;}
-nav.features ul {margin-left:15px;}
-nav.features h4 {margin-left:15px;}
+nav.list {width: 190px;}
+nav.list ul {margin-left:0px;}
+
+nav.list h4 i {margin:3px 0px 3px 0px;}
+nav.list img.gravatar {
+  margin-right:5px;
+  float: left;
+}
+
 .sticky{position:fixed;top:60px;}
 
 .features article {
@@ -672,4 +707,31 @@ p.flash{
 	display: inline-block;
 }
 .feature-content p.description{color:grey;}
+
+/***************** Stakeholders ***************/
+#stakeholders label {text-align: left;}
+#stakeholders .checkbox {
+  margin-right:5px;
+  margin-bottom:5px;
+  min-height: 60px;
+  /* Firefox */
+  -moz-transition-property: background-color;
+  -moz-transition-duration: 0.2s;
+  /* WebKit */
+  -webkit-transition-property: background-color;
+  -webkit-transition-duration: 0.2s;
+  /* Opera */
+  -o-transition-property: background-color;
+  -o-transition-duration: 0.4s;
+  /* Standard */
+  transition-property: background-color;
+  transition-duration: 0.4s;
+}
+
+#stakeholders .checkbox.check{
+  background-color:#CFF2B8;
+}
+#stakeholders .submit {display:none;}
+
+#stakeholders form a {display: none;}
 

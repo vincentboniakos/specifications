@@ -1,0 +1,10 @@
+<% content_for :title_header do %>
+ Stakeholders
+<% end %>
+
+<div id="stakeholders" data-project-id="<%= @project.id %>">
+	<% @users.each do |user| %>
+	<%= render "users/stakeholder", :user => user, :project => @project %>
+	<% end %>
+</div>
+

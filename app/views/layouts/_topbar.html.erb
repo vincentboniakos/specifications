@@ -11,9 +11,9 @@
 				<li class="menu">
 					<%= link_to("#{gravatar_for(current_user, {:size => 20})}#{current_user.name}".html_safe, "#", :class => "menu dropdown-toggle") %>
 					<ul class="dropdown-menu">
-						<li class=""><%= link_to "Profile", current_user %></li>
+						<li class=""><%= link_to "<i class='icon-user icon-white'></i>&nbsp;&nbsp;Profile".html_safe, current_user %></li>
 						<li class="divider"></li>
-						<li><%= link_to "Log out", logout_path %></li>
+						<li><%= link_to "<i class='icon-off icon-white'></i>&nbsp;&nbsp;Log out".html_safe, logout_path %></li>
 					</ul>
 				
 				</li>

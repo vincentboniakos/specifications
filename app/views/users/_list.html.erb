@@ -1,0 +1,11 @@
+<nav class='list'>
+    <h4><i class='icon-user'></i> Stakeholders</h4>
+    <ul>
+      <% project.users.each do |user| %>
+      <li>
+      	<%= gravatar_for user, :size => 15 %>
+        <%= link_to user.name, user_path(user) %>
+      </li>
+      <% end %>
+    </ul>
+  </nav>

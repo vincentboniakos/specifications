@@ -1,3 +1,7 @@
+<% content_for :title_header do %>
+ New feature
+<% end %>
+
 <%= form_for ([@project,@feature]) do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
 	<fieldset>

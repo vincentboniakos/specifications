@@ -30,7 +30,11 @@ module SessionsHelper
   end
 
   def deny_access
-    redirect_to login_path, :notice => "Please sign in to access this page."
+    if request.xhr?
+      head(:forbidden)
+    else
+      redirect_to login_path, :notice => "Please sign in to access this page."
+    end
   end
   
   def current_user?(user)

@@ -1,14 +1,11 @@
 <% content_for :title_header do %>
-  Your projects
+  Your projects <%= link_to "<i class='icon-book icon-white'></i>&nbsp;&nbsp;New project".html_safe, new_project_path, :class => "btn info new-action"%>
 <% end %>
 
 
 
 <% if signed_in? %>
 
-	<% content_for :sidebar do %>
-	  <%= link_to "<i class='icon-book icon-white'></i>&nbsp;&nbsp;New project".html_safe, new_project_path, :class => "btn success new-action"%>
-	<% end %>
 
 	<dl class="projects">
 	  <%= render @projects %>

@@ -1,6 +1,7 @@
 Specifications::Application.routes.draw do
 
-  
+
+
   resources :userstories do
     resources :comments, :only => [:create, :destroy]
   end
@@ -20,6 +21,7 @@ Specifications::Application.routes.draw do
     resources :features do
       resources :userstories, :only => [:create] 
     end
+    resources :stakeholders, :only => [:index, :create, :destroy]
   end
 
   get "projects/:project_id/userstories/:id" => "userstories#show", :as => :project_userstory

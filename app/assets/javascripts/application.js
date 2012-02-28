@@ -207,6 +207,43 @@ function handleDeleteCommentAjaxLink(){
 	});
 }
 
+function handleStakeholderAjaxForm(){
+	$('form.new_stakeholder')
+	.live("ajax:beforeSend", function (evt, xhr, settings){
+		// Update the text of the submit button to let the user know stuff is happening.
+		// But first, store the original text of the submit button, so it can be restored when the request is finished.
+	})
+	.live("ajax:success", function(evt, data, status, xhr){
+		$(this).find(".checkbox").toggleClass("not-check");
+		$(this).find(".checkbox").toggleClass("check");
+		$(this).append(xhr.responseText);
+	})
+	.live('ajax:complete', function(evt, xhr, status){
+
+	})
+	.live("ajax:error", function(evt, xhr, status, error){
+
+	});
+}
+
+function handleDeleteStakeholderAjaxLink(){
+	$('#stakeholders form a')
+	.live("ajax:beforeSend", function (evt, xhr, settings){
+		//
+	})
+	.live("ajax:success", function(evt, data, status, xhr){
+		//$(this).find(".checkbox").toggleClass("not-check");
+		//$(this).find(".checkbox").toggleClass("check");
+		$(this).closest("form").find("a").remove();
+	})
+	.live('ajax:complete', function(evt, xhr, status){
+
+	})
+	.live("ajax:error", function(evt, xhr, status, error){
+		
+	});
+}
+
 function submitOnReturn(){
 	$('.submit_on_return').live("keydown",function(event) {
 		if (event.keyCode == 13) {
@@ -533,5 +570,15 @@ $(document).ready(function () {
 	showHideDeleteComment("article.comment");
 
 	handleDeleteCommentAjaxLink();
+
+	/* Stakeholders */
+	handleStakeholderAjaxForm();
+	handleDeleteStakeholderAjaxLink();
+	$(".not-check :checkbox").live("click",function(){
+		$(this).closest('form').find('input[name="commit"]').click();
+	})
+	$(".check :checkbox").live("click",function(){
+		$(this).closest('form').find('a').click();
+	})
 
 })

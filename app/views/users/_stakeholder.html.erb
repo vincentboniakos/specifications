@@ -1,0 +1,16 @@
+<%= form_for @stakeholder, :url => project_stakeholders_path(@project), :html => { :'data-type' => 'html', :id => "stakeholder-form-#{user.id}" }, :remote => true do |f| %>
+
+	<% is_stakeholder = project.users.find_by_id(user.id) %>
+	<% is_stakeholder_is_curent_user = (user.id == current_user.id) %>
+
+	<label class="checkbox inline well<%= is_stakeholder ? " check": " not-check"  %>">	
+		<%= check_box_tag(user.name, user.id, is_stakeholder, :disabled => is_stakeholder_is_curent_user) %>  <%= user.name %>
+	</label>
+
+	<%= f.hidden_field :user_id, :value => user.id %>
+	<%= f.submit "Add this stakeholder", :class => "submit"%>
+
+	<% if is_stakeholder %>
+		<%= render "stakeholders/destroy_stakeholder", :project => @project, :stakeholder => @project.stakeholders.find_by_user_id(user.id) %>
+	<% end %>
+<% end %>
