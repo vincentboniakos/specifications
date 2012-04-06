@@ -7,6 +7,8 @@ describe FeaturesController do
     @project = Factory(:project)
   end
 
+  
+
   describe "GET 'new'" do
     describe "for non signed-in user" do
       it "should deny access" do
