@@ -3,6 +3,7 @@ class StakeholdersController < ApplicationController
   before_filter :authenticate
   before_filter :get_stakeholder, :only => [:destroy]
   before_filter :get_project
+  before_filter :is_stakeholder
 
   def index
     add_crumb "Projects", root_path
@@ -34,25 +35,12 @@ class StakeholdersController < ApplicationController
   		@stakeholder = Stakeholder.find_by_id(params[:id])
   		if @stakeholder
   			if @stakeholder.user_id == current_user.id
-  				head(:foribidden)
+  				head(:forbidden)
   			end
   		else
 			 head(:bad_request)
   		end
   	end
 
-  	def get_project
-      @project = Project.find(params[:project_id])
-      if signed_in?
-        if !@project.users.find_by_id(current_user.id)
-          if request.xhr?
-          	head(:forbidden)
-          else
-          	flash[:error] = "You are not authorized to access this resource."
-          	redirect_to root_path, :error => "You are not authorized to access to this resource."
-      	  end
-        end
-      end
-    end
 
 end

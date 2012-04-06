@@ -1,5 +1,8 @@
 class CommentsController < ApplicationController
   before_filter :authenticate
+  before_filter :get_project
+  before_filter :is_stakeholder
+  
   def create
   	@userstory = Userstory.find(params[:userstory_id])
     @comment = @userstory.comments.build(params[:comment])

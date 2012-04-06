@@ -1,31 +1,22 @@
 Specifications::Application.routes.draw do
 
 
-
-  resources :userstories do
-    resources :comments, :only => [:create, :destroy]
-  end
-
-  delete "/userstories/:id" => "userstories#destroy", :as => :destroy_userstory
-  put "/userstories/:id" => "userstories#update", :as => :update_userstory
-
-  post "projects/:project_id/userstories/sort" => "userstories#sort", :as => :sort_userstories
-  
-  post "projects/:project_id/feature/sort" => "features#sort", :as => :sort_features
-  
   post "versions/:id/revert" => "versions#revert", :as => :revert_version
 
-  get "projects/:id/activity" => "projects#activity", :as => :project_activity
 
   resources :projects do
+    get :activity, :on => :member
     resources :features do
+      post :sort, :on => :collection
       resources :userstories, :only => [:create] 
     end
     resources :stakeholders, :only => [:index, :create, :destroy]
+    resources :userstories, :except => [:create] do
+      resources :comments, :only => [:create, :destroy]
+      post :sort, :on => :collection
+    end
   end
 
-  get "projects/:project_id/userstories/:id" => "userstories#show", :as => :project_userstory
- 
   resources :invitations
   resources :users, :only => [:show, :create, :index, :destroy]
   resources :sessions, :only => [:new, :create, :destroy]

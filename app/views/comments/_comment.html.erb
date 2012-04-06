@@ -6,5 +6,5 @@
 		<strong><%= comment.user.name %></strong> <span class="help-block"><%= time_format comment.created_at %></span>
 		<p><%= comment.body %></p>
 	</div>
-	<%= link_to("<i class='icon-remove'></i>".html_safe, userstory_comment_path(comment.userstory, comment), :method => :delete, :confirm => "Are you sure?", :title => "Delete", :remote => true, :class => "delete") if from_current_user? comment %>
+	<%= link_to("<i class='icon-remove'></i>".html_safe, project_userstory_comment_path(comment.userstory.feature.project, comment.userstory, comment), :method => :delete, :confirm => "Are you sure?", :title => "Delete", :remote => true, :class => "delete") if from_current_user? comment %>
 </article>

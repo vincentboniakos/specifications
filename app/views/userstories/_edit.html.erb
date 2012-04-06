@@ -1,5 +1,5 @@
 <div class="edit_userstory">
-    <%= form_for userstory, :url => update_userstory_path(userstory), :html => { :'data-type' => 'html', :id => "update-userstory-form-#{userstory.id}" }, :remote => true do |f| %>
+    <%= form_for userstory, :url => project_userstory_path(userstory.feature.project, userstory), :html => { :'data-type' => 'html', :id => "update-userstory-form-#{userstory.id}" }, :remote => true do |f| %>
     	<fieldset>
     		<div class="clearfix<%= " error" if userstory.errors[:content].any? %>">
     	    <div>

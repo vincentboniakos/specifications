@@ -395,7 +395,6 @@ function updatePosition (){
                 array.push(feature + '[' + e + ']=' + this.id.split('_')[1]);
             });
         });
-        //console.log(array.join('&'));
         return array.join('&');
     }
 })(jQuery);

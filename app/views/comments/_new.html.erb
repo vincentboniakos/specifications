@@ -2,7 +2,7 @@
     <div class="profile-picture">
         <%= gravatar_for(current_user, {:size => 50})%>
     </div>
-    <%= form_for @comment, :url => userstory_comments_path(userstory), :html => { :'data-type' => 'html', :id => "comment-form-#{comment.id}" }, :remote => true do |f| %>
+    <%= form_for @comment, :url => project_userstory_comments_path(userstory.feature.project, userstory), :html => { :'data-type' => 'html', :id => "comment-form-#{comment.id}" }, :remote => true do |f| %>
     	<fieldset>
     		<div class="clearfix<%= " error" if @comment.errors[:content].any? %>">
     	    <div>

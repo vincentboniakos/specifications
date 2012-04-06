@@ -112,11 +112,12 @@ describe StakeholdersController do
 
       describe "stakeholder" do
 
-
-        describe "failure" do 
-          before(:each) do
+         before(:each) do
             @stakeholder_conflict = @project.stakeholders.create!(:user_id => controller.current_user.id)
           end 
+        
+        describe "failure" do 
+         
           def delete_stakeholder_fail
             xhr :delete, :destroy, :project_id => @project, :id => @stakeholder_conflict.id
           end
@@ -129,8 +130,7 @@ describe StakeholdersController do
 
           it "should tell there is a conflict when trying to delete the current user" do
             delete_stakeholder_fail
-            #response.response_code.should == 404
-            response.should have_selector("p", :content=> "tot")
+            response.response_code.should == 403
           end
 
         end

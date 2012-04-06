@@ -1,10 +1,12 @@
 # coding: utf-8
 class UserstoriesController < ApplicationController
   before_filter :authenticate
+  before_filter :get_project
+  before_filter :is_stakeholder
 
   #respond_to :html, :xml, :json
   add_crumb "Projects", :root_path
-  before_filter :breadcrumb, :only => ["show"]
+  before_filter :breadcrumb, :only => [:show]
 
   def show
     @userstory = Userstory.find(params[:id])
@@ -72,7 +74,6 @@ class UserstoriesController < ApplicationController
   end
 
   def sort
-    @project = Project.find(params[:project_id])
     userstories = @project.userstories
     @project.features.each do |feature|
       if !params["#{feature.id}"].nil?
@@ -91,7 +92,6 @@ class UserstoriesController < ApplicationController
 
   private
     def breadcrumb
-      @project = Project.find(params[:project_id])
       add_crumb @project.name.force_encoding(Encoding::UTF_8), project_path(@project)
     end
 end

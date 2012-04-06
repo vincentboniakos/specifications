@@ -3,6 +3,8 @@ class FeaturesController < ApplicationController
   include FeaturesHelper
   add_crumb "Projects", :root_path
   before_filter :authenticate
+  before_filter :get_project
+  before_filter :is_stakeholder
   before_filter :breadcrumb, :only => ["show","edit","new","userstories"]
 
 
@@ -21,7 +23,6 @@ class FeaturesController < ApplicationController
   end
 
   def create
-    @project = Project.find(params[:project_id])
     @feature = @project.features.build(params[:feature])
     @feature.position = 0
     if @feature.save
@@ -41,7 +42,6 @@ class FeaturesController < ApplicationController
   end
 
   def update
-    @project = Project.find(params[:project_id])
     @feature = Feature.find(params[:id])
     if @feature.update_attributes(params[:feature])
       flash[:success] = "Feature updated. #{undo_link}"
@@ -61,7 +61,6 @@ class FeaturesController < ApplicationController
   end
 
   def sort
-    @project = Project.find(params[:project_id])
     @project.features.each do |feature|
       feature.position = params["#{feature.id}"]
       feature.save
@@ -72,11 +71,10 @@ class FeaturesController < ApplicationController
   private
 
   def breadcrumb
-    @project = Project.find(params[:project_id])
     add_crumb @project.name.force_encoding(Encoding::UTF_8), project_path(@project)
   end
   
   def undo_link
-    view_context.link_to("undo", revert_version_path(@feature.versions.scoped.last), :method => :post)
+    view_context.link_to("undo", revert_version_path(@feature.versions.scoped.last), :method => :post) if @feature.versions.any?
   end
 end
