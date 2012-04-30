@@ -11,7 +11,7 @@ class Specifications.Views.Projects.IndexView extends Backbone.View
 
   addOne: (project) =>
     view = new Specifications.Views.Projects.ProjectView({model : project})
-    @$("tbody").append(view.render().el)
+    @$("dl.projects").append(view.render().el)
 
   render: =>
     $(@el).html(@template(projects: @options.projects.toJSON() ))
