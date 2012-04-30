@@ -4,8 +4,7 @@ class PagesController < ApplicationController
   add_crumb "Projects"
   
   def home
-    @title = "Your projects"
-    @projects = Project.joins(:stakeholders).where("user_id = ?",current_user.id).page(params[:page]).per(10) if signed_in?
+  	redirect_to projects_path if signed_in?
   end
 
 end

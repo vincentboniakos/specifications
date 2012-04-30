@@ -1,7 +1,13 @@
-<%= paginate @projects %>
+<% content_for :title_header do %>
+  Your projects <%= link_to "<i class='icon-book icon-white'></i>&nbsp;&nbsp;New project".html_safe, new_project_path, :class => "btn info new-action"%>
+<% end %>
 
-<dl class="projects">
-  <%= render @projects %>
-</dl>
 
-<%= paginate @projects %>
+<div id="projects"></div>
+
+<script type="text/javascript">
+  $(function() {
+    window.router = new Specifications.Routers.ProjectsRouter({projects: <%= @projects.to_json.html_safe -%>});
+    Backbone.history.start();
+  });
+</script>

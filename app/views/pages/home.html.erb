@@ -1,21 +1,8 @@
-<% content_for :title_header do %>
-  Your projects <%= link_to "<i class='icon-book icon-white'></i>&nbsp;&nbsp;New project".html_safe, new_project_path, :class => "btn info new-action"%>
-<% end %>
 
 
 
-<% if signed_in? %>
-
-
-	<dl class="projects">
-	  <%= render @projects %>
-	</dl>
-
-	<%= paginate @projects %>
-<% else %>
 	<section class="hero-unit">
 	  <h1>Hello !</h1>
 	  <p>Wanna create collaborative functionnal specifications?</p>
 	  <p><%= link_to "Get an invitation »", new_invitation_path, :class => "btn primary large" %></p>
 	</section>
-<% end %>

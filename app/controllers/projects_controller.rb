@@ -3,7 +3,20 @@ class ProjectsController < ApplicationController
   include ProjectsHelper
   before_filter :get_project, :only => ["show","edit","update", "activity"]
   before_filter :authenticate
-  add_crumb "Projects", :root_path
+  add_crumb "Projects", :projects_path
+  
+  def index
+    @title = "Your projects"
+    @projects = Project.joins(:stakeholders).where("user_id = ?",current_user.id).page(params[:page]).per(10) if signed_in?
+  
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @projects }
+    end
+
+  end
+
+
   def new
     add_crumb "New"
     @title = "New project"
@@ -11,11 +24,19 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    add_crumb @project.name
-    @title = @project.name
-    @features = @project.features
-    @userstory = Userstory.new
-    @versions = get_versions @project
+
+    respond_to do |format|
+      format.html {
+        add_crumb @project.name
+        @title = @project.name
+        @features = @project.features
+        @userstory = Userstory.new
+        @versions = get_versions @project
+      }
+
+      format.json { render json: @project }
+    end
+   
   end
 
   def create

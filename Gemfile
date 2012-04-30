@@ -12,6 +12,7 @@ gem "crummy", "~> 1.2"
 
 gem 'paper_trail'
 gem 'differ'
+gem "rails-backbone", git: "git://github.com/codebrew/backbone-rails.git", require: "backbone-rails"
 
 # Gems used only for assets and not required
 # in production environments by default.
