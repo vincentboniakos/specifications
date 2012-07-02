@@ -32,10 +32,10 @@ var _utils5g =  new Utils();
 
 
 function showHideEditLink(selector){
-	$(selector).mouseenter(function (){		
+	$(selector).live("mouseenter", function (){		
 	    $(this).find('small').show();
 	    $(this).find('.action-link').show();	
-	}).mouseleave(function(){
+	}).live("mouseleave", function(){
 		$(this).find('small').hide();       	
 		$(this).find('.action-link').hide();	
 	});
@@ -500,7 +500,6 @@ $(document).ready(function () {
 	$(".alert-message").delay(12000).fadeOut('slow');
 
 	//Edit links
-	$("article h3 small").hide();
 	showHideEditLink("article h3")
 	$("h1 small").hide();
 	showHideEditLink("h1");
@@ -557,7 +556,7 @@ $(document).ready(function () {
 		offset: '100%'
 	},
 	page = 1;
-	$footer.waypoint(function(event, direction) {
+	/*$footer.waypoint(function(event, direction) {
 		$footer.waypoint('remove');
 		$('#activity').append($loading);
 		page ++;
@@ -566,7 +565,7 @@ $(document).ready(function () {
   			$('#activity div.load').remove();
   			$footer.waypoint(opts);
 		});
-	},{offset:'200'});
+	},{offset:'200'});*/
 
 	handleCommentAjaxForm();
 

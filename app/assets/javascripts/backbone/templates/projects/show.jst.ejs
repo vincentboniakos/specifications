@@ -1,12 +1,18 @@
-<p>
-  <b>Name:</b>
-  <%= name %>
-</p>
+<header>
+	<h1>
+		<%= name %>
+		<a href="#<%= id %>/features/new" class="btn btn-small info new-action" title="Create a feature"><i class="icon-th-list icon-white"></i>&nbsp;&nbsp;New feature</a>
+	</h1>
+</header>
 
-<p>
-  <b>Description:</b>
-  <%= description %>
-</p>
-
+<p><%= description %></p>
+<ul class="tabs">
+  <li class ="active"><a href="#project">Features</a></li>
+  <li><a href="#activity">Activity</a></li>
+</ul>
+<div class="pill-content">
+  <section id="project" class="active features ui-sortable" data-project-id="<%= id %>"></section>
+  <section id="activity"></section> 
+</div>
 
 <a href="#/index">Back</a>

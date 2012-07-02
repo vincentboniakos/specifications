@@ -8,6 +8,13 @@ class UserstoriesController < ApplicationController
   add_crumb "Projects", :root_path
   before_filter :breadcrumb, :only => [:show]
 
+  def index
+    @feature = Feature.find(params[:feature_id])
+    respond_to do |format|
+      format.json { render json: @feature.userstories }
+    end
+  end
+
   def show
     @userstory = Userstory.find(params[:id])
     add_crumb @userstory.feature.name.force_encoding(Encoding::UTF_8), project_feature_path(@project, @userstory.feature)

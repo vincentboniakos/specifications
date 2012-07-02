@@ -13,9 +13,27 @@ class FeaturesController < ApplicationController
     @title = "New feature"
     @feature = Feature.new
   end
+  
+  def index
+    @features = @project.features
+    respond_to do |format|
+      format.json { render json: @features }
+    end
+  end
+    
 
   def show
     @feature = Feature.find(params[:id])
+    respond_to do |format|
+      format.html {
+        add_crumb @feature.name
+        @title = @feature.name
+        @userstories = @feature.userstories
+        @userstory = Userstory.new
+      }
+      format.json {render json: @feature}
+    end
+
     add_crumb @feature.name
     @title = @feature.name
     @userstories = @feature.userstories
@@ -26,11 +44,25 @@ class FeaturesController < ApplicationController
     @feature = @project.features.build(params[:feature])
     @feature.position = 0
     if @feature.save
-      flash[:success] = "Your feature has been created successfully. #{undo_link}"
-      redirect_to project_path(@project)
+      respond_to do |format|
+        format.html {
+          flash[:success] = "Your feature has been created successfully. #{undo_link}"
+          redirect_to project_path(@project)
+        }
+        format.json {
+          render json: @feature, status: :created, location: "##{@project.id}"
+        }
+      end
     else
-      @title = "New feature"
-      render "new"
+      respond_to do |format|
+        format.html {
+          @title = "New feature"
+          render "new"
+        }
+        format.json {
+          render json: @feature.errors, status: :unprocessable_entity
+        }
+      end
     end
   end
 
@@ -44,11 +76,25 @@ class FeaturesController < ApplicationController
   def update
     @feature = Feature.find(params[:id])
     if @feature.update_attributes(params[:feature])
-      flash[:success] = "Feature updated. #{undo_link}"
-      redirect_to @project
+      respond_to do |format|
+        format.html {
+          flash[:success] = "Feature updated. #{undo_link}"
+          redirect_to @project
+        }
+        format.json {
+          render json: @feature, status: :created
+        }
+      end
     else
-      @title = "Edit feature"
-      render 'edit'
+      respond_to do |format|
+        format.html {
+          @title = "Edit feature"
+          render 'edit'
+        }
+        format.json {
+          render json: @feature.errors, status: :unprocessable_entity
+        }
+      end
     end
   end
 
@@ -56,8 +102,13 @@ class FeaturesController < ApplicationController
     @feature = Feature.find(params[:id])
     @project = @feature.project
     @feature.destroy
-    flash[:succes] = "Feature destroyed."
-    redirect_to @project
+    respond_to do |format|
+      format.html { 
+        flash[:succes] = "Feature destroyed."
+        redirect_to @project 
+      }
+      format.json { head :no_content }
+    end
   end
 
   def sort

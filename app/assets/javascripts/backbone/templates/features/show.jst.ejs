@@ -1,0 +1,16 @@
+<header>
+<h1>
+  <%= name %> 
+  <small><a class="edit" href="#/<%= project_id %>/features/<%= id %>/edit">edit</a></small>
+  <small class='danger'><a href="#" class="destroy">Delete this feature</a></small>
+</h1>
+</header>
+
+
+<article id="project" class="features" data-project-id="<%= project_id %>">
+	<p class="description"><%= description %></p>
+	<ul class="userstories" id="feature_<%= id %>">
+		
+	</ul>
+	
+</article>

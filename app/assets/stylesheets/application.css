@@ -489,10 +489,11 @@ header h1 a.btn {
 }
 
 section.features {padding-left:10px;padding-right:10px;}
-section.features article h3 {margin-left: -20px;}
 section.features article h3 a {color:black;}
 section.features article h3 a:hoover {color:black;}
-section.features article h3 small a {color:#0069D6;}
+section.features article h3 small {display: none;}
+section.features article h3 .action span {display: none;}
+section.features article h3 small a {color:#308FC2;}
 section.features article h3 small a:hoover {color:#00438A;}
 section.features article h3 .size_action {
 	background: url(minimize.png) no-repeat center center;

@@ -24,7 +24,6 @@ class ProjectsController < ApplicationController
   end
 
   def show
-
     respond_to do |format|
       format.html {
         add_crumb @project.name
@@ -35,21 +34,30 @@ class ProjectsController < ApplicationController
       }
 
       format.json { render json: @project }
-    end
-   
+    end 
   end
 
   def create
     @project = Project.new(params[:project])
-    if @project.save
-      @project.stakeholders.create!(:user_id => current_user.id)
-      flash[:success] = "Your project has been created successfully."
-      redirect_to @project
-    else
-      @title = "New project"
-      render "new"
+    respond_to do |format|
+      if @project.save
+        @project.stakeholders.create!(:user_id => current_user.id)
+        format.html {        
+          flash[:success] = "Your project has been created successfully."
+          redirect_to @project
+        }
+        format.json { render json: @project, status: :created, location: @project }
+      else
+        format.html {
+          @title = "New project"
+          render "new"
+        }
+        format.json {render json: @project.errors, status: :unprocessable_entity}
+      end
     end
   end
+
+
 
   def edit
     add_crumb @project.name, project_path(@project)

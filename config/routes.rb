@@ -8,7 +8,7 @@ Specifications::Application.routes.draw do
     get :activity, :on => :member
     resources :features do
       post :sort, :on => :collection
-      resources :userstories, :only => [:create] 
+      resources :userstories, :only => [:create, :index] 
     end
     resources :stakeholders, :only => [:index, :create, :destroy]
     resources :userstories, :except => [:create] do

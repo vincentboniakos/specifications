@@ -1,10 +1,10 @@
-Specifications.Views.Projects ||= {}
+Specifications.Views.Features ||= {}
 
-class Specifications.Views.Projects.NewView extends Backbone.View
-  template: JST["backbone/templates/projects/new"]
+class Specifications.Views.Features.NewView extends Backbone.View
+  template: JST["backbone/templates/features/new"]
 
   events:
-    "submit #new-project": "save"
+    "submit #new-feature": "save"
 
   constructor: (options) ->
     super(options)
@@ -21,12 +21,11 @@ class Specifications.Views.Projects.NewView extends Backbone.View
     @model.unset("errors")
 
     @collection.create(@model.toJSON(),
-      success: (project, jqXHR) =>
-        @model = project
-        window.location.hash = "/#{@model.id}"
-        @model.features.url = "/projects/#{@model.id}/features"
+      success: (feature) =>
+        @model = feature
+        window.location.hash = "/#{@model.collection.parent.id}"
 
-      error: (project, jqXHR) =>
+      error: (feature, jqXHR) =>
         @model.set({errors: $.parseJSON(jqXHR.responseText)})
     )
 
