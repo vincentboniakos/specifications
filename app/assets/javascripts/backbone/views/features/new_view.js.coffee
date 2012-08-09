@@ -8,7 +8,7 @@ class Specifications.Views.Features.NewView extends Backbone.View
 
   constructor: (options) ->
     super(options)
-    @model = new @collection.model()
+    @model = new @collection.model(project_id: @collection.parent.id)
 
     @model.bind("change:errors", () =>
       this.render()

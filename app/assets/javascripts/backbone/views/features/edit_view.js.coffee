@@ -5,6 +5,7 @@ class Specifications.Views.Features.EditView extends Backbone.View
 
   events :
     "submit #edit-feature" : "update"
+    "click #cancel" : "cancel"
 
   update : (e) ->
     e.preventDefault()
@@ -13,8 +14,13 @@ class Specifications.Views.Features.EditView extends Backbone.View
     @model.save(null,
       success : (feature) =>
         @model = feature
-        window.location.hash = "/#{@model.attributes.project_id}/features/#{@model.id}"
+        window.history.back()
     )
+
+  cancel : (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+      window.history.back()  
 
   render: ->
     $(@el).html(@template(@model.toJSON() ))
