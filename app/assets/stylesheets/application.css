@@ -523,8 +523,7 @@ div.new_userstory {
 div.edit_userstory {
 	background-color: whiteSmoke;
 	padding: 2px 0 2px 20px;
-	margin: 10px 0 0 25px;
-	display:none;
+	margin: 10px 0 0 0;
 }
 
 form.new_userstory div.clearfix.error, form.edit_userstory div.clearfix.error {
@@ -559,11 +558,7 @@ p.load {text-decoration:line-through;}
   transition-property: opacity;
   transition-duration: 0.2s;
 }
-.sort {
-   opacity : 1;
-  -moz-opacity : 1;
-  -ms-filter: "alpha(opacity=1)"; /* IE 8 */
-}
+
 .action-link:hover{
   opacity : 1;
   -moz-opacity : 1;
@@ -631,14 +626,14 @@ nav.list img.gravatar {
 article li p {
 	float:left;
 	display:block;
-	margin:5px 0px 0 5px;
+	margin:5px 0 0 0;
 	max-width: 650px;
 }
-article ul { margin-left:-25px;}
+article ul { margin-left:0px;}
 
 li {list-style:none;display:block;}
 
-span.handle,span.article-handle{cursor:move;}
+span.handle{cursor:move;}
 
 
 li.anchor{text-indent:-5000px;height: 2px;}

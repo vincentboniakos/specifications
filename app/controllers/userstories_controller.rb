@@ -28,19 +28,15 @@ class UserstoriesController < ApplicationController
     @userstory = Userstory.find(params[:id])
     if @userstory.update_attributes(params[:userstory])
       respond_to do |format|
-        format.html do
-          if request.xhr?
-            render :partial => "userstories/userstory", :locals => { :userstory => @userstory }, :layout => false, :status => :accepted
-          end
-        end
+        format.json {
+          render json: @userstory, status: :created
+        }
       end
     else
       respond_to do |format|
-        format.html do
-          if request.xhr?
-            render :json => @userstory.errors, :status => :unprocessable_entity
-          end
-        end
+        format.json {
+          render json: @feature.errors, status: :unprocessable_entity
+        }
       end
     end
   end

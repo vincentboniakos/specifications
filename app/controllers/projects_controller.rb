@@ -3,7 +3,6 @@ class ProjectsController < ApplicationController
   include ProjectsHelper
   before_filter :get_project, :only => ["show","edit","update", "activity"]
   before_filter :authenticate
-  add_crumb "Projects", :projects_path
   
   def index
     @title = "Your projects"
@@ -17,22 +16,8 @@ class ProjectsController < ApplicationController
   end
 
 
-  def new
-    add_crumb "New"
-    @title = "New project"
-    @project = Project.new
-  end
-
   def show
     respond_to do |format|
-      format.html {
-        add_crumb @project.name
-        @title = @project.name
-        @features = @project.features
-        @userstory = Userstory.new
-        @versions = get_versions @project
-      }
-
       format.json { render json: @project }
     end 
   end
@@ -42,28 +27,13 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         @project.stakeholders.create!(:user_id => current_user.id)
-        format.html {        
-          flash[:success] = "Your project has been created successfully."
-          redirect_to @project
-        }
         format.json { render json: @project, status: :created, location: @project }
       else
-        format.html {
-          @title = "New project"
-          render "new"
-        }
         format.json {render json: @project.errors, status: :unprocessable_entity}
       end
     end
   end
 
-
-
-  def edit
-    add_crumb @project.name, project_path(@project)
-    add_crumb "Edit"
-    @title = "Edit project"
-  end
 
   def update
     if @project.update_attributes(params[:project])

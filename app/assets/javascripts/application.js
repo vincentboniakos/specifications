@@ -136,11 +136,7 @@ function handleUserstoryAjaxForm(){
 }
 
 function eventOnLi(selector) {
-	$(selector).live("mouseenter",function (){		
-		$(this).find('.action-link.sort').show();	
-	}).live("mouseleave",function(){
-		$(this).find('.action-link.sort').hide();	
-	}).live("dblclick",function(){
+	$(selector).live("dblclick",function(){
 		eventFormEditUserStory($(this))
 	});
 }
@@ -249,15 +245,7 @@ function handleDeleteStakeholderAjaxLink(){
 	});
 }
 
-function submitOnReturn(){
-	$('.submit_on_return').live("keydown",function(event) {
-		if (event.keyCode == 13) {
-			event.preventDefault();
-			$(this).closest('form').find('input[name="commit"]').click();
-			return false;
-		}
-	});
-}
+
 
 function toggleFeatureSize(e)
 {
@@ -358,7 +346,7 @@ function sortableFeatures(selector){
 			$.ajax({
 				type: 'post',
 				data: serial,
-				url: '/projects/'+$('#project').attr('data-project-id')+'/feature/sort'
+				url: '/projects/'+$('#project').attr('data-project-id')+'/features/sort'
 			})
         }
 	});
@@ -513,8 +501,7 @@ $(document).ready(function () {
 	showFormNewUserStory("a.show_form_new_userstory");
 	hideFormNewUserStory("a.hide_form_new_userstory");
 	
-	showFormEditUserStory("a.show_form_edit_userstory");
-	hideFormEditUserStory("a.hide_form_edit_userstory");
+	
 	
 	//handle user story form
 	handleUserstoryAjaxForm();
@@ -522,23 +509,20 @@ $(document).ready(function () {
 	//handle update user story form
 	handleUpdateUserstoryAjaxForm();
 
-	//Submit on return
-	submitOnReturn();
+
 	
 	//Attach handler on ajax delete link
 	handleDeleteUserstoryAjaxLink();
 	
 	//Hide delete link
-	$(".action-link.sort").hide();
-	eventOnLi("article li");
+	
 
 
-	sortableFeatures(".features");
 	$(".size_action").click(toggleFeatureSize);
 	toggleFeatureSize();
 
 
-	sortableUserstories("ul.userstories");
+
 
 	smoothScrolling();
 

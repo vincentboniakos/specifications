@@ -15,4 +15,5 @@ class Specifications.Views.Features.ShowView extends Backbone.View
 
   render: ->
     $(@el).html(@template(@model.toJSON() ))
+    
     return this

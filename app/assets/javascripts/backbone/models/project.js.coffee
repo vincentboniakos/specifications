@@ -6,9 +6,11 @@ class Specifications.Models.Project extends Backbone.Model
     description: null
 
   initialize: ->
+    # features
     @features = new Specifications.Collections.FeaturesCollection()
     @features.url = "/projects/#{@id}/features"  
     @features.parent=@
+
 
 class Specifications.Collections.ProjectsCollection extends Backbone.Collection
   model: Specifications.Models.Project

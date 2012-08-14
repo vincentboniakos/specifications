@@ -17,4 +17,5 @@ class Specifications.Views.Features.FeatureView extends Backbone.View
     @el.id = "a_feature_#{@model.id}"
     $(@el).html(@template(@model.toJSON() ))
     @addUserstories()
+    sortableFeatures(".features");
     return this

@@ -16,4 +16,6 @@ class Specifications.Views.Projects.ShowView extends Backbone.View
   render: ->
     $(@el).html(@template(@model.toJSON() ))
     @addFeatures()
+    sortableUserstories("ul.userstories")
     return this
+
