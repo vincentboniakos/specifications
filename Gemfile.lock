@@ -92,7 +92,6 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.17.2)
     multi_json (1.0.4)
-    mysql2 (0.3.11)
     netrc (0.7.1)
     nokogiri (1.5.0)
     paper_trail (2.5.0)
@@ -188,7 +187,6 @@ DEPENDENCIES
   heroku
   jquery-rails
   kaminari!
-  mysql2
   paper_trail
   pg
   rails (= 3.1.0)

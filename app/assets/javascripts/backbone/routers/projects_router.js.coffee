@@ -29,6 +29,8 @@ class Specifications.Routers.ProjectsRouter extends Backbone.Router
 
     @view = new Specifications.Views.Projects.ShowView(model: project)
     $(".content").html(@view.render().el)
+    sortableFeatures(".features")
+    sortableUserstories(".userstories")
 
   edit: (id) ->
     project = @projects.get(id)
@@ -45,6 +47,7 @@ class Specifications.Routers.ProjectsRouter extends Backbone.Router
     @getFeature project_id, id, (feature) ->
       @view = new Specifications.Views.Features.ShowView(model: feature)
       $(".content").html(@view.render().el)
+      sortableUserstories(".userstories")
 
   editFeature: (project_id, id) ->
     @getFeature project_id, id, (feature) ->
@@ -59,9 +62,7 @@ class Specifications.Routers.ProjectsRouter extends Backbone.Router
     feature = project.features.get(id)
     # If the feature is not yet added to the collection, go fetch it from the server
     if !feature?
-      project.features.add({ 'id':id })
-      feature = project.features.get(id)
-      feature.fetch().complete (xhr, status) => 
+      project.features.fetch().complete (xhr, status) => 
         feature = @projects.get(project_id).features.get(id)
         callback(feature)        
     else

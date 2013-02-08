@@ -27,11 +27,13 @@ class Specifications.Views.Features.NewView extends Backbone.View
 
       error: (feature, jqXHR) =>
         @model.set({errors: $.parseJSON(jqXHR.responseText)})
+        @render
     )
 
   render: ->
+    # Set a boolean to know wether or not the form was submitted with errors
+    @model.set({ failed: @model.errors? })
     $(@el).html(@template(@model.toJSON() ))
-
     this.$("form").backboneLink(@model)
 
     return this

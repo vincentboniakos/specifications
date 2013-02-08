@@ -1,6 +1,6 @@
 Specifications.Views.Features ||= {}
 
-class Specifications.Views.Features.ShowView extends Backbone.View
+class Specifications.Views.Features.ShowView extends Specifications.Views.Features.FeatureView
   template: JST["backbone/templates/features/show"]
 
   events:
@@ -15,5 +15,6 @@ class Specifications.Views.Features.ShowView extends Backbone.View
 
   render: ->
     $(@el).html(@template(@model.toJSON() ))
-    
+
+    @addUserstories()
     return this

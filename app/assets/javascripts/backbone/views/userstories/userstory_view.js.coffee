@@ -7,7 +7,7 @@ class Specifications.Views.Userstories.UserstoryView extends Backbone.View
   events :
     "dblclick p" : "addEditForm"
 
-   addEditForm: () =>
+  addEditForm: () =>
    	view = new Specifications.Views.Userstories.EditView({model : @model})
    	$action_group = @$(".action-group")
     $action_group.after(view.render().el)
@@ -15,8 +15,9 @@ class Specifications.Views.Userstories.UserstoryView extends Backbone.View
     @$("p").hide()
     $action_group.hide()
 
+
   render: ->
     @el.id = "userstory_#{@model.id}"
     $(@el).html(@template(@model.toJSON() ))
-    sortableUserstories("ul.userstories")
+    sortableUserstories(".userstories")
     return this

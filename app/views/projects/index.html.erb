@@ -1,6 +1,0 @@
-<script type="text/javascript">
-  $(function() {
-    window.router = new Specifications.Routers.ProjectsRouter({projects: <%= @projects.to_json.html_safe -%>});
-    Backbone.history.start();
-  });
-</script>

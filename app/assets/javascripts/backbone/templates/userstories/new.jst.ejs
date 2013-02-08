@@ -1,0 +1,13 @@
+    <a href="#" class="show_form_new_userstory" >Add a user story</a>
+    <form id="userstory-form-<%= feature_id %>" name="userstory" class="new-userstory">
+    	<fieldset>
+    		<div class="clearfix">
+    	    <div>
+    	    		<textarea class="xxlarge submit_on_return" cols="40" name="content" rows="3" id="user_story_content_<%= feature_id %>"></textarea>
+					<span class="help-block">Give one sentence that captures what the user wants to achieve.</span>
+    	    </div>
+    		</div>
+      </fieldset>
+      		<input class="btn primary" name="commit" type="submit" value="Add this userstory">
+    		or <a href="#" class="cancel">I'm done with user stories</a>
+    </form>
