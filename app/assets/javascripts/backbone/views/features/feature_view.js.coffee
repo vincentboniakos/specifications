@@ -19,10 +19,13 @@ class Specifications.Views.Features.FeatureView extends Backbone.View
    	view = new Specifications.Views.Userstories.UserstoryView({model : userstory})
     @$(".userstories").append(view.render().el)
     
- 
+  addUserstoryForm: () =>
+    view = new Specifications.Views.Userstories.NewView({collection: @model.userstories})
+    @$(".userstories").after(view.render().el)
 
   render: ->
     @el.id = "a_feature_#{@model.id}"
     $(@el).html(@template(@model.toJSON() ))
     @addUserstories()
+    @addUserstoryForm()
     return this

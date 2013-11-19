@@ -5,10 +5,19 @@ class Specifications.Views.Userstories.NewView extends Backbone.View
   tagName: "div"
   className: "well new_userstory"
 
+  constructor: (options) ->
+    super(options)
+    @model = new @collection.model(feature_id: @collection.parent.id)
+
+    @model.bind("change:errors", () =>
+      this.render()
+    )
+
   events :
     "submit .new-userstory" : "update"
     "click .cancel" : "cancel"
-    "keydown .submit_on_return" : "submitOnReturn" 
+    "keydown .submit_on_return" : "submitOnReturn"
+    "click .show_form_new_userstory": "showUserstoryForm"
 
   update : (e) ->
     e.preventDefault()
@@ -22,8 +31,8 @@ class Specifications.Views.Userstories.NewView extends Backbone.View
 
   cancel : (e) ->
     e.preventDefault()
-    e.stopPropagation()
-    # @TODO : Handle cancel
+    $(e.currentTarget).closest("form.new-userstory").hide();
+    $(e.currentTarget).closest(".new_userstory").find("a.show_form_new_userstory").show();
       
   submitOnReturn : (e) ->
     if e.keyCode == 13
@@ -31,6 +40,11 @@ class Specifications.Views.Userstories.NewView extends Backbone.View
       @$("form").find('textarea').blur()
       @$("form").submit()
 
+  showUserstoryForm: (e) ->
+    e.preventDefault()
+    $(e.currentTarget).hide();
+    $(e.currentTarget).parent().find("form.new-userstory").show()
+    $(e.currentTarget).parent().find("form.new-userstory").find("textarea").focus()
 
   render: ->
     $(@el).html(@template(@model.toJSON() ))

@@ -41,14 +41,7 @@ function showHideEditLink(selector){
 	});
 }
 
-function showFormNewUserStory(selector){
-	$(selector).live("click",function (e){
-		e.preventDefault();
-		$(this).hide();
-		$(this).parent().find("form.new_userstory").show();
-		$(this).parent().find("form.new_userstory").find("textarea").focus();
-	});
-}
+
 function hideFormNewUserStory(selector){
 	$(selector).live("click",function (e){
 		e.preventDefault();
@@ -495,10 +488,9 @@ $(document).ready(function () {
 	//Show form link
 	$("a.show_form_new_userstory").hide();
 	if (!$("div.clearfix").hasClass("error")) {
-		$("form.new_userstory").hide();
+		$("form.new-userstory").hide();
 		$("a.show_form_new_userstory").show();
 	}
-	showFormNewUserStory("a.show_form_new_userstory");
 	hideFormNewUserStory("a.hide_form_new_userstory");
 	
 	

@@ -526,7 +526,11 @@ div.edit_userstory {
 	margin: 10px 0 0 0;
 }
 
-form.new_userstory div.clearfix.error, form.edit_userstory div.clearfix.error {
+form.new-userstory {
+  display:none;
+}
+
+form.new-userstory div.clearfix.error, form.edit_userstory div.clearfix.error {
 	padding-left: 10px;
 	margin-right: 10px;
 }
